@@ -5,7 +5,7 @@
  * Quick settings page generator for WordPress
  *
  * @package PB_Settings
- * @version 3.0.0
+ * @version 3.0.1
  * @author Pluginbazar
  * @copyright 2019 Pluginbazar.com
  * @see https://github.com/jaedm97/PB-Settings
@@ -103,7 +103,8 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 					$option_title = isset( $option['title'] ) ? $option['title'] : '';
 
 					if ( $post_id && ! empty( $post_id ) ) {
-						$option['value'] = get_post_meta( $post_id, $option_id, true );
+						$option['value']   = get_post_meta( $post_id, $option_id, true );
+						$option['post_id'] = $post_id;
 					}
 
 					?>
@@ -177,30 +178,8 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 
 				do_action( "pb_settings_before_$id", $option );
 
-				if ( isset( $option['type'] ) && $option['type'] === 'select' ) {
-					$this->generate_select( $option );
-				} elseif ( isset( $option['type'] ) && $option['type'] === 'checkbox' ) {
-					$this->generate_checkbox( $option );
-				} elseif ( isset( $option['type'] ) && $option['type'] === 'radio' ) {
-					$this->generate_radio( $option );
-				} elseif ( isset( $option['type'] ) && $option['type'] === 'textarea' ) {
-					$this->generate_textarea( $option );
-				} elseif ( isset( $option['type'] ) && $option['type'] === 'number' ) {
-					$this->generate_number( $option );
-				} elseif ( isset( $option['type'] ) && $option['type'] === 'text' ) {
-					$this->generate_text( $option );
-				} elseif ( isset( $option['type'] ) && $option['type'] === 'colorpicker' ) {
-					$this->generate_colorpicker( $option );
-				} elseif ( isset( $option['type'] ) && $option['type'] === 'datepicker' ) {
-					$this->generate_datepicker( $option );
-				} elseif ( isset( $option['type'] ) && $option['type'] === 'select2' ) {
-					$this->generate_select2( $option );
-				} elseif ( isset( $option['type'] ) && $option['type'] === 'range' ) {
-					$this->generate_range( $option );
-				} elseif ( isset( $option['type'] ) && $option['type'] === 'media' ) {
-					$this->generate_media( $option );
-				} elseif ( isset( $option['type'] ) && $option['type'] === 'gallery' ) {
-					$this->generate_gallery( $option );
+				if ( isset( $option['type'] ) && ! empty( $field_type = $option['type'] ) ) {
+					call_user_func( array( $this, "generate_$field_type" ), $option );
 				}
 
 				if ( isset( $option['disabled'] ) && $option['disabled'] ) {
@@ -212,7 +191,6 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 				if ( ! empty( $details ) ) {
 					echo "<p class='description'>$details</p>";
 				}
-
 
 				do_action( "pb_settings_after_$id", $option );
 			} catch ( PB_Error $e ) {
@@ -460,6 +438,8 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 		 * Generate Field - Select2
 		 *
 		 * @param $option
+		 *
+		 * @throws PB_Error
 		 */
 		function generate_select2( $option ) {
 
@@ -473,6 +453,8 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 			$required      = $required ? "required='required'" : '';
 			$name          = $multiple ? sprintf( '%s[]', $id ) : sprintf( '%s', $id );
 			$multiple_text = $multiple ? 'multiple' : '';
+			$field_options = isset( $option['field_options'] ) ? $option['field_options'] : array();
+			$field_options = preg_replace( '/"([^"]+)"\s*:\s*/', '$1:', json_encode( $field_options ) );
 
 			if ( empty( $value ) || ! $value ) {
 				$value = isset( $option['default'] ) ? $option['default'] : $value;
@@ -513,11 +495,7 @@ if ( ! class_exists( 'PB_Settings' ) ) {
             </select>
             <script>
                 jQuery(document).ready(function ($) {
-                    $("#<?php echo esc_attr( $id ); ?>").select2({
-                        placeholder: "<?php esc_html__( 'Select your choice' ) ?>",
-                        width: "320px",
-                        allowClear: true
-                    });
+                    $("#<?php echo esc_attr( $id ); ?>").select2( <?php echo wp_kses_post( $field_options ); ?> );
                 });
             </script>
 			<?php
@@ -531,11 +509,13 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 		 */
 		function generate_datepicker( $option ) {
 
-			$id           = isset( $option['id'] ) ? $option['id'] : "";
-			$placeholder  = isset( $option['placeholder'] ) ? $option['placeholder'] : "";
-			$autocomplete = isset( $option['autocomplete'] ) ? $option['autocomplete'] : "";
-			$value        = isset( $option['value'] ) ? $option['value'] : get_option( $id );
-			$disabled     = isset( $option['disabled'] ) && $option['disabled'] ? 'disabled' : '';
+			$id            = isset( $option['id'] ) ? $option['id'] : "";
+			$placeholder   = isset( $option['placeholder'] ) ? $option['placeholder'] : "";
+			$autocomplete  = isset( $option['autocomplete'] ) ? $option['autocomplete'] : "";
+			$value         = isset( $option['value'] ) ? $option['value'] : get_option( $id );
+			$disabled      = isset( $option['disabled'] ) && $option['disabled'] ? 'disabled' : '';
+			$field_options = isset( $option['field_options'] ) ? $option['field_options'] : array();
+			$field_options = preg_replace( '/"([^"]+)"\s*:\s*/', '$1:', json_encode( $field_options ) );
 
 			if ( empty( $value ) || ! $value ) {
 				$value = isset( $option['default'] ) ? $option['default'] : $value;
@@ -545,7 +525,7 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 			wp_enqueue_script( 'jquery-ui-datepicker' );
 
 			?>
-            <input type="text" class="regular-text" <?php echo esc_attr( $disabled ); ?>
+            <input type="text" <?php echo esc_attr( $disabled ); ?>
                    name="<?php echo esc_attr( $id ); ?>"
                    id="<?php echo esc_attr( $id ); ?>"
                    autocomplete="<?php echo esc_attr( $autocomplete ); ?>"
@@ -554,9 +534,72 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 
             <script>
                 jQuery(document).ready(function ($) {
-                    $("#<?php echo esc_attr( $id ); ?>").datepicker();
+                    $("#<?php echo esc_attr( $id ); ?>").datepicker( <?php echo wp_kses_post( $field_options ); ?> );
                 });
             </script>
+			<?php
+		}
+
+
+		/**
+		 * Generate Field - TimePicker
+		 *
+		 * @param $option
+		 */
+		function generate_timepicker( $option ) {
+
+			$id            = isset( $option['id'] ) ? $option['id'] : "";
+			$placeholder   = isset( $option['placeholder'] ) ? $option['placeholder'] : "";
+			$autocomplete  = isset( $option['autocomplete'] ) ? $option['autocomplete'] : "";
+			$value         = isset( $option['value'] ) ? $option['value'] : get_option( $id );
+			$disabled      = isset( $option['disabled'] ) && $option['disabled'] ? 'disabled' : '';
+			$field_options = isset( $option['field_options'] ) ? $option['field_options'] : array();
+			$field_options = preg_replace( '/"([^"]+)"\s*:\s*/', '$1:', json_encode( $field_options ) );
+
+			if ( empty( $value ) || ! $value ) {
+				$value = isset( $option['default'] ) ? $option['default'] : $value;
+			}
+
+			wp_enqueue_style( 'jquery-ui-timepicker', '//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css' );
+			wp_enqueue_script( 'jquery-ui-timepicker', '//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js' );
+
+			?>
+            <input type="text" <?php echo esc_attr( $disabled ); ?>
+                   name="<?php echo esc_attr( $id ); ?>"
+                   id="<?php echo esc_attr( $id ); ?>"
+                   autocomplete="<?php echo esc_attr( $autocomplete ); ?>"
+                   placeholder="<?php echo esc_attr( $placeholder ); ?>"
+                   value="<?php echo esc_attr( $value ); ?>"/>
+
+            <script>
+                jQuery(document).ready(function ($) {
+                    $("#<?php echo esc_attr( $id ); ?>").timepicker( <?php echo wp_kses_post( $field_options ); ?> );
+                });
+            </script>
+			<?php
+		}
+
+		/**
+		 * Generate Field - wp_editor
+		 *
+		 * @param $option
+		 */
+		function generate_wp_editor( $option ) {
+
+			$id            = isset( $option['id'] ) ? $option['id'] : "";
+			$post_id       = isset( $option['post_id'] ) ? $option['post_id'] : '';
+			$field_options = isset( $option['field_options'] ) ? $option['field_options'] : array();
+			$post          = get_post( $post_id );
+
+			wp_editor( $post->post_content, $id, $field_options );
+
+			?>
+            <style>
+                #wp-content-editor-tools {
+                    background-color: #fff;
+                    padding-top: 0;
+                }
+            </style>
 			<?php
 		}
 
@@ -581,7 +624,7 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 			wp_enqueue_script( 'wp-color-picker' );
 
 			?>
-            <input type="text" class="regular-text"
+            <input type="text"
                    name="<?php echo esc_attr( $id ); ?>"
                    id="<?php echo esc_attr( $unique_id ); ?>"
                    placeholder="<?php echo esc_attr( $placeholder ); ?>"
@@ -621,7 +664,7 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 
 			?>
             <input type="text" <?php echo esc_attr( $disabled ); ?> <?php echo esc_attr( $required ); ?>
-                   class="regular-text"
+
                    name="<?php echo esc_attr( $id ); ?>"
                    id="<?php echo esc_attr( $id ); ?>"
                    placeholder="<?php echo esc_attr( $placeholder ); ?>"
@@ -651,7 +694,7 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 
 			?>
             <input type="number"
-                   class="regular-text" <?php echo esc_attr( $disabled ); ?> <?php echo esc_attr( $required ); ?>
+				<?php echo esc_attr( $disabled ); ?> <?php echo esc_attr( $required ); ?>
                    name="<?php echo esc_attr( $id ); ?>"
                    id="<?php echo esc_attr( $id ); ?>"
                    placeholder="<?php echo esc_attr( $placeholder ); ?>"
@@ -694,6 +737,8 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 		 * Generate Field - Select
 		 *
 		 * @param $option
+		 *
+		 * @throws PB_Error
 		 */
 		function generate_select( $option ) {
 

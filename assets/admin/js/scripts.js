@@ -6,6 +6,56 @@
     "use strict";
 
 
+    $(function () {
+        $(".eem-repeat-container").sortable({
+            handle: ".eem-repeat-sort",
+            revert: true
+        });
+    });
+
+
+    /**
+     * Side Nam Item Click Action
+     */
+    $(document).on('click', '.eem-side-nav-container .eem-side-nav-item', function () {
+
+        if ($(this).hasClass('active')) {
+            return;
+        }
+
+        var target = $(this).attr('target');
+
+        $(this).parent().find('.eem-side-nav-item').removeClass('active');
+        $(this).addClass('active');
+
+        $(this).parent().parent().find('.eem-side-nav-item-content').hide();
+        $(this).parent().parent().find('.eem-side-nav-item-content.' + target).fadeIn();
+    });
+
+
+
+
+    $(document).on('click', '.eem-repeat-toggle', function ( e ) {
+
+        $(this).parent().parent().find('.eem-repeat-content').slideToggle();
+        $(this).parent().parent().toggleClass('active');
+        $(this).find('i').toggleClass('icofont-curved-down icofont-curved-up');
+    });
+
+    $(document).on('click', '.eem-tab-panel .tab-nav-item', function () {
+
+        if ($(this).hasClass('active')) {
+            return;
+        }
+
+        var target = $(this).attr('target');
+
+        $('.eem-tab-panel .tab-nav-item').removeClass('active');
+        $(this).addClass('active');
+
+        $('.eem-tab-panel .tab-item-content').hide();
+        $('.eem-tab-panel .tab-item-content.' + target).fadeIn();
+    });
 
 })(jQuery, window, document, eem_object);
 

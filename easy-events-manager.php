@@ -55,8 +55,10 @@ class EasyEventsManager {
 	function define_classes() {
 
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-pb-settings.php' );
+		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-functions.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-hooks.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-post-types.php' );
+		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-event-meta.php' );
 	}
 
 
@@ -81,8 +83,10 @@ class EasyEventsManager {
 	function load_admin_scripts() {
 
 		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'eem_admin_js', plugins_url( '/assets/admin/js/scripts.js', __FILE__ ), array( 'jquery' ) );
 		wp_localize_script( 'eem_admin_js', 'eem_object', array( 'woc_ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+
 
 		wp_enqueue_style( 'icofont', EEM_PLUGIN_URL . 'assets/fonts/icofont.min.css' );
 		wp_enqueue_style( 'eem_tool_tip', EEM_PLUGIN_URL . 'assets/tool-tip.min.css' );
@@ -96,7 +100,7 @@ class EasyEventsManager {
 	function define_scripts() {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_scripts' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'front_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_front_scripts' ) );
 	}
 
 
