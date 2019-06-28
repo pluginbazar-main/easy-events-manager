@@ -11,6 +11,17 @@
             handle: ".eem-repeat-sort",
             revert: true
         });
+
+        $('.day_label_change_listener input[type=text]').on('change keyup paste', function (e) {
+            var name = $(this).attr('name').replace(/]/g, '').split('['), value = $(this).val();
+            $('.eem-side-nav-container .eem-side-nav-item').each(function () {
+                if ($(this).attr('target') === 'schedule-' + name[1]) {
+                    $(this).html(value);
+                }
+            });
+        });
+
+
     });
 
 
@@ -33,9 +44,7 @@
     });
 
 
-
-
-    $(document).on('click', '.eem-repeat-toggle', function ( e ) {
+    $(document).on('click', '.eem-repeat-toggle', function (e) {
 
         $(this).parent().parent().find('.eem-repeat-content').slideToggle();
         $(this).parent().parent().toggleClass('active');

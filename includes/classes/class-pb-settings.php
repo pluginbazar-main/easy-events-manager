@@ -101,6 +101,8 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 
 					$option_id = isset( $option['id'] ) ? $option['id'] : '';
 					$option_title = isset( $option['title'] ) ? $option['title'] : '';
+					$option_class = isset( $option['class'] ) ? $option['class'] : '';
+					$field_id     = str_replace( array( '[', ']' ), '', $option_id );
 
 					if ( $post_id && ! empty( $post_id ) ) {
 						$option['value']   = get_post_meta( $post_id, $option_id, true );
@@ -108,8 +110,8 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 					}
 
 					?>
-                    <div class="wps-field">
-                        <label for="<?php echo esc_attr( $option_id ); ?>"
+                    <div class="wps-field <?php echo esc_attr( $option_class ); ?>">
+                        <label for="<?php echo esc_attr( $field_id ); ?>"
                                class="wps-field-inline wps-field-title"><?php echo esc_html( $option_title ); ?></label>
 
                         <div class="wps-field-inline wps-field-inputs">
@@ -516,6 +518,7 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 			$disabled      = isset( $option['disabled'] ) && $option['disabled'] ? 'disabled' : '';
 			$field_options = isset( $option['field_options'] ) ? $option['field_options'] : array();
 			$field_options = preg_replace( '/"([^"]+)"\s*:\s*/', '$1:', json_encode( $field_options ) );
+			$field_id      = str_replace( array( '[', ']' ), '', $id );
 
 			if ( empty( $value ) || ! $value ) {
 				$value = isset( $option['default'] ) ? $option['default'] : $value;
@@ -527,14 +530,14 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 			?>
             <input type="text" <?php echo esc_attr( $disabled ); ?>
                    name="<?php echo esc_attr( $id ); ?>"
-                   id="<?php echo esc_attr( $id ); ?>"
+                   id="<?php echo esc_attr( $field_id ); ?>"
                    autocomplete="<?php echo esc_attr( $autocomplete ); ?>"
                    placeholder="<?php echo esc_attr( $placeholder ); ?>"
                    value="<?php echo esc_attr( $value ); ?>"/>
 
             <script>
                 jQuery(document).ready(function ($) {
-                    $("#<?php echo esc_attr( $id ); ?>").datepicker( <?php echo wp_kses_post( $field_options ); ?> );
+                    $("#<?php echo esc_attr( $field_id ); ?>").datepicker( <?php echo wp_kses_post( $field_options ); ?> );
                 });
             </script>
 			<?php
@@ -555,6 +558,7 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 			$disabled      = isset( $option['disabled'] ) && $option['disabled'] ? 'disabled' : '';
 			$field_options = isset( $option['field_options'] ) ? $option['field_options'] : array();
 			$field_options = preg_replace( '/"([^"]+)"\s*:\s*/', '$1:', json_encode( $field_options ) );
+			$field_id      = str_replace( array( '[', ']' ), '', $id );
 
 			if ( empty( $value ) || ! $value ) {
 				$value = isset( $option['default'] ) ? $option['default'] : $value;
@@ -566,14 +570,14 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 			?>
             <input type="text" <?php echo esc_attr( $disabled ); ?>
                    name="<?php echo esc_attr( $id ); ?>"
-                   id="<?php echo esc_attr( $id ); ?>"
+                   id="<?php echo esc_attr( $field_id ); ?>"
                    autocomplete="<?php echo esc_attr( $autocomplete ); ?>"
                    placeholder="<?php echo esc_attr( $placeholder ); ?>"
                    value="<?php echo esc_attr( $value ); ?>"/>
 
             <script>
                 jQuery(document).ready(function ($) {
-                    $("#<?php echo esc_attr( $id ); ?>").timepicker( <?php echo wp_kses_post( $field_options ); ?> );
+                    $("#<?php echo esc_attr( $field_id ); ?>").timepicker( <?php echo wp_kses_post( $field_options ); ?> );
                 });
             </script>
 			<?php
