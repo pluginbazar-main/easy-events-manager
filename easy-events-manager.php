@@ -85,7 +85,7 @@ class EasyEventsManager {
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'eem_admin_js', plugins_url( '/assets/admin/js/scripts.js', __FILE__ ), array( 'jquery' ) );
-		wp_localize_script( 'eem_admin_js', 'eem_object', array( 'woc_ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+		wp_localize_script( 'eem_admin_js', 'eem_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 
 
 		wp_enqueue_style( 'icofont', EEM_PLUGIN_URL . 'assets/fonts/icofont.min.css' );

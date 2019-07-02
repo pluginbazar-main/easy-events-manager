@@ -20,8 +20,35 @@
                 }
             });
         });
+    });
 
 
+    /**
+     * Add Day button Click Listener
+     */
+    $(document).on('click', '.eem-add-day', function () {
+
+        var unique_id = $.now(), index_id = $( '.eem-side-nav-container .eem-side-nav .eem-side-nav-item').length;
+
+        $.ajax({
+            type: 'POST',
+            url: pluginObject.ajaxurl,
+            context: this,
+            data: {
+                'action': 'eem_add_new_day',
+                'unique_id': unique_id,
+                'index_id': index_id,
+            },
+            success: function (response) {
+
+                if( response.success ) {
+                    $('.eem-side-nav-container .eem-side-nav').append( response.data.day_nav );
+                    $('.eem-side-nav-container .eem-side-nav-content').append( response.data.day_content );
+
+                    $( '.eem-side-nav-container .eem-side-nav .eem-side-nav-item').last().trigger('click');
+                }
+            }
+        });
     });
 
 

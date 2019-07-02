@@ -6,13 +6,15 @@
 
 if ( ! function_exists( 'eem_print_event_schedule_day_content' ) ) {
 	/**
-	 * Print Event Schedule Day Content
-	 *
+     * Print Event Schedule Day Content
+     *
 	 * @param array $schedule
+	 * @param bool $echo
 	 *
+	 * @return false|string
 	 * @throws PB_Error
 	 */
-	function eem_print_event_schedule_day_content( $schedule = array() ) {
+	function eem_print_event_schedule_day_content( $schedule = array(), $echo = true ) {
 
 		$schedule_index = isset( $schedule['index'] ) ? $schedule['index'] : 0;
 		$schedule_id    = isset( $schedule['id'] ) ? $schedule['id'] : date('U') + ( $schedule_index * 193 );
@@ -75,6 +77,7 @@ if ( ! function_exists( 'eem_print_event_schedule_day_content' ) ) {
 			)
 		);
 
+        ob_start();
 
 		?>
         <div class="eem-side-nav-item-content <?php echo esc_attr( $active_class ); ?> schedule-<?php echo esc_attr( $schedule_id ); ?>">
@@ -120,24 +123,40 @@ if ( ! function_exists( 'eem_print_event_schedule_day_content' ) ) {
         </div>
 
 		<?php
+        if( $echo ) {
+            print ob_get_clean();
+        } else {
+            return ob_get_clean();
+        }
 	}
 }
 
 
 if ( ! function_exists( 'eem_print_event_schedule_day_nav' ) ) {
 	/**
-	 * Print Event Schedule Day Nav label
-	 *
+     * Print Event Schedule Day Nav label
+     *
 	 * @param array $schedule
+	 * @param bool $echo
+	 *
+	 * @return false|string
 	 */
-	function eem_print_event_schedule_day_nav( $schedule = array() ) {
+	function eem_print_event_schedule_day_nav( $schedule = array(), $echo = true ) {
 
 		$schedule_index = isset( $schedule['index'] ) ? $schedule['index'] : 0;
 		$schedule_id    = isset( $schedule['id'] ) ? $schedule['id'] : date('U') + ( $schedule_index * 193 );
 		$schedule_label = isset( $schedule['label'] ) ? $schedule['label'] : sprintf( esc_html__( 'Day %s', EEM_TD ), $schedule_index + 1 );
 		$active_class   = $schedule_index == 0 ? 'active' : '';
 
+		ob_start();
+
 		printf( '<div class="eem-side-nav-item %s" target="schedule-%s">%s</div>', $active_class, $schedule_id, $schedule_label );
+
+		if( $echo ) {
+			print ob_get_clean();
+		} else {
+			return ob_get_clean();
+		}
 	}
 }
 

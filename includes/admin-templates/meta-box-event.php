@@ -30,16 +30,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <div class="tab-item-content schedules active">
 
+            <div class="button eem-add-day"><?php esc_html_e( 'Add Day', EEM_TD ); ?></div>
 
             <div class="eem-side-nav-container">
 
 
 				<?php
 				$_event_schedules = eem_get_meta( '_event_schedules', false, array() );
-
-				echo "<pre>";
-				print_r( $_event_schedules );
-				echo "</pre>";
 
 				?>
 

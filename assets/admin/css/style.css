@@ -30,7 +30,7 @@
 
 .eem-tab-panel .tab-nav .tab-nav-item:hover,
 .eem-tab-panel .tab-nav .tab-nav-item.active {
-    background: #636363;
+    background: #f6405f;
     color: #f1f1f1;
 }
 
@@ -84,7 +84,7 @@
 }
 
 .eem-repeat-head > input[type=text] {
-    width: 80%;
+    width: 75%;
     background: #0000;
     box-shadow: none;
     outline: none;
@@ -154,8 +154,8 @@
 .eem-side-nav-container .eem-side-nav,
 .eem-side-nav-container .eem-side-nav-content {
     display: inline-block;
-    width: 10%;
-    min-width: 70px;
+    width: 15%;
+    min-width: 130px;
     vertical-align: top;
 }
 
@@ -173,7 +173,7 @@
 
 .eem-side-nav-container .eem-side-nav-item:hover,
 .eem-side-nav-container .eem-side-nav-item.active{
-    background: #636363;
+    background: #f6405f;
 }
 
 .eem-side-nav-container .eem-side-nav-item:hover:after,
@@ -187,7 +187,7 @@
     pointer-events: none;
     border-style: solid;
     border-color: transparent;
-    border-left-color: #636363;
+    border-left-color: #f6405f;
     border-width: 10px;
     margin-top: -10px;
     transition: all 0.3s;
@@ -195,7 +195,7 @@
 
 
 .eem-side-nav-container .eem-side-nav-content {
-    width: 80%;
+    width: 75%;
     padding: 20px;
     border: 1px solid #6363635c;
     border-radius: 4px;
