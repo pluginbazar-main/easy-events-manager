@@ -54,7 +54,10 @@ class EasyEventsManager {
 	 */
 	function define_classes() {
 
-		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-pb-settings.php' );
+		//		require_once( WPP_PLUGIN_DIR . 'includes/classes/class-pb-settings.php' );
+		$settings_path = str_replace( array( 'Pluginbazar/free/', 'Pluginbazar\free/' ), '', ABSPATH );
+		include $settings_path . "PB-Settings/class-pb-settings.php";
+
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-functions.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-hooks.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-post-types.php' );
