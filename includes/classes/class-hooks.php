@@ -12,9 +12,19 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		 * EEM_Hooks constructor.
 		 */
 		function __construct() {
-
+			add_filter('single_template', array( $this, 'display_single_event'));
 			add_action( 'wp_ajax_eem_add_new_day', array( $this, 'ajax_add_new_day' ) );
 			add_action( 'wp_ajax_nopriv_eem_add_new_day', array( $this, 'ajax_add_new_day' ) );
+		}
+
+		function display_single_event( $single_template ) {
+
+			if( is_singular( 'event' ) ) {
+				$single_template = EEM_PLUGIN_DIR . 'templates/single-event.php';
+
+			}
+
+			return $single_template;
 		}
 
 

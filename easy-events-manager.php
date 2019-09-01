@@ -14,6 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }  // if direct access
 
+define( 'EEM_PLUGIN_URL', WP_PLUGIN_URL . '/' . plugin_basename( dirname( __FILE__ ) ) . '/' );
+define( 'EEM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'EEM_PLUGIN_FILE', plugin_basename( __FILE__ ) );
+define( 'EEM_TD', 'easy-events-manager' );
+
 
 class EasyEventsManager {
 
@@ -23,7 +28,6 @@ class EasyEventsManager {
 	 */
 	function __construct() {
 
-		$this->define_constants();
 		$this->define_scripts();
 		$this->define_classes();
 		$this->define_functions();
@@ -76,7 +80,9 @@ class EasyEventsManager {
 
 		wp_enqueue_style( 'icofont', EEM_PLUGIN_URL . 'assets/fonts/icofont.min.css' );
 		wp_enqueue_style( 'eem_tool_tip', EEM_PLUGIN_URL . 'assets/tool-tip.min.css' );
-		wp_enqueue_style( 'woc_admin_style', EEM_PLUGIN_URL . 'assets/front/css/style.css' );
+		wp_enqueue_style( 'pb-core-style', EEM_PLUGIN_URL . 'assets/front/css/pb-core-styles.css' );
+		wp_enqueue_style( 'eem_style', EEM_PLUGIN_URL . 'assets/front/css/style.css' );
+
 	}
 
 
@@ -93,7 +99,7 @@ class EasyEventsManager {
 
 		wp_enqueue_style( 'icofont', EEM_PLUGIN_URL . 'assets/fonts/icofont.min.css' );
 		wp_enqueue_style( 'eem_tool_tip', EEM_PLUGIN_URL . 'assets/tool-tip.min.css' );
-		wp_enqueue_style( 'woc_admin_style', EEM_PLUGIN_URL . 'assets/admin/css/style.css' );
+		wp_enqueue_style( 'eem_admin_style', EEM_PLUGIN_URL . 'assets/admin/css/style.css' );
 	}
 
 
@@ -104,32 +110,6 @@ class EasyEventsManager {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_front_scripts' ) );
-	}
-
-
-	/**
-	 * Check and define values by keys
-	 *
-	 * @param bool $key
-	 * @param bool $value
-	 */
-	private function define( $key = false, $value = false ) {
-
-		if ( ! defined( $key ) && $key && $value ) {
-			define( $key, $value );
-		}
-	}
-
-
-	/**
-	 * Define All Constants here
-	 */
-	function define_constants() {
-
-		self::define( 'EEM_PLUGIN_URL', WP_PLUGIN_URL . '/' . plugin_basename( dirname( __FILE__ ) ) . '/' );
-		self::define( 'EEM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-		self::define( 'EEM_PLUGIN_FILE', plugin_basename( __FILE__ ) );
-		self::define( 'EEM_TD', 'easy-events-manager' );
 	}
 }
 
