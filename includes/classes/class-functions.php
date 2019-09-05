@@ -26,7 +26,6 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 			return new PB_Settings();
 		}
 
-
 		function get_meta_fields_data( $meta_data = array(), $args = array() ) {
 
 			$_options   = array();
