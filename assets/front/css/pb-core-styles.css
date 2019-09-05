@@ -30,6 +30,7 @@
     padding-right: 15px;
 }
 
+
 @media (min-width: 576px) {
     .pb-container {
         max-width: 540px;
