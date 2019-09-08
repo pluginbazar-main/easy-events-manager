@@ -14,7 +14,7 @@
             handle: ".eem-repeat-sort",
             revert: true
         });
-    } );
+    });
 
 
     /**
@@ -27,7 +27,39 @@
                 $(this).html(value);
             }
         });
-    } );
+    });
+
+
+    $(document).on('click', '.eem-repeat-close', function () {
+        let itemToRemove = $(this).parent().parent();
+        itemToRemove.slideUp();
+        setTimeout(function () {
+            itemToRemove.remove();
+        }, 300);
+    });
+
+
+    $(document).on('click', '.eem-add-session', function () {
+
+        let unique_id = $.now(), scheduleID = $(this).data('schedule-id');
+
+        $.ajax({
+            type: 'POST',
+            url: pluginObject.ajaxurl,
+            context: this,
+            data: {
+                'action': 'eem_add_new_session',
+                'unique_id': unique_id,
+                'schedule_id': scheduleID,
+            },
+            success: function (response) {
+
+                if (response.success) {
+                    $(response.data).appendTo($(this).parent().find('.eem-sessions')).hide().slideDown();
+                }
+            }
+        });
+    });
 
 
     /**
@@ -35,7 +67,7 @@
      */
     $(document).on('click', '.eem-add-day', function () {
 
-        let unique_id = $.now(), index_id = $( '.eem-side-nav-container .eem-side-nav .eem-side-nav-item').length;
+        let unique_id = $.now(), index_id = $('.eem-side-nav-container .eem-side-nav .eem-side-nav-item').length;
 
         $.ajax({
             type: 'POST',
@@ -48,11 +80,11 @@
             },
             success: function (response) {
 
-                if( response.success ) {
-                    $('.eem-side-nav-container .eem-side-nav').append( response.data.day_nav );
-                    $('.eem-side-nav-container .eem-side-nav-content').append( response.data.day_content );
+                if (response.success) {
+                    $('.eem-side-nav-container .eem-side-nav').append(response.data.day_nav);
+                    $('.eem-side-nav-container .eem-side-nav-content').append(response.data.day_content);
 
-                    $( '.eem-side-nav-container .eem-side-nav .eem-side-nav-item').last().trigger('click');
+                    $('.eem-side-nav-container .eem-side-nav .eem-side-nav-item').last().trigger('click');
                 }
             }
         });
