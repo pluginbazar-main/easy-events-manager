@@ -62,9 +62,11 @@ class EasyEventsManager {
 		$settings_path = str_replace( array( 'Pluginbazar/free/', 'Pluginbazar\free/' ), '', ABSPATH );
 		include $settings_path . "PB-Settings/class-pb-settings.php";
 
-		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-functions.php' );
-		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-hooks.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-post-types.php' );
+		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-functions.php' );
+		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-item-data.php' );
+		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-hooks.php' );
+		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-event.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-event-meta.php' );
 	}
 
@@ -98,7 +100,7 @@ class EasyEventsManager {
 
 		wp_enqueue_style( 'icofont', EEM_PLUGIN_URL . 'assets/fonts/icofont.min.css' );
 		wp_enqueue_style( 'eem_tool_tip', EEM_PLUGIN_URL . 'assets/tool-tip.min.css' );
-		wp_enqueue_style( 'eem_admin_style', EEM_PLUGIN_URL . 'assets/admin/css/style.css' );
+		wp_enqueue_style( 'eem_admin_style', EEM_PLUGIN_URL . 'assets/admin/css/style.css', false, time() );
 	}
 
 

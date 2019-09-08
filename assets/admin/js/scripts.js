@@ -5,20 +5,59 @@
 (function ($, window, document, pluginObject) {
     "use strict";
 
+    /**
+     * Document onReady
+     */
+    $(document).on('ready', function () {
 
-    $(function () {
         $(".eem-repeat-container").sortable({
             handle: ".eem-repeat-sort",
             revert: true
         });
+    });
 
-        $('.day_label_change_listener input[type=text]').on('change keyup paste', function (e) {
-            var name = $(this).attr('name').replace(/]/g, '').split('['), value = $(this).val();
-            $('.eem-side-nav-container .eem-side-nav-item').each(function () {
-                if ($(this).attr('target') === 'schedule-' + name[1]) {
-                    $(this).html(value);
+
+    /**
+     * Change label of days
+     */
+    $(document).on('change keyup paste', '.day_label_change_listener input[type=text]', function (e) {
+        let name = $(this).attr('name').replace(/]/g, '').split('['), value = $(this).val();
+        $('.eem-side-nav-container .eem-side-nav-item').each(function () {
+            if ($(this).data('target') === 'schedule-' + name[1]) {
+                $(this).html(value);
+            }
+        });
+    });
+
+
+    $(document).on('click', '.eem-repeat-close', function () {
+        let itemToRemove = $(this).parent().parent();
+        itemToRemove.slideUp();
+        setTimeout(function () {
+            itemToRemove.remove();
+        }, 300);
+    });
+
+
+    $(document).on('click', '.eem-add-session', function () {
+
+        let unique_id = $.now(), scheduleID = $(this).data('schedule-id');
+
+        $.ajax({
+            type: 'POST',
+            url: pluginObject.ajaxurl,
+            context: this,
+            data: {
+                'action': 'eem_add_new_session',
+                'unique_id': unique_id,
+                'schedule_id': scheduleID,
+            },
+            success: function (response) {
+
+                if (response.success) {
+                    $(response.data).appendTo($(this).parent().find('.eem-sessions')).hide().slideDown();
                 }
-            });
+            }
         });
     });
 
@@ -28,7 +67,7 @@
      */
     $(document).on('click', '.eem-add-day', function () {
 
-        var unique_id = $.now(), index_id = $( '.eem-side-nav-container .eem-side-nav .eem-side-nav-item').length;
+        let unique_id = $.now(), index_id = $('.eem-side-nav-container .eem-side-nav .eem-side-nav-item').length;
 
         $.ajax({
             type: 'POST',
@@ -41,11 +80,11 @@
             },
             success: function (response) {
 
-                if( response.success ) {
-                    $('.eem-side-nav-container .eem-side-nav').append( response.data.day_nav );
-                    $('.eem-side-nav-container .eem-side-nav-content').append( response.data.day_content );
+                if (response.success) {
+                    $('.eem-side-nav-container .eem-side-nav').append(response.data.day_nav);
+                    $('.eem-side-nav-container .eem-side-nav-content').append(response.data.day_content);
 
-                    $( '.eem-side-nav-container .eem-side-nav .eem-side-nav-item').last().trigger('click');
+                    $('.eem-side-nav-container .eem-side-nav .eem-side-nav-item').last().trigger('click');
                 }
             }
         });
@@ -61,7 +100,7 @@
             return;
         }
 
-        var target = $(this).attr('target');
+        let target = $(this).data('target');
 
         $(this).parent().find('.eem-side-nav-item').removeClass('active');
         $(this).addClass('active');
@@ -84,7 +123,7 @@
             return;
         }
 
-        var target = $(this).attr('target');
+        let target = $(this).data('target');
 
         $('.eem-tab-panel .tab-nav-item').removeClass('active');
         $(this).addClass('active');

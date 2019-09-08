@@ -47,6 +47,11 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 					}
 				}
 			}
+
+			// Saving Event Schedules
+			$_event_schedules = isset( $_POST['_event_schedules'] ) ? stripslashes_deep( $_POST['_event_schedules'] ) : array();
+
+			update_post_meta( $post_id, '_event_schedules', $_event_schedules );
 		}
 
 
@@ -75,6 +80,8 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 		 * @param $post
 		 */
 		function event_meta_box( $post ) {
+
+			eem_the_event();
 
 			wp_nonce_field( 'eem_event_meta_nonce', 'eem_event_meta_nonce_val' );
 

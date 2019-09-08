@@ -8,14 +8,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }  // if direct access
 
+$event = eem_get_event();
+
 ?>
 <div class="eem-tab-panel">
 
     <div class="tab-nav">
-        <div class="tab-nav-item" target="general-info"><?php esc_html_e( 'General Info', EEM_TD ); ?></div>
-        <div class="tab-nav-item" target="speakers"><?php esc_html_e( 'Speakers', EEM_TD ); ?></div>
-        <div class="tab-nav-item active" target="schedules"><?php esc_html_e( 'Schedules', EEM_TD ); ?></div>
-        <div class="tab-nav-item" target="guests"><?php esc_html_e( 'Guests', EEM_TD ); ?></div>
+        <div class="tab-nav-item" data-target="general-info"><?php esc_html_e( 'General Info', EEM_TD ); ?></div>
+        <div class="tab-nav-item" data-target="speakers"><?php esc_html_e( 'Speakers', EEM_TD ); ?></div>
+        <div class="tab-nav-item active" data-target="schedules"><?php esc_html_e( 'Schedules', EEM_TD ); ?></div>
+        <div class="tab-nav-item" data-target="guests"><?php esc_html_e( 'Guests', EEM_TD ); ?></div>
     </div>
 
     <div class="tab-content">
@@ -34,36 +36,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
             <div class="eem-side-nav-container">
 
-
-				<?php
-				$_event_schedules = eem_get_meta( '_event_schedules', false, array() );
-
-				?>
-
                 <div class="eem-side-nav">
-
-				<?php
-                eem_print_event_schedule_day_nav( array( 'index' => 0 ) );
-                eem_print_event_schedule_day_nav( array( 'index' => 1 ) );
-                foreach ( $_event_schedules as $schedule ) : ?>
-
-						<?php eem_print_event_schedule_day_nav(); ?>
-                        <div class="eem-side-nav-item active" target="day-1">Day 1</div>
-                        <div class="eem-side-nav-item" target="day-2">Day 2</div>
-                        <div class="eem-side-nav-item" target="day-3">Day 3</div>
-
-				<?php endforeach; ?>
+					<?php
+					$index = 0;
+                    foreach ( $event->get_meta( '_event_schedules', array() ) as $schedule ) {
+						eem_print_event_schedule_day_nav( array_merge( array( 'index' => $index ), $schedule ) );
+						$index++;
+					} ?>
                 </div>
 
                 <div class="eem-side-nav-content">
-
-					<?php
-                    eem_print_event_schedule_day_content( array( 'index' => 0 ) );
-                    eem_print_event_schedule_day_content( array( 'index' => 1 ) );
-					foreach ( $_event_schedules as $schedule ) :
-						eem_print_event_schedule_day_content( $schedule );
-					endforeach; ?>
-
+	                <?php
+                    $index = 0;
+                    foreach ( $event->get_meta( '_event_schedules', array() ) as $schedule ) {
+		                eem_print_event_schedule_day_content( array_merge( array( 'index' => $index ), $schedule ) );
+		                $index++;
+	                } ?>
                 </div>
 
             </div>

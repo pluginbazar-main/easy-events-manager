@@ -12,14 +12,14 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		 * EEM_Hooks constructor.
 		 */
 		function __construct() {
-			add_filter('single_template', array( $this, 'display_single_event'));
+			add_filter( 'single_template', array( $this, 'display_single_event' ) );
 			add_action( 'wp_ajax_eem_add_new_day', array( $this, 'ajax_add_new_day' ) );
-			add_action( 'wp_ajax_nopriv_eem_add_new_day', array( $this, 'ajax_add_new_day' ) );
+			add_action( 'wp_ajax_eem_add_new_session', array( $this, 'ajax_add_new_session' ) );
 		}
 
 		function display_single_event( $single_template ) {
 
-			if( is_singular( 'event' ) ) {
+			if ( is_singular( 'event' ) ) {
 				$single_template = EEM_PLUGIN_DIR . 'templates/single-event.php';
 
 			}
@@ -27,6 +27,14 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			return $single_template;
 		}
 
+
+		function ajax_add_new_session() {
+
+			$unique_id   = isset( $_POST['unique_id'] ) ? sanitize_text_field( $_POST['unique_id'] ) : date( 'U' );
+			$schedule_id = isset( $_POST['schedule_id'] ) ? sanitize_text_field( $_POST['schedule_id'] ) : 0;
+
+			wp_send_json_success( eem_print_session_content( $schedule_id, array( 'id' => $unique_id ), false ) );
+		}
 
 		function ajax_add_new_day() {
 
