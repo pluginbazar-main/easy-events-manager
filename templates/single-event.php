@@ -145,6 +145,9 @@ $unique_id = uniqid();
                     </div>
                 </div>
             </div>
+            <div class="view-more text-center">
+                <a href="#" class="eem-btn eem-btn-large">All Speakers</a>
+            </div>
         </div>
     </div>
 
@@ -224,6 +227,9 @@ $unique_id = uniqid();
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="view-more text-center">
+                <a href="#" class="eem-btn eem-btn-large">More Tickets!</a>
             </div>
         </div>
     </div>
@@ -367,6 +373,10 @@ $unique_id = uniqid();
                     </div>
                 </div>
             </div>
+
+            <div class="view-more text-center">
+                <a href="#" class="eem-btn eem-btn-large">Full Attendees</a>
+            </div>
         </div>
     </div>
 
@@ -483,6 +493,9 @@ $unique_id = uniqid();
                 </div>
             </div>
 
+            <div class="view-more text-center">
+                <a href="#" class="eem-btn eem-btn-large">View All Sponsors</a>
+            </div>
         </div>
     </div>
 
@@ -583,7 +596,7 @@ $unique_id = uniqid();
             </div>
 
             <div class="pb-row">
-                <div class="pb-col-md-4">
+                <div class="pb-col-lg-4 pb-col-md-6">
                     <div class="post-item">
                         <div class="post-image">
                             <a href="#">
@@ -613,7 +626,7 @@ $unique_id = uniqid();
                     </div>
                 </div>
 
-                <div class="pb-col-md-4">
+                <div class="pb-col-lg-4 pb-col-md-6">
                     <div class="post-item">
                         <div class="post-image">
                             <a href="#">
@@ -643,7 +656,7 @@ $unique_id = uniqid();
                     </div>
                 </div>
 
-                <div class="pb-col-md-4">
+                <div class="pb-col-lg-4 pb-col-md-6">
                     <div class="post-item">
                         <div class="post-image">
                             <a href="#">
@@ -672,6 +685,10 @@ $unique_id = uniqid();
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="view-more text-center">
+                <a href="#" class="eem-btn eem-btn-large">View More Posts</a>
             </div>
         </div>
     </div>
