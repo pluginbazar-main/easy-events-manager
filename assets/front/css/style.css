@@ -130,6 +130,10 @@ img {
     outline: none;
 }
 
+.single-event .row > [class*="col-"] {
+    width: 100%;
+}
+
 
 /**
 * Section Heading
@@ -638,6 +642,7 @@ img {
     opacity: 1;
     transform: translate(-50%, -50%) rotate(0deg);
 }
+
 
 /**
 * Event Calltoaction/cta
