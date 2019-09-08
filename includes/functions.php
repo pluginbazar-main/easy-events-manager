@@ -6,23 +6,22 @@
 
 if ( ! function_exists( 'eem_print_event_schedule_day_content' ) ) {
 	/**
-     * Print Event Schedule Day Content
-     *
+	 * Print Event Schedule Day Content
+	 *
 	 * @param array $schedule
 	 * @param bool $echo
 	 *
 	 * @return false|string
-	 * @throws PB_Error
 	 */
 	function eem_print_event_schedule_day_content( $schedule = array(), $echo = true ) {
 
 		$schedule_index = isset( $schedule['index'] ) ? $schedule['index'] : 0;
-		$schedule_id    = isset( $schedule['id'] ) ? $schedule['id'] : date('U') + ( $schedule_index * 193 );
+		$schedule_id    = isset( $schedule['id'] ) ? $schedule['id'] : date( 'U' ) + ( $schedule_index * 193 );
 		$schedule_label = isset( $schedule['label'] ) ? $schedule['label'] : sprintf( esc_html__( 'Day %s', EEM_TD ), $schedule_index + 1 );
 		$active_class   = $schedule_index == 0 ? 'active' : '';
-		$schedule_date    = isset( $schedule['date'] ) ? $schedule['date'] : '';
-		$time_start    = isset( $schedule['time_start'] ) ? $schedule['time_start'] : '';
-		$time_end    = isset( $schedule['time_end'] ) ? $schedule['time_end'] : '';
+		$schedule_date  = isset( $schedule['date'] ) ? $schedule['date'] : '';
+		$time_start     = isset( $schedule['time_start'] ) ? $schedule['time_start'] : '';
+		$time_end       = isset( $schedule['time_end'] ) ? $schedule['time_end'] : '';
 
 		$schedules_fields = array(
 			array(
@@ -33,7 +32,7 @@ if ( ! function_exists( 'eem_print_event_schedule_day_content' ) ) {
 						'details'     => esc_html__( 'Set custom label for this day. Example: Day 1 or First Day etc', EEM_TD ),
 						'placeholder' => esc_html__( 'Day 1', EEM_TD ),
 						'type'        => 'text',
-						'class'        => 'day_label_change_listener',
+						'class'       => 'day_label_change_listener',
 						'value'       => $schedule_label,
 					),
 					array(
@@ -45,7 +44,7 @@ if ( ! function_exists( 'eem_print_event_schedule_day_content' ) ) {
 						'field_options' => array(
 							'dateFormat' => 'yy-mm-dd',
 						),
-						'value'       => $schedule_date,
+						'value'         => $schedule_date,
 					),
 
 					array(
@@ -58,10 +57,10 @@ if ( ! function_exists( 'eem_print_event_schedule_day_content' ) ) {
 							'interval' => 15,
 							'dynamic'  => true,
 						),
-						'value'       => $time_start,
+						'value'         => $time_start,
 					),
 
-                    array(
+					array(
 						'id'            => "_event_schedules[$schedule_id][time_end]",
 						'details'       => esc_html__( 'End time for this day. You can leave this empty to bypass and enter into each section.', EEM_TD ),
 						'type'          => 'timepicker',
@@ -70,14 +69,14 @@ if ( ! function_exists( 'eem_print_event_schedule_day_content' ) ) {
 							'interval' => 15,
 							'dynamic'  => true,
 						),
-						'value'       => $time_end,
+						'value'         => $time_end,
 					),
 
 				),
 			)
 		);
 
-        ob_start();
+		ob_start();
 
 		?>
         <div class="eem-side-nav-item-content <?php echo esc_attr( $active_class ); ?> schedule-<?php echo esc_attr( $schedule_id ); ?>">
@@ -123,19 +122,19 @@ if ( ! function_exists( 'eem_print_event_schedule_day_content' ) ) {
         </div>
 
 		<?php
-        if( $echo ) {
-            print ob_get_clean();
-        } else {
-            return ob_get_clean();
-        }
+		if ( $echo ) {
+			print ob_get_clean();
+		} else {
+			return ob_get_clean();
+		}
 	}
 }
 
 
 if ( ! function_exists( 'eem_print_event_schedule_day_nav' ) ) {
 	/**
-     * Print Event Schedule Day Nav label
-     *
+	 * Print Event Schedule Day Nav label
+	 *
 	 * @param array $schedule
 	 * @param bool $echo
 	 *
@@ -144,15 +143,15 @@ if ( ! function_exists( 'eem_print_event_schedule_day_nav' ) ) {
 	function eem_print_event_schedule_day_nav( $schedule = array(), $echo = true ) {
 
 		$schedule_index = isset( $schedule['index'] ) ? $schedule['index'] : 0;
-		$schedule_id    = isset( $schedule['id'] ) ? $schedule['id'] : date('U') + ( $schedule_index * 193 );
+		$schedule_id    = isset( $schedule['id'] ) ? $schedule['id'] : date( 'U' ) + ( $schedule_index * 193 );
 		$schedule_label = isset( $schedule['label'] ) ? $schedule['label'] : sprintf( esc_html__( 'Day %s', EEM_TD ), $schedule_index + 1 );
 		$active_class   = $schedule_index == 0 ? 'active' : '';
 
 		ob_start();
 
-		printf( '<div class="eem-side-nav-item %s" target="schedule-%s">%s</div>', $active_class, $schedule_id, $schedule_label );
+		printf( '<div class="eem-side-nav-item %s" data-target="schedule-%s">%s</div>', $active_class, $schedule_id, $schedule_label );
 
-		if( $echo ) {
+		if ( $echo ) {
 			print ob_get_clean();
 		} else {
 			return ob_get_clean();

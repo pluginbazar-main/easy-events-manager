@@ -38,6 +38,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php
 				$_event_schedules = eem_get_meta( '_event_schedules', false, array() );
 
+				echo '<pre>'; print_r( $_event_schedules ); echo '</pre>';
+
 				?>
 
                 <div class="eem-side-nav">
@@ -47,10 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 eem_print_event_schedule_day_nav( array( 'index' => 1 ) );
                 foreach ( $_event_schedules as $schedule ) : ?>
 
-						<?php eem_print_event_schedule_day_nav(); ?>
-                        <div class="eem-side-nav-item active" target="day-1">Day 1</div>
-                        <div class="eem-side-nav-item" target="day-2">Day 2</div>
-                        <div class="eem-side-nav-item" target="day-3">Day 3</div>
+                    <?php eem_print_event_schedule_day_nav(); ?>
 
 				<?php endforeach; ?>
                 </div>
@@ -60,6 +59,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
                     eem_print_event_schedule_day_content( array( 'index' => 0 ) );
                     eem_print_event_schedule_day_content( array( 'index' => 1 ) );
+
 					foreach ( $_event_schedules as $schedule ) :
 						eem_print_event_schedule_day_content( $schedule );
 					endforeach; ?>

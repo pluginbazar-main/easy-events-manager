@@ -5,22 +5,29 @@
 (function ($, window, document, pluginObject) {
     "use strict";
 
+    /**
+     * Document onReady
+     */
+    $(document).on('ready', function () {
 
-    $(function () {
         $(".eem-repeat-container").sortable({
             handle: ".eem-repeat-sort",
             revert: true
         });
+    } );
 
-        $('.day_label_change_listener input[type=text]').on('change keyup paste', function (e) {
-            var name = $(this).attr('name').replace(/]/g, '').split('['), value = $(this).val();
-            $('.eem-side-nav-container .eem-side-nav-item').each(function () {
-                if ($(this).attr('target') === 'schedule-' + name[1]) {
-                    $(this).html(value);
-                }
-            });
+
+    /**
+     * Change label of days
+     */
+    $(document).on('change keyup paste', '.day_label_change_listener input[type=text]', function (e) {
+        let name = $(this).attr('name').replace(/]/g, '').split('['), value = $(this).val();
+        $('.eem-side-nav-container .eem-side-nav-item').each(function () {
+            if ($(this).data('target') === 'schedule-' + name[1]) {
+                $(this).html(value);
+            }
         });
-    });
+    } );
 
 
     /**
@@ -28,7 +35,7 @@
      */
     $(document).on('click', '.eem-add-day', function () {
 
-        var unique_id = $.now(), index_id = $( '.eem-side-nav-container .eem-side-nav .eem-side-nav-item').length;
+        let unique_id = $.now(), index_id = $( '.eem-side-nav-container .eem-side-nav .eem-side-nav-item').length;
 
         $.ajax({
             type: 'POST',
@@ -61,7 +68,7 @@
             return;
         }
 
-        var target = $(this).attr('target');
+        let target = $(this).data('target');
 
         $(this).parent().find('.eem-side-nav-item').removeClass('active');
         $(this).addClass('active');
@@ -84,7 +91,7 @@
             return;
         }
 
-        var target = $(this).attr('target');
+        let target = $(this).data('target');
 
         $('.eem-tab-panel .tab-nav-item').removeClass('active');
         $(this).addClass('active');

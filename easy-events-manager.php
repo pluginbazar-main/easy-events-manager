@@ -98,7 +98,7 @@ class EasyEventsManager {
 
 		wp_enqueue_style( 'icofont', EEM_PLUGIN_URL . 'assets/fonts/icofont.min.css' );
 		wp_enqueue_style( 'eem_tool_tip', EEM_PLUGIN_URL . 'assets/tool-tip.min.css' );
-		wp_enqueue_style( 'eem_admin_style', EEM_PLUGIN_URL . 'assets/admin/css/style.css' );
+		wp_enqueue_style( 'eem_admin_style', EEM_PLUGIN_URL . 'assets/admin/css/style.css', false, time() );
 	}
 
 

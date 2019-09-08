@@ -171,12 +171,10 @@
     border-radius: 2px;
 }
 
-.eem-side-nav-container .eem-side-nav-item:hover,
 .eem-side-nav-container .eem-side-nav-item.active{
     background: #f6405f;
 }
 
-.eem-side-nav-container .eem-side-nav-item:hover:after,
 .eem-side-nav-container .eem-side-nav-item.active:after {
     left: 100%;
     top: 50%;
