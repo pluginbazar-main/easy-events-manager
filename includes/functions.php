@@ -175,12 +175,9 @@ if ( ! function_exists( 'eem_print_session_content' ) ) {
                        name="_event_schedules[<?php echo esc_attr( $schedule_id ); ?>][sessions][<?php echo esc_attr( $session_id ); ?>][s_label]"
                        value="<?php echo esc_attr( $s_label ); ?>"
                        placeholder="<?php esc_html_e( 'Session label here', EEM_TD ); ?>">
-                <div class="eem-head-button eem-repeat-close"><i class="icofont-close"></i>
-                </div>
+                <div class="eem-head-button eem-repeat-close"><i class="icofont-close"></i></div>
                 <div class="eem-head-button eem-repeat-sort"><i class="icofont-drag1"></i></div>
-                <div class="eem-head-button eem-repeat-toggle"><i
-                            class="icofont-curved-down"></i>
-                </div>
+                <div class="eem-head-button eem-repeat-toggle"><i class="icofont-curved-down"></i></div>
             </div>
             <div class="eem-repeat-content">
 				<?php eem()->PB()->generate_fields( $session_fields ); ?>
@@ -222,6 +219,180 @@ if ( ! function_exists( 'eem_print_event_schedule_day_nav' ) ) {
 		} else {
 			return ob_get_clean();
 		}
+	}
+}
+
+
+if ( ! function_exists( 'eem_get_template_part' ) ) {
+	/**
+	 * Get Template Part
+	 *
+	 * @param $slug
+	 * @param string $name
+	 * @param array $args
+	 */
+	function eem_get_template_part( $slug, $name = '', $args = array() ) {
+
+		$template   = '';
+		$plugin_dir = EEM_PLUGIN_DIR;
+
+		/**
+		 * Locate template
+		 */
+		if ( $name ) {
+			$template = locate_template( array(
+				"{$slug}-{$name}.php",
+				"wpp/{$slug}-{$name}.php"
+			) );
+		}
+
+		/**
+		 * Check directory for templates from Addons
+		 */
+		$backtrace      = debug_backtrace( 2, true );
+		$backtrace      = empty( $backtrace ) ? array() : $backtrace;
+		$backtrace      = reset( $backtrace );
+		$backtrace_file = isset( $backtrace['file'] ) ? $backtrace['file'] : '';
+
+		if ( strpos( $backtrace_file, 'ext-slug' ) !== false && defined( 'EXT_PLUGIN_DIR' ) ) {
+			$plugin_dir = EXT_PLUGIN_DIR;
+		}
+
+		/**
+		 * Search for Template in Plugin
+		 *
+		 * @in Plugin
+		 */
+		if ( ! $template && $name && file_exists( untrailingslashit( $plugin_dir ) . "/templates/{$slug}-{$name}.php" ) ) {
+			$template = untrailingslashit( $plugin_dir ) . "/templates/{$slug}-{$name}.php";
+		}
+
+
+		/**
+		 * Search for Template in Theme
+		 *
+		 * @in Theme
+		 */
+		if ( ! $template ) {
+			$template = locate_template( array( "{$slug}.php", "eem/{$slug}.php" ) );
+		}
+
+
+		/**
+		 * Allow 3rd party plugins to filter template file from their plugin.
+		 *
+		 * @filter eem_filters_get_template_part
+		 */
+		$template = apply_filters( 'eem_filters_get_template_part', $template, $slug, $name );
+
+
+		if ( $template ) {
+			load_template( $template, false );
+		}
+	}
+}
+
+
+if ( ! function_exists( 'eem_get_template' ) ) {
+	/**
+	 * Get Template
+	 *
+	 * @param $template_name
+	 * @param array $args
+	 * @param string $template_path
+	 * @param string $default_path
+	 *
+	 * @return WP_Error
+	 */
+	function eem_get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
+
+		if ( ! empty( $args ) && is_array( $args ) ) {
+			extract( $args ); // @codingStandardsIgnoreLine
+		}
+
+		/**
+		 * Check directory for templates from Addons
+		 */
+		$backtrace      = debug_backtrace( 2, true );
+		$backtrace      = empty( $backtrace ) ? array() : $backtrace;
+		$backtrace      = reset( $backtrace );
+		$backtrace_file = isset( $backtrace['file'] ) ? $backtrace['file'] : '';
+
+		$located = eem_locate_template( $template_name, $template_path, $default_path, $backtrace_file );
+
+
+		if ( ! file_exists( $located ) ) {
+			return new WP_Error( 'invalid_data', __( '%s does not exist.', EEM_TD ), '<code>' . $located . '</code>' );
+		}
+
+		$located = apply_filters( 'eem_filters_get_template', $located, $template_name, $args, $template_path, $default_path );
+
+		do_action( 'eem_before_template_part', $template_name, $template_path, $located, $args );
+
+		include $located;
+
+		do_action( 'eem_after_template_part', $template_name, $template_path, $located, $args );
+	}
+}
+
+
+if ( ! function_exists( 'eem_locate_template' ) ) {
+	/**
+	 *  Locate template
+	 *
+	 * @param $template_name
+	 * @param string $template_path
+	 * @param string $default_path
+	 * @param string $backtrace_file
+	 *
+	 * @return mixed|void
+	 */
+	function eem_locate_template( $template_name, $template_path = '', $default_path = '', $backtrace_file = '' ) {
+
+		$plugin_dir = EEM_PLUGIN_DIR;
+
+		/**
+		 * Template path in Theme
+		 */
+		if ( ! $template_path ) {
+			$template_path = 'eem/';
+		}
+
+		// Check for survey
+		if ( ! empty( $backtrace_file ) && strpos( $backtrace_file, 'ext-slug' ) !== false && defined( 'EXT_PLUGIN_DIR' ) ) {
+			$plugin_dir = EXT_PLUGIN_DIR;
+		}
+
+		/**
+		 * Template default path from Plugin
+		 */
+		if ( ! $default_path ) {
+			$default_path = untrailingslashit( $plugin_dir ) . '/templates/';
+		}
+
+		/**
+		 * Look within passed path within the theme - this is priority.
+		 */
+		$template = locate_template(
+			array(
+				trailingslashit( $template_path ) . $template_name,
+				$template_name,
+			)
+		);
+
+		/**
+		 * Get default template
+		 */
+		if ( ! $template ) {
+			$template = $default_path . $template_name;
+		}
+
+		/**
+		 * Return what we found with allowing 3rd party to override
+		 *
+		 * @filter eem_filters_locate_template
+		 */
+		return apply_filters( 'eem_filters_locate_template', $template, $template_name, $template_path );
 	}
 }
 

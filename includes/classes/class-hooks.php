@@ -13,6 +13,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		 */
 		function __construct() {
 			add_filter( 'single_template', array( $this, 'display_single_event' ) );
+
 			add_action( 'wp_ajax_eem_add_new_day', array( $this, 'ajax_add_new_day' ) );
 			add_action( 'wp_ajax_eem_add_new_session', array( $this, 'ajax_add_new_session' ) );
 		}
@@ -21,7 +22,6 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 
 			if ( is_singular( 'event' ) ) {
 				$single_template = EEM_PLUGIN_DIR . 'templates/single-event.php';
-
 			}
 
 			return $single_template;

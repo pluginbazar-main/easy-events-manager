@@ -723,7 +723,7 @@ img {
 * Blog Post
 */
 
-.eem-post-style-1 .post-item {
+.eem-blog-style-1 .post-item {
     position: relative;
     border-radius: 10px;
     overflow: hidden;
@@ -732,62 +732,62 @@ img {
     margin-bottom: 30px;
 }
 
-.eem-post-style-1 .post-item:hover {
+.eem-blog-style-1 .post-item:hover {
     box-shadow: 0 20px 40px -5px rgba(9, 30, 66, .4);
     transform: translateY(-4px);
 }
 
-.eem-post-style-1 .post-meta {
+.eem-blog-style-1 .post-meta {
     font-size: 14px;
     color: #666;
     margin-bottom: 7px;
 }
-.eem-post-style-1 .post-meta a {
+.eem-blog-style-1 .post-meta a {
     color: #666;
 }
 
-.eem-post-style-1 .post-meta i {
+.eem-blog-style-1 .post-meta i {
     color: #e91e63;
     font-size: 16px;
 }
 
-.eem-post-style-1 .post-meta > * {
+.eem-blog-style-1 .post-meta > * {
     margin-right: 15px;
     margin-bottom: 15px;
 }
 
-.eem-post-style-1 .post-title {
+.eem-blog-style-1 .post-title {
     font-size: 24px;
     line-height: 1.4;
     margin-bottom: 17px;
     font-weight: 600;
 }
 
-.eem-post-style-1 .post-title a {
+.eem-blog-style-1 .post-title a {
     color: #3a3a3a;
 }
 
-.eem-post-style-1 .post-title a:hover,
-.eem-post-style-1 .post-title a:focus,
-.eem-post-style-1 .post-meta a:hover,
-.eem-post-style-1 .post-meta a:focus {
+.eem-blog-style-1 .post-title a:hover,
+.eem-blog-style-1 .post-title a:focus,
+.eem-blog-style-1 .post-meta a:hover,
+.eem-blog-style-1 .post-meta a:focus {
     color: #e91e63;
 }
 
-.eem-post-style-1 .post-body {
+.eem-blog-style-1 .post-body {
     background: #fff;
     padding: 30px;
 }
 
-.eem-post-style-1 .post-content {
+.eem-blog-style-1 .post-content {
     margin-bottom: 26px;
 }
 
-.eem-post-style-1 .post-content p:last-child {
+.eem-blog-style-1 .post-content p:last-child {
     margin-bottom: 0;
 }
 
-.eem-post-style-1 .post-item .eem-btn {
+.eem-blog-style-1 .post-item .eem-btn {
     /* padding: 12px 22px; */
     min-width: 130px;
 }
@@ -906,7 +906,7 @@ img {
 
 @media ( max-width: 991px ) {
     .eem-pricing-style-1 .pb-row,
-    .eem-post-style-1 .pb-row {
+    .eem-blog-style-1 .pb-row {
         -webkit-justify-content: center;
         justify-content: center;
     }

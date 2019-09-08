@@ -29,8 +29,7 @@ class EasyEventsManager {
 	function __construct() {
 
 		$this->define_scripts();
-		$this->define_classes();
-		$this->define_functions();
+		$this->define_classes_functions();
 
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 	}
@@ -45,18 +44,9 @@ class EasyEventsManager {
 
 
 	/**
-	 * Define functions
+	 * Define classes and functions
 	 */
-	function define_functions() {
-
-		require_once( EEM_PLUGIN_DIR . 'includes/functions.php' );
-	}
-
-
-	/**
-	 * Define classes
-	 */
-	function define_classes() {
+	function define_classes_functions() {
 
 		//		require_once( WPP_PLUGIN_DIR . 'includes/classes/class-pb-settings.php' );
 		$settings_path = str_replace( array( 'Pluginbazar/free/', 'Pluginbazar\free/' ), '', ABSPATH );
@@ -68,6 +58,10 @@ class EasyEventsManager {
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-hooks.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-event.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-event-meta.php' );
+
+		require_once( EEM_PLUGIN_DIR . 'includes/functions.php' );
+		require_once( EEM_PLUGIN_DIR . 'includes/template-hooks.php' );
+		require_once( EEM_PLUGIN_DIR . 'includes/template-hook-functions.php' );
 	}
 
 
