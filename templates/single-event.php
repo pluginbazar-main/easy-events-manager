@@ -9,7 +9,7 @@ $unique_id = uniqid();
 
 ?>
 
-    <div class="eem-force-full-width eem-banner-style-1"
+    <div class="eem-event-section eem-force-full-width eem-banner-style-1"
          style="background-image: url(http://smart.commonsupport.com/miexpo/wp-content/uploads/2019/07/1-1.jpg)">
         <div class="pb-container">
             <div class="eem-banner-wrap">
@@ -62,8 +62,7 @@ $unique_id = uniqid();
         </div>
     </div>
 
-
-    <div class="eem-speaker-style-1 eem-spacer bg-white eem-force-full-width">
+    <div class="eem-event-section eem-speaker-style-1 eem-spacer bg-white eem-force-full-width">
         <div class="pb-container">
             <div class="eem-section-heading">
                 <h6 class="eem-sh-tagline">Welcome to Meetup</h6>
@@ -151,8 +150,7 @@ $unique_id = uniqid();
         </div>
     </div>
 
-
-    <div class="eem-pricing-style-1 eem-spacer eem-force-full-width">
+    <div class="eem-event-section eem-pricing-style-1 eem-spacer eem-force-full-width">
         <div class="pb-container">
             <div class="eem-section-heading">
                 <h6 class="eem-sh-tagline">Our Pricing Plans</h6>
@@ -234,7 +232,7 @@ $unique_id = uniqid();
         </div>
     </div>
 
-    <div class="eem-register-style-1 eem-spacer eem-force-full-width bg-white">
+    <div class="eem-event-section eem-register-style-1 eem-spacer eem-force-full-width bg-white">
         <div class="pb-container">
             <div class="pb-row">
                 <div class="pb-col-md-7">
@@ -283,7 +281,7 @@ $unique_id = uniqid();
         </div>
     </div>
 
-    <div class="eem-attendees-style-1 eem-spacer eem-force-full-width bg-white">
+    <div class="eem-event-section eem-attendees-style-1 eem-spacer eem-force-full-width bg-white">
         <div class="pb-container">
             <div class="eem-section-heading">
                 <h6 class="eem-sh-tagline">Who Attend our Meetup?</h6>
@@ -380,7 +378,7 @@ $unique_id = uniqid();
         </div>
     </div>
 
-    <div class="eem-cta-style-1 eem-force-full-width">
+    <div class="eem-event-section eem-cta-style-1 eem-force-full-width">
         <div class="pb-container">
             <div class="eem-cta-wrap">
                 <div class="eem-cta-content">
@@ -395,7 +393,7 @@ $unique_id = uniqid();
         </div>
     </div>
 
-    <div class="eem-sponsors-style-1 eem-spacer eem-force-full-width">
+    <div class="eem-event-section eem-sponsors-style-1 eem-spacer eem-force-full-width">
         <div class="pb-container">
             <div class="eem-section-heading">
                 <h6 class="eem-sh-tagline">Who Help Us</h6>
@@ -499,8 +497,7 @@ $unique_id = uniqid();
         </div>
     </div>
 
-
-    <div class="eem-gallery-style-1 bg-white eem-force-full-width">
+    <div class="eem-event-section eem-gallery-style-1 bg-white eem-force-full-width">
         <div class="eem-gallery-wrap pb-grid pb-grid-4 pb-no-gutters">
             <div class="pb-grid-col">
                 <div class="gallery-single">
@@ -585,8 +582,7 @@ $unique_id = uniqid();
         </div>
     </div>
 
-
-    <div class="eem-post-style-1 eem-force-full-width eem-spacer">
+    <div class="eem-event-section eem-post-style-1 eem-force-full-width eem-spacer">
         <div class="pb-container">
             <div class="eem-section-heading">
                 <h6 class="eem-sh-tagline">Donec hendrerit turpis</h6>
