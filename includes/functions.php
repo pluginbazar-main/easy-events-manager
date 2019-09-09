@@ -34,7 +34,7 @@ if ( ! function_exists( 'eem_the_event' ) ) {
 
 		global $event;
 
-		if ( get_post_type( $event_id ) == 'poll' && ! $event instanceof EEM_Event ) {
+		if ( get_post_type( $event_id ) == 'event' && ! $event instanceof EEM_Event ) {
 			$event = new EEM_Event( $event_id );
 		}
 	}

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div class="eem-event-section eem-pricing-style-1 eem-spacer eem-force-full-width">
+<div class="eem-event-section eem-pricing-style-1 bg-white eem-spacer eem-force-full-width">
 	<div class="pb-container">
 		<div class="eem-section-heading">
 			<h6 class="eem-sh-tagline">Our Pricing Plans</h6>

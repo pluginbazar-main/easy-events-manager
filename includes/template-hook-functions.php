@@ -16,15 +16,15 @@ if ( ! function_exists( 'eem_single_event_main_speakers' ) ) {
 	}
 }
 
-if ( ! function_exists( 'eem_single_event_main_pricing' ) ) {
-	function eem_single_event_main_pricing() {
-		eem_get_template( 'single-event/pricing.php' );
-	}
-}
-
 if ( ! function_exists( 'eem_single_event_main_schedules' ) ) {
 	function eem_single_event_main_schedules() {
 		eem_get_template( 'single-event/schedules.php' );
+	}
+}
+
+if ( ! function_exists( 'eem_single_event_main_pricing' ) ) {
+	function eem_single_event_main_pricing() {
+		eem_get_template( 'single-event/pricing.php' );
 	}
 }
 
