@@ -22,6 +22,12 @@ if ( ! function_exists( 'eem_single_event_main_pricing' ) ) {
 	}
 }
 
+if ( ! function_exists( 'eem_single_event_main_schedules' ) ) {
+	function eem_single_event_main_schedules() {
+		eem_get_template( 'single-event/schedules.php' );
+	}
+}
+
 if ( ! function_exists( 'eem_single_event_main_register' ) ) {
 	function eem_single_event_main_register() {
 		eem_get_template( 'single-event/register.php' );
