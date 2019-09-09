@@ -10,6 +10,8 @@
      */
     $(document).on('ready', function () {
 
+        $('.eem-speakers .eem-repeat-head select').niceSelect();
+
         $(".eem-repeat-container").sortable({
             handle: ".eem-repeat-sort",
             revert: true
@@ -37,6 +39,28 @@
             itemToRemove.remove();
         }, 300);
     });
+
+
+
+
+    $(document).on('click', '.eem-add-speaker', function () {
+
+        $.ajax({
+            type: 'POST',
+            url: pluginObject.ajaxurl,
+            context: this,
+            data: {
+                'action': 'eem_add_new_speaker',
+                'unique_id': $.now(),
+            },
+            success: function (response) {
+
+                if (response.success) {
+                    $(response.data).appendTo($(this).parent().find('.eem-speakers')).hide().slideDown();
+                }
+            }
+        });
+    } );
 
 
     $(document).on('click', '.eem-add-session', function () {

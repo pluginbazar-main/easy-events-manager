@@ -22,6 +22,35 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 		}
 
 
+		function get_social_profile_platforms() {
+
+			$profile_platforms = array(
+				'facebook' => array(
+					'label' => esc_html( 'Facebook' ),
+					'icon'  => '<i class="icofont-facebook"></i>',
+				),
+				'twitter' => array(
+					'label' => esc_html( 'Twitter' ),
+					'icon'  => '<i class="icofont-twitter"></i>',
+				),
+				'linkedin' => array(
+					'label' => esc_html( 'Linkedin' ),
+					'icon'  => '<i class="icofont-linkedin"></i>',
+				),
+				'instagram' => array(
+					'label' => esc_html( 'Instagram' ),
+					'icon'  => '<i class="icofont-instagram"></i>',
+				),
+				'pinterest' => array(
+					'label' => esc_html( 'Pinterest' ),
+					'icon'  => '<i class="icofont-pinterest"></i>',
+				),
+			);
+
+			return apply_filters( 'eem_filters_social_profiles_platforms', $profile_platforms );
+		}
+
+
 		function PB() {
 			return new PB_Settings();
 		}

@@ -48,10 +48,18 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 				}
 			}
 
-			// Saving Event Schedules
+
 			$_event_schedules = isset( $_POST['_event_schedules'] ) ? stripslashes_deep( $_POST['_event_schedules'] ) : array();
+			$_event_speakers  = isset( $_POST['_event_speakers'] ) ? stripslashes_deep( $_POST['_event_speakers'] ) : array();
 
 			update_post_meta( $post_id, '_event_schedules', $_event_schedules );
+			update_post_meta( $post_id, '_event_speakers', $_event_speakers );
+
+			echo '<pre>'; print_r( $_event_speakers ); echo '</pre>';
+
+
+//			die();
+
 		}
 
 

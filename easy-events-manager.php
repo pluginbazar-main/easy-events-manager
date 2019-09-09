@@ -73,7 +73,9 @@ class EasyEventsManager {
 		wp_enqueue_script( 'eem_front_js', plugins_url( '/assets/front/js/scripts.js', __FILE__ ), array( 'jquery' ) );
 		wp_enqueue_script( 'magnific-popup-js', plugins_url( '/assets/front/js/jquery.magnific-popup.min.js', __FILE__ ), array( 'jquery' ) );
 		wp_localize_script( 'eem_front_js', 'eem_object', array( 'woc_ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+		wp_enqueue_script( 'niceselect', plugins_url( '/assets/nice-select.min.js', __FILE__ ), array( 'jquery' ) );
 
+		wp_enqueue_style( 'niceselect', EEM_PLUGIN_URL . 'assets/nice-select.css' );
 		wp_enqueue_style( 'icofont', EEM_PLUGIN_URL . 'assets/fonts/icofont.min.css' );
 		wp_enqueue_style( 'eem_tool_tip', EEM_PLUGIN_URL . 'assets/tool-tip.min.css' );
 		wp_enqueue_style( 'magnific-popup', EEM_PLUGIN_URL . 'assets/front/css/magnific-popup.css' );
@@ -90,8 +92,9 @@ class EasyEventsManager {
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'eem_admin_js', plugins_url( '/assets/admin/js/scripts.js', __FILE__ ), array( 'jquery' ) );
 		wp_localize_script( 'eem_admin_js', 'eem_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+		wp_enqueue_script( 'niceselect', plugins_url( '/assets/nice-select.min.js', __FILE__ ), array( 'jquery' ) );
 
-
+		wp_enqueue_style( 'niceselect', EEM_PLUGIN_URL . 'assets/nice-select.css' );
 		wp_enqueue_style( 'icofont', EEM_PLUGIN_URL . 'assets/fonts/icofont.min.css' );
 		wp_enqueue_style( 'eem_tool_tip', EEM_PLUGIN_URL . 'assets/tool-tip.min.css' );
 		wp_enqueue_style( 'eem_admin_style', EEM_PLUGIN_URL . 'assets/admin/css/style.css', false, time() );
