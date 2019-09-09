@@ -10,6 +10,12 @@ if ( ! function_exists( 'eem_single_event_main_banner' ) ) {
 	}
 }
 
+if ( ! function_exists( 'eem_single_event_main_schedules' ) ) {
+	function eem_single_event_main_schedules() {
+		eem_get_template( 'single-event/schedules.php' );
+	}
+}
+
 if ( ! function_exists( 'eem_single_event_main_speakers' ) ) {
 	function eem_single_event_main_speakers() {
 		eem_get_template( 'single-event/speakers.php' );

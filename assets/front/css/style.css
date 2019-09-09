@@ -128,6 +128,7 @@ img {
 .single-event select:focus {
     border-color: #7037b6;
     outline: none;
+    box-shadow: none;
 }
 
 .single-event .row > [class*="col-"] {
@@ -876,8 +877,8 @@ img {
     width: 100%;
     height: 46px;
     padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: 14px;
+    line-height: 1;
     color: #495057;
     background-color: #fff;
     background-clip: padding-box;

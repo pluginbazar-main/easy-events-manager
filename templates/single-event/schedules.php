@@ -1,8 +1,8 @@
 <?php
 /**
- * Single Event - Pricing
+ * Single Event - Schedules
  *
- * @package single-event/pricing.php
+ * @package single-event/schedules.php
  * @copyright Pluginbazar
  */
 
@@ -11,11 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div class="eem-event-section eem-pricing-style-1 bg-white eem-spacer eem-force-full-width">
+
+<div class="eem-event-section eem-schedules-style-1 eem-spacer eem-force-full-width">
 	<div class="pb-container">
 		<div class="eem-section-heading">
-			<h6 class="eem-sh-tagline">Our Pricing Plans</h6>
-			<h2 class="eem-sh-title">Get your Tickets</h2>
+			<h6 class="eem-sh-tagline">Consectetur Adipis</h6>
+			<h2 class="eem-sh-title">Event Schedules</h2>
 			<h5 class="eem-sh-subtitle">Suspendisse hendrerit turpis dui, eget ultricies erat consequat. Sed ac
 				velit iaculis, condimentum neque maximus urna. </h5>
 		</div>
