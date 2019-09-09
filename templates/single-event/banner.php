@@ -30,7 +30,7 @@ $unique_id = uniqid();
 
                     (function updateTime() {
 
-                        var countDownDate = new Date(new Date('Sep 9, 2019').toString()).getTime(),
+                        var countDownDate = new Date(new Date('Sep 20, 2020').toString()).getTime(),
                             now = new Date().getTime(),
                             distance = countDownDate - now,
                             days = 0, hours = 0, minutes = 0, seconds = 0;
