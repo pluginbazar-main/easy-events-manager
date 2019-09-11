@@ -14,11 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="eem-floating-box">
 
-    <div class="eem-fb-button">
+    <div class="open-fb-box">
         <i class="icofont-options icofont-spin"></i>
     </div>
 
-    <div class="eem-fb-content-wrap">
+    <div class="eem-fb-content-wrap fb-modal-frame">
+
         <div class="eem-fb-header">
             <h3>More About This Event</h3>
             <span class="close-fb-box icofont-close"></span>

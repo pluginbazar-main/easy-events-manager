@@ -29,11 +29,11 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <span>Nearby Hotel</span>
                     </div>
 					<div class="tab-nav-item" data-target="day-2">
-                        <i class="icofont-paper-plane"></i>
+                        <i class="icofont-airplane-alt"></i>
                         <span>Transport Services</span>
                     </div>
 					<div class="tab-nav-item" data-target="day-3">
-                        <i class="icofont-5-star-hotel"></i>
+                        <i class="icofont-location-pin"></i>
                         <span>Historical Places</span>
                     </div>
 				</div>

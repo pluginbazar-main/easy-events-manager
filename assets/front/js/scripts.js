@@ -10,10 +10,10 @@
 
         $('.single-event select').niceSelect();
 
-        let gallery_zoom = $('.gallery-zoon-icon');
+        var gallery_zoom = $('.gallery-zoon-icon');
 
         // Magnific Popup
-        if ( gallery_zoom.length ) {
+        if (gallery_zoom.length) {
             gallery_zoom.magnificPopup({
 
                 type: 'image',
@@ -36,10 +36,27 @@
 
             });
         }
-        
-        let floating_box = $('.eem-floating-box');
+
+        var $fb_box_content = $('.eem-fb-content-wrap');
+
+        $fb_box_content.bind('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(e){
+            if( $fb_box_content.hasClass('state-leave') ) {
+                $fb_box_content.removeClass('state-leave');
+            }
+        });
+
+        $('.close-fb-box').on('click', function () {
+            $fb_box_content.removeClass('state-appear').addClass('state-leave');
+        });
+
+        $('.open-fb-box').on('click', function () {
+            $fb_box_content.removeClass('state-leave').addClass('state-appear');
+        });
+
     })
 
 })(jQuery, window, document, eem_object);
+
+
 
 

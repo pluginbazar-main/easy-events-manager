@@ -2,11 +2,15 @@
  * Global Styles
  */
 
+[class*="event"] *::selection {
+    color: #fff;
+    background: #E91E63;
+}
+
 a {
     outline: none;
     text-decoration: none;
     background-color: transparent;
-    -webkit-text-decoration-skip: objects;
 }
 
 p {
@@ -132,6 +136,104 @@ img {
 }
 
 .single-event .row > [class*="col-"] {
+    width: 100%;
+}
+
+
+/**
+* Event Archive
+*/
+
+/**
+* Resister form
+*/
+
+.eem-event-search {
+    position: relative;
+    z-index: 10;
+    padding: 70px 0 90px;
+    background-color: #E91E63;
+    background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
+}
+
+.eem-event-search:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -9px;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    display: block;
+    background-image: url(../../../assets/images/cta_bg.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    opacity: 0.4;
+}
+
+
+.eem-event-search-title {
+    font-size: 50px;
+    color: #fff;
+    line-height: 1.4;
+    text-align: center;
+    margin: 0 0 28px;
+}
+
+.eem-event-search .pb-row {
+    align-items: center;
+}
+
+.eem-event-search .eem-event-search-form .form-fields-wrap {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    justify-content: center;
+}
+
+.eem-event-search .eem-event-search-form .form-group {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.eem-event-search .eem-event-search-form .form-group:last-child {
+    margin-top: 30px;
+}
+
+.eem-event-search-form .form-control {
+    display: block;
+    width: 100%;
+    height: 46px;
+    padding: .375rem .75rem;
+    font-size: 14px;
+    line-height: 1;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.eem-event-search .eem-event-search-form label {
+    color: #fff;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.eem-event-search .eem-event-search-form .eem-btn {
+    height: 46px;
+    line-height: 46px;
+    padding: 0 15px;
     width: 100%;
 }
 
@@ -280,18 +382,24 @@ img {
     color: #fff;
     font-size: 18px;
     line-height: normal;
-    margin-bottom: 2px;
+    margin-bottom: 5px;
 }
 
 .eem-speaker-style-1 .speaker-designation {
     color: rgba(255, 255, 255, 0.61);
-    margin-bottom: 5px;
+    margin-bottom: 7px;
+    line-height: 1.2;
 }
 
 .eem-speaker-style-1 .speaker-social i {
     color: #fff;
     padding: 2px;
     transition: 0.3s;
+}
+
+.eem-speaker-style-1 .speaker-social > a {
+    display: inline-block;
+    margin-right: 4px;
 }
 
 .eem-speaker-style-1 .speaker-social i:hover {
@@ -317,6 +425,11 @@ img {
     line-height: 1.4;
 }
 
+.eem-tab-panel > .tab-nav .tab-nav-item::selection {
+    color: #fff;
+    background: #E91E63;
+}
+
 .eem-tab-panel > .tab-nav .tab-nav-item:last-child {
     margin-right: 0;
 }
@@ -327,6 +440,10 @@ img {
     background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
     box-shadow: 0 20px 40px -5px rgba(9, 30, 66, .3);
     transform: translateY(-4px);
+}
+
+.eem-tab-panel > .tab-nav .tab-nav-item:active {
+    transform: translateY(4px);
 }
 
 .eem-tab-panel > .tab-nav .tab-nav-item.active {
@@ -724,6 +841,7 @@ img {
     transition: 0.3s;
     margin-bottom: 30px;
     border-bottom: 4px solid #e91e63;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 }
 
 .eem-attendees-style-1 .eem-attendees-single .eem-attendees-img img {
@@ -868,7 +986,7 @@ img {
     z-index: 10;
     padding: 130px 0;
     background-color: #E91E63;
-    background-image: linear-gradient(35deg, #E91E63 11%, #5828bb 83.4%);
+    background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
 }
 
 .eem-cta-style-1:before {
@@ -1017,7 +1135,7 @@ img {
     z-index: 10;
     padding: 100px 0;
     background-color: #E91E63;
-    background-image: linear-gradient(35deg, #E91E63 11%, #5828bb 83.4%);
+    background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
 }
 
 .eem-register-style-1:before {
@@ -1127,7 +1245,7 @@ img {
     max-width: 340px;
     box-shadow: 0 20px 40px -5px rgba(9, 30, 66, .1);
     background-color: #fff;
-    transition: color 0.2s ease-in, background-color 0.5s ease, background-image 0.6s ease-in-out, box-shadow 0.5s ease ;
+    transition: color 0.2s ease-in, background-color 0.5s ease, background-image 0.6s ease-in-out, box-shadow 0.5s ease;
 }
 
 .eem-nearby-style-1 .tab-nav-item > i {
@@ -1170,7 +1288,7 @@ img {
 
 .eem-floating-box .eem-fb-content-wrap {
     position: absolute;
-    right: 69px;
+    right: 0;
     top: 0;
     min-width: 450px;
     background: #fff;
@@ -1179,7 +1297,7 @@ img {
     border-radius: 4px;
 }
 
-.eem-floating-box .eem-fb-button {
+.eem-floating-box .open-fb-box {
     width: 52px;
     height: 52px;
     line-height: 50px;
@@ -1389,4 +1507,58 @@ img {
         max-width: 100%;
         margin-bottom: 30px;
     }
+}
+
+
+.fb-modal-frame {
+    visibility: hidden;
+    transition: 0.4s;
+    opacity: 0;
+}
+
+.fb-modal-frame.state-appear {
+    animation: modalComeIn 0.5s;
+    visibility: visible;
+    opacity: 1;
+}
+
+.fb-modal-frame.state-leave {
+    animation: modalHeadOut 0.8s;
+}
+
+@keyframes modalComeIn {
+    0% {
+        visibility: hidden;
+        opacity: 0;
+        transform: scale(0.8, 0.8);
+    }
+    65.5% {
+        transform: scale(1.05, 1.05);
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes modalHeadOut {
+
+    0% {
+        visibility: visible;
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    65.5% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    100% {
+        visibility: hidden;
+        opacity: 0;
+        transform: scale(1);
+    }
+
 }

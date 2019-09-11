@@ -12,12 +12,21 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		 * EEM_Hooks constructor.
 		 */
 		function __construct() {
+			add_filter( 'archive_template', array( $this, 'display_event_archive' ) );
 			add_filter( 'single_template', array( $this, 'display_single_event' ) );
 
 			add_action( 'wp_ajax_eem_add_new_day', array( $this, 'ajax_add_new_day' ) );
 			add_action( 'wp_ajax_eem_add_new_session', array( $this, 'ajax_add_new_session' ) );
 			add_action( 'wp_ajax_eem_add_new_speaker', array( $this, 'ajax_add_new_speaker' ) );
 		}
+
+		function display_event_archive( $archive_template ) {
+
+			$archive_template = EEM_PLUGIN_DIR . 'templates/archive-event.php';
+
+			return $archive_template;
+		}
+
 
 		function display_single_event( $single_template ) {
 
