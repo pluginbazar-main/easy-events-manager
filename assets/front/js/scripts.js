@@ -34,6 +34,8 @@
             });
         }
 
+        let floating_box = $('.eem-floating-box');
+
     })
 
 })(jQuery, window, document, eem_object);

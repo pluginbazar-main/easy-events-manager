@@ -13,4 +13,6 @@ add_action( 'eem_single_event_main', 'eem_single_event_main_attendees', 35 );
 add_action( 'eem_single_event_main', 'eem_single_event_main_cta', 40 );
 add_action( 'eem_single_event_main', 'eem_single_event_main_sponsors', 45 );
 add_action( 'eem_single_event_main', 'eem_single_event_main_gallery', 50 );
-add_action( 'eem_single_event_main', 'eem_single_event_main_blog', 55 );
+add_action( 'eem_single_event_main', 'eem_single_event_main_nearby', 55 );
+add_action( 'eem_single_event_main', 'eem_single_event_main_blog', 60 );
+add_action( 'eem_single_event_main', 'eem_single_event_main_floating_box', 65 );

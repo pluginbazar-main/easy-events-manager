@@ -114,9 +114,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 			</div>
 		</div>
-
-		<div class="view-more text-center">
-			<a href="#" class="eem-btn eem-btn-large">View More Posts</a>
-		</div>
 	</div>
 </div>

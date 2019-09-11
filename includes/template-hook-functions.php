@@ -58,8 +58,20 @@ if ( ! function_exists( 'eem_single_event_main_gallery' ) ) {
 	}
 }
 
+if ( !function_exists( 'eem_single_event_main_nearby' ) ) {
+	function eem_single_event_main_nearby() {
+		eem_get_template('single-event/nearby.php' );
+	}
+}
+
 if ( ! function_exists( 'eem_single_event_main_blog' ) ) {
 	function eem_single_event_main_blog() {
 		eem_get_template( 'single-event/blog.php' );
+	}
+}
+
+if ( !function_exists( 'eem_single_event_main_floating_box' ) ) {
+	function eem_single_event_main_floating_box() {
+		eem_get_template( 'single-event/floating-box.php' );
 	}
 }
