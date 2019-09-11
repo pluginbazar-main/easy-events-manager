@@ -4,6 +4,41 @@
  */
 
 
+if( ! function_exists( 'eem_render_social_profiles' ) ) {
+	/**
+	 * Render social profiles HTML
+	 *
+	 * @param array $args
+	 * @param bool $echo
+	 *
+	 * @return string
+	 */
+	function eem_render_social_profiles( $args = array(), $echo = true ) {
+
+		$user_id       = isset( $args['user_id'] ) ? $args['user_id'] : '';
+		$user_id       = empty( $user_id ) || $user_id === 0 ? get_current_user_id() : $user_id;
+		$wrapper       = isset( $args['wrapper'] ) ? $args['wrapper'] : '';
+		$wrapper_class = isset( $args['wrapper_class'] ) ? $args['wrapper_class'] : '';
+		$profiles      = array();
+
+		foreach ( eem()->get_social_profile_platforms() as $platform_id => $platform ) {
+
+			$profile_url   = '';
+			$platform_icon = isset( $platform['icon'] ) ? $platform['icon'] : '';
+			$profiles[]    = sprintf( '<a href="%s">%s</a>', $profile_url, $platform_icon );
+		}
+
+		$profiles_html = sprintf( '<%1$s class="%2$s">%3$s</%1$s>', $wrapper, $wrapper_class, implode( '', $profiles ) );
+
+		if ( $echo ) {
+			echo $profiles_html;
+		} else {
+			return $profiles_html;
+		}
+	}
+}
+
+
 if ( ! function_exists( 'eem_get_event' ) ) {
 	/**
 	 * Return Single Event object
@@ -36,6 +71,70 @@ if ( ! function_exists( 'eem_the_event' ) ) {
 
 		if ( get_post_type( $event_id ) == 'event' && ! $event instanceof EEM_Event ) {
 			$event = new EEM_Event( $event_id );
+		}
+	}
+}
+
+
+if ( ! function_exists( 'eem_print_event_speaker' ) ) {
+	function eem_print_event_speaker( $speaker = array(), $echo = true ) {
+
+		$speaker_id     = isset( $speaker['id'] ) ? $speaker['id'] : current_time( 'timestamp' );
+		$user_id        = isset( $speaker['user_id'] ) ? $speaker['user_id'] : '';
+		$topics         = isset( $speaker['topics'] ) ? $speaker['topics'] : '';
+		$speaker_fields = array(
+			array(
+				'options' => apply_filters( 'eem_filters_speaker_fields', array(
+					array(
+						'id'      => "_event_speakers[$speaker_id][topics]",
+						'title'   => esc_html__( 'Topics', EEM_TD ),
+						'details' => esc_html__( 'Write topics on which this speaker will continue discussion.', EEM_TD ),
+						'type'    => 'textarea',
+						'value'   => $topics,
+					),
+				), $speaker ),
+			)
+		);
+
+		?>
+
+        <div class="eem-repeat-single">
+            <div class="eem-repeat-head">
+
+				<?php eem()->PB()->generate_select(
+					array(
+						'id'      => "_event_speakers[$speaker_id][user_id]",
+						'title'   => esc_html__( 'Topics', EEM_TD ),
+						'details' => esc_html__( 'Write topics on which this speaker will continue discussion.', EEM_TD ),
+						'type'    => 'select2',
+						'args'    => 'USERS',
+						'value'   => $user_id,
+					)
+				); ?>
+
+                <script>
+                    (function ($) {
+                        $(function () {
+                            $('#_event_speakers_<?php echo esc_html( $speaker_id ); ?>__user_id_').niceSelect();
+                        });
+                    })(jQuery);
+                </script>
+
+                <div class="eem-head-button eem-repeat-close"><i class="icofont-close"></i></div>
+                <div class="eem-head-button eem-repeat-sort"><i class="icofont-drag1"></i></div>
+                <div class="eem-head-button eem-repeat-toggle"><i class="icofont-curved-down"></i></div>
+            </div>
+            <div class="eem-repeat-content">
+				<?php eem()->PB()->generate_fields( $speaker_fields ); ?>
+            </div>
+        </div>
+
+
+		<?php
+		if ( $echo ) {
+			print ob_get_clean();
+		} else {
+			return ob_get_clean();
 		}
 	}
 }

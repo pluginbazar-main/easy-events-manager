@@ -5,9 +5,12 @@
 (function ($, window, document, pluginObject) {
     "use strict";
 
+
     $(document).ready(function () {
 
-        var gallery_zoom = $('.gallery-zoon-icon');
+        $('.single-event select').niceSelect();
+
+        let gallery_zoom = $('.gallery-zoon-icon');
 
         // Magnific Popup
         if ( gallery_zoom.length ) {
@@ -33,9 +36,8 @@
 
             });
         }
-
+        
         let floating_box = $('.eem-floating-box');
-
     })
 
 })(jQuery, window, document, eem_object);

@@ -11,6 +11,21 @@ if ( ! class_exists( 'EEM_Event' ) ) {
 		}
 
 
+		function get_speakers() {
+
+			$speakers = $this->get_meta( '_event_speakers', array() );
+
+			foreach ( $speakers as $speaker_id => $speaker ) {
+				if( ! isset( $speaker['user_id'] ) || empty( $speaker['user_id'] ) ) {
+					unset( $speakers[$speaker_id] );
+				}
+			}
+
+
+			return apply_filters( 'eem_filters_event_speakers', $speakers );
+		}
+
+
 		/**
 		 * Return Schedules of this event
 		 *
