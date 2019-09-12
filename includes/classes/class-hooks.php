@@ -12,6 +12,9 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		 * EEM_Hooks constructor.
 		 */
 		function __construct() {
+
+			add_action( 'init', array( $this, 'register_post_types' ) );
+
 			add_filter( 'archive_template', array( $this, 'display_event_archive' ) );
 			add_filter( 'single_template', array( $this, 'display_single_event' ) );
 
@@ -20,9 +23,18 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			add_action( 'wp_ajax_eem_add_new_speaker', array( $this, 'ajax_add_new_speaker' ) );
 		}
 
+		/**
+		 * Display Archive template for Event
+		 *
+		 * @param $archive_template
+		 *
+		 * @return string
+		 */
 		function display_event_archive( $archive_template ) {
 
-			$archive_template = EEM_PLUGIN_DIR . 'templates/archive-event.php';
+			if ( is_post_type_archive( 'event' ) ) {
+				$archive_template = EEM_PLUGIN_DIR . 'templates/archive-event.php';
+			}
 
 			return $archive_template;
 		}
@@ -68,6 +80,24 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 					'index' => $index_id,
 				), false ),
 			) );
+		}
+
+
+		/**
+		 * Register Post types
+		 */
+		function register_post_types() {
+
+			eem()->PB()->register_post_type( 'event', array(
+				'singular'      => esc_html__( 'Event', EEM_TD ),
+				'plural'        => esc_html__( 'All Events', EEM_TD ),
+				'menu_icon'     => 'dashicons-nametag',
+				'has_archive'   => true,
+				'menu_position' => 15,
+				'supports'      => array( 'title', 'thumbnail' ),
+			) );
+
+			do_action( 'eem_register_post_types', $this );
 		}
 	}
 
