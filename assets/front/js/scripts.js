@@ -8,7 +8,7 @@
 
     $(document).ready(function () {
 
-        $('.single-event select').niceSelect();
+        $('.single-event select, .post-type-archive-event select').niceSelect();
 
         var gallery_zoom = $('.gallery-zoon-icon');
 
@@ -37,6 +37,7 @@
             });
         }
 
+        // Floating Box
         var $fb_box_content = $('.eem-fb-content-wrap');
 
         $fb_box_content.bind('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(e){
@@ -51,6 +52,13 @@
 
         $('.open-fb-box').on('click', function () {
             $fb_box_content.removeClass('state-leave').addClass('state-appear');
+        });
+
+        // Advance Search Toggle
+        var $search_expand_btn = $('.eem-fields-expand-btn');
+
+        $search_expand_btn.on( 'click', function () {
+            $search_expand_btn.parent().parent().find('.advanced-field').slideToggle();
         });
 
     })

@@ -44,10 +44,11 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 					'args'  => 'TAX_%event_cat%',
 				),
 				array(
-					'id'    => 'sf_date',
-					'title' => esc_html__( 'Date', EEM_TD ),
-					'type'  => 'datepicker',
-					'class' => 'advanced-field',
+					'id'          => 'sf_date',
+					'title'       => esc_html__( 'Date', EEM_TD ),
+					'placeholder' => esc_html__( 'Select Date', EEM_TD ),
+					'type'        => 'datepicker',
+					'class'       => 'advanced-field',
 				),
 				array(
 					'id'    => 'sf_status',
