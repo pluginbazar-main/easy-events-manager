@@ -13,7 +13,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		 */
 		function __construct() {
 
-			add_action( 'init', array( $this, 'register_post_types' ) );
+			add_action( 'init', array( $this, 'register_post_types_taxs' ) );
 
 			add_filter( 'archive_template', array( $this, 'display_event_archive' ) );
 			add_filter( 'single_template', array( $this, 'display_single_event' ) );
@@ -84,9 +84,9 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 
 
 		/**
-		 * Register Post types
+		 * Register Post types and taxonomies
 		 */
-		function register_post_types() {
+		function register_post_types_taxs() {
 
 			eem()->PB()->register_post_type( 'event', array(
 				'singular'      => esc_html__( 'Event', EEM_TD ),
@@ -97,7 +97,12 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 				'supports'      => array( 'title', 'thumbnail' ),
 			) );
 
-			do_action( 'eem_register_post_types', $this );
+			eem()->PB()->register_taxonomy( 'event_cat', 'event', array(
+				'singular' => esc_html__( 'Event Category', EEM_TD ),
+				'plural'   => esc_html__( 'Event Categories', EEM_TD ),
+			) );
+
+			do_action( 'eem_register_post_types_taxs', $this );
 		}
 	}
 
