@@ -3,7 +3,6 @@
  * EEM - Functions
  */
 
-
 if( ! function_exists( 'eem_render_social_profiles' ) ) {
 	/**
 	 * Render social profiles HTML

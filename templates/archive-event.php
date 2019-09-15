@@ -42,7 +42,8 @@ get_header();
                     <div class="eem-event-single">
                         <div class="image-wrap">
                             <a href="#">
-                                <img src="https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/event-5.jpg" alt="Event Image">
+                                <img src="https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/event-5.jpg"
+                                     alt="Event Image">
                             </a>
 
                             <span class="eem-event-status">Upcoming</span>
@@ -61,7 +62,8 @@ get_header();
                                 </span>
                             </div>
                             <div class="event-desc">
-                                <p>Itaque minima molestiae nesciunt nihil quia quo reprehenderit suscipit temporibus ullam ut voluptas!</p>
+                                <p>Itaque minima molestiae nesciunt nihil quia quo reprehenderit suscipit temporibus
+                                    ullam ut voluptas!</p>
                             </div>
                             <a href="#" class="eem-btn read-more">View Details</a>
                         </div>
@@ -71,7 +73,8 @@ get_header();
                     <div class="eem-event-single">
                         <div class="image-wrap">
                             <a href="#">
-                                <img src="https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/event-2.jpg" alt="Event Image">
+                                <img src="https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/event-2.jpg"
+                                     alt="Event Image">
                             </a>
 
                             <span class="eem-event-status">Completed</span>
@@ -90,7 +93,8 @@ get_header();
                                 </span>
                             </div>
                             <div class="event-desc">
-                                <p>Itaque minima molestiae nesciunt nihil quia quo reprehenderit suscipit temporibus ullam ut voluptas!</p>
+                                <p>Itaque minima molestiae nesciunt nihil quia quo reprehenderit suscipit temporibus
+                                    ullam ut voluptas!</p>
                             </div>
                             <a href="#" class="eem-btn read-more">View Details</a>
                         </div>
@@ -100,7 +104,8 @@ get_header();
                     <div class="eem-event-single">
                         <div class="image-wrap">
                             <a href="#">
-                                <img src="https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/event-3.jpg" alt="Event Image">
+                                <img src="https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/event-3.jpg"
+                                     alt="Event Image">
                             </a>
 
                             <span class="eem-event-status">Upcoming</span>
@@ -119,7 +124,8 @@ get_header();
                                 </span>
                             </div>
                             <div class="event-desc">
-                                <p>Itaque minima molestiae nesciunt nihil quia quo reprehenderit suscipit temporibus ullam ut voluptas!</p>
+                                <p>Itaque minima molestiae nesciunt nihil quia quo reprehenderit suscipit temporibus
+                                    ullam ut voluptas!</p>
                             </div>
                             <a href="#" class="eem-btn read-more">View Details</a>
                         </div>
@@ -129,7 +135,8 @@ get_header();
                     <div class="eem-event-single">
                         <div class="image-wrap">
                             <a href="#">
-                                <img src="https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/event-4.jpg" alt="Event Image">
+                                <img src="https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/event-4.jpg"
+                                     alt="Event Image">
                             </a>
 
                             <span class="eem-event-status">Completed</span>
@@ -148,7 +155,8 @@ get_header();
                                 </span>
                             </div>
                             <div class="event-desc">
-                                <p>Itaque minima molestiae nesciunt nihil quia quo reprehenderit suscipit temporibus ullam ut voluptas!</p>
+                                <p>Itaque minima molestiae nesciunt nihil quia quo reprehenderit suscipit temporibus
+                                    ullam ut voluptas!</p>
                             </div>
                             <a href="#" class="eem-btn read-more">View Details</a>
                         </div>
@@ -157,13 +165,18 @@ get_header();
 
             </div>
 
-            <div class="view-more eem-event-load-more text-center">
-                <a href="#" class="eem-btn eem-btn-large">Load More <i class="icofont-spinner"></i></a>
+            <div class="eem-pagination paginate">
+                <a class="prev page-numbers" href="#">Previous</a>
+                <span aria-current="page" class="page-numbers current">1</span>
+                <a class="page-numbers" href="#">2</a>
+                <a class="page-numbers" href="#">3</a>
+                <span class="page-numbers dots">…</span>
+                <a class="page-numbers" href="#">5</a>
+                <a class="next page-numbers" href="#">Next</a>
             </div>
 
         </div>
     </div>
-
 
 <?php
 get_footer();
