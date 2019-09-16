@@ -1434,7 +1434,7 @@ img {
     padding: 20px 17px;
     line-height: 1;
     text-align: center;
-    background-color: #e91e63;
+    background-color: #010a42;
     color: rgba(255, 255, 255, 0.8);
     min-width: 162px;
     display: inline-block;
@@ -1445,8 +1445,7 @@ img {
 
 .eem-cta-style-1 .eem-cta-button > a:hover,
 .eem-cta-style-1 .eem-cta-button > a:focus {
-    box-shadow: 0 10px 30px #131313;
-    background-color: #7037b6;
+    box-shadow: 0 0 20px 0px #131313bd;
 }
 
 

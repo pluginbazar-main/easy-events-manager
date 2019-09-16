@@ -3,16 +3,18 @@
  * Template hooks
  */
 
+add_action( 'init', function () {
+	echo '<pre>'; print_r( array_keys( eem()->get_template_sections() ) ); echo '</pre>';
 
-add_action( 'eem_single_event_main', 'eem_single_event_main_banner', 10 );
-add_action( 'eem_single_event_main', 'eem_single_event_main_speakers', 15 );
-add_action( 'eem_single_event_main', 'eem_single_event_main_schedules', 20 );
-add_action( 'eem_single_event_main', 'eem_single_event_main_pricing', 25 );
-add_action( 'eem_single_event_main', 'eem_single_event_main_register', 30 );
-add_action( 'eem_single_event_main', 'eem_single_event_main_attendees', 35 );
-add_action( 'eem_single_event_main', 'eem_single_event_main_cta', 40 );
-add_action( 'eem_single_event_main', 'eem_single_event_main_sponsors', 45 );
-add_action( 'eem_single_event_main', 'eem_single_event_main_gallery', 50 );
-add_action( 'eem_single_event_main', 'eem_single_event_main_nearby', 55 );
-add_action( 'eem_single_event_main', 'eem_single_event_main_blog', 60 );
+	foreach ( eem()->get_template_sections() as $section_id => $section ) {
+		if ( isset( $section['priority'] ) && ! empty( $section['priority'] ) ) {
+			add_action( 'eem_single_event_main', sprintf( 'eem_single_event_main_%s', $section_id ), $section['priority'] );
+		}
+	}
+} );
+
+
 add_action( 'eem_single_event_main', 'eem_single_event_main_floating_box', 65 );
+
+
+

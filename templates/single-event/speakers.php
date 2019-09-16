@@ -10,7 +10,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $event;
+global $event, $template_section;
+
+//echo '<pre>'; print_r( $template_section ); echo '</pre>';
+
 
 ?>
 <div class="eem-event-section eem-speaker-style-1 eem-spacer bg-white eem-force-full-width">

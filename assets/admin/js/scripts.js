@@ -10,11 +10,45 @@
      */
     $(document).on('ready', function () {
 
-        $('.eem-speakers .eem-repeat-head select').niceSelect();
+        $('.eem-speakers .eem-repeat-head select, .nice-select-wrap select').niceSelect();
 
         $(".eem-repeat-container").sortable({
             handle: ".eem-repeat-sort",
             revert: true
+        });
+    });
+
+
+    /**
+     * Change label of days
+     */
+    $(document).on('click', '.eem-sections-available .eem-section', function (e) {
+
+        let thisSection = $(this),
+            sectionID = thisSection.data('section-id'),
+            selectedSections = $('.eem-templates-builder .eem-sections-selected');
+
+        if (thisSection.hasClass('selected')) {
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: pluginObject.ajaxurl,
+            context: this,
+            data: {
+                'action': 'eem_add_section',
+                'section_id': sectionID,
+            },
+            success: function (response) {
+
+                console.log( response );
+
+                if (response.success) {
+                    $(response.data).appendTo(selectedSections).hide().slideDown();
+                    thisSection.addClass('selected');
+                }
+            }
         });
     });
 
@@ -41,8 +75,6 @@
     });
 
 
-
-
     $(document).on('click', '.eem-add-speaker', function () {
 
         $.ajax({
@@ -60,7 +92,7 @@
                 }
             }
         });
-    } );
+    });
 
 
     $(document).on('click', '.eem-add-session', function () {

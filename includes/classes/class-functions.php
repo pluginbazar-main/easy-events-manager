@@ -13,12 +13,205 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'EEM_Functions' ) ) {
 	class EEM_Functions {
 
+
 		/**
 		 * EEM_Functions constructor.
 		 */
 		function __construct() {
 
+		}
 
+
+		/**
+		 * Return array of custom endpoints
+		 *
+		 * @return mixed|void
+		 */
+		function get_custom_endpoints() {
+			return apply_filters( 'eem_filters_endpoints', array(
+				'tickets',
+				'sponsors',
+				'speakers',
+				'schedules',
+				'register',
+				'attendees',
+				'gallery',
+				'news'
+			) );
+		}
+
+		/**
+		 * Return template sections
+		 *
+		 * @return mixed|void
+		 */
+		function get_template_sections() {
+
+			$common_fields = array(
+				array(
+					'id'      => "sub_heading",
+					'title'   => esc_html__( 'Sub heading', EEM_TD ),
+					'details' => esc_html__( 'Set section sub heading', EEM_TD ),
+					'type'    => 'text',
+				),
+				array(
+					'id'      => "heading",
+					'title'   => esc_html__( 'Heading', EEM_TD ),
+					'details' => esc_html__( 'Set section heading', EEM_TD ),
+					'type'    => 'text',
+				),
+				array(
+					'id'      => "short_desc",
+					'title'   => esc_html__( 'Short Description', EEM_TD ),
+					'details' => esc_html__( 'Set short description for this section', EEM_TD ),
+					'type'    => 'textarea',
+					'rows'    => 2,
+				),
+			);
+
+			$sections = array(
+				'banner'    => array(
+					'label'    => esc_html__( 'Banner', EEM_TD ),
+					'priority' => 10,
+					'fields'   => array(
+						array(
+							'id'      => "bg_image",
+							'title'   => esc_html__( 'Background Image', EEM_TD ),
+							'details' => esc_html__( 'Set background image for this section', EEM_TD ),
+							'type'    => 'media',
+						),
+						array(
+							'id'   => "button",
+							'type' => 'checkbox',
+							'args' => array(
+								'yes' => esc_html__( 'Disable ticket button', EEM_TD ),
+							),
+						),
+					),
+				),
+				'speakers'  => array(
+					'label'    => esc_html__( 'Speakers', EEM_TD ),
+					'priority' => 15,
+					'fields'   => array_merge( $common_fields, array(
+						array(
+							'id'      => "count",
+							'title'   => esc_html__( 'Speaker count', EEM_TD ),
+							'details' => esc_html__( 'How many speakers you want to display in this section. Default: 4', EEM_TD ),
+							'type'    => 'number',
+						),
+						array(
+							'id'   => "button",
+							'type' => 'checkbox',
+							'args' => array(
+								'yes' => esc_html__( 'Disable all speakers button', EEM_TD ),
+							),
+						),
+					) ),
+				),
+				'schedules' => array(
+					'label'    => esc_html__( 'Schedules', EEM_TD ),
+					'priority' => 20,
+					'fields'   => $common_fields,
+				),
+				'tickets'   => array(
+					'label'    => esc_html__( 'Pricing', EEM_TD ),
+					'priority' => 25,
+					'fields'   => $common_fields,
+				),
+				'register'  => array(
+					'label'    => esc_html__( 'CTA - Register', EEM_TD ),
+					'priority' => 30,
+					'fields'   => array_merge( $common_fields, array(
+						array(
+							'id'   => "button",
+							'type' => 'checkbox',
+							'args' => array(
+								'yes' => esc_html__( 'Disable volunteer join button', EEM_TD ),
+							),
+						),
+						array(
+							'id'      => "button_url",
+							'title'   => esc_html__( 'Button URL', EEM_TD ),
+							'details' => esc_html__( 'Where the users will redirect with this volunteer join button', EEM_TD ),
+							'type'    => 'text',
+						),
+					) ),
+				),
+				'attendees' => array(
+					'label'    => esc_html__( 'Attendees', EEM_TD ),
+					'priority' => 35,
+					'fields'   => array_merge( $common_fields, array(
+						array(
+							'id'      => "count",
+							'title'   => esc_html__( 'Attendees count', EEM_TD ),
+							'details' => esc_html__( 'How many attendees you want to display in this section. Default: 8', EEM_TD ),
+							'type'    => 'number',
+						),
+						array(
+							'id'   => "button",
+							'type' => 'checkbox',
+							'args' => array(
+								'yes' => esc_html__( 'Disable all attendees button', EEM_TD ),
+							),
+						),
+					) ),
+				),
+				'cta'       => array(
+					'label'    => esc_html__( 'CTA - Tickets', EEM_TD ),
+					'priority' => 40,
+					'fields'   => $common_fields
+				),
+				'sponsors'  => array(
+					'label'    => esc_html__( 'Sponsors', EEM_TD ),
+					'priority' => 45,
+					'fields'   => $common_fields
+				),
+				'gallery'   => array(
+					'label'    => esc_html__( 'Gallery', EEM_TD ),
+					'priority' => 50,
+					'fields'   => array_merge( $common_fields, array(
+						array(
+							'id'      => "count",
+							'title'   => esc_html__( 'Photos count', EEM_TD ),
+							'details' => esc_html__( 'How many photos you want to display in this section. Default: 8', EEM_TD ),
+							'type'    => 'number',
+						),
+						array(
+							'id'   => "button",
+							'type' => 'checkbox',
+							'args' => array(
+								'yes' => esc_html__( 'Disable all photos button', EEM_TD ),
+							),
+						),
+					) ),
+				),
+				'nearby'    => array(
+					'label'    => esc_html__( 'Exploring Nearby', EEM_TD ),
+					'priority' => 55,
+					'fields'   => $common_fields
+				),
+				'news'      => array(
+					'label'    => esc_html__( 'News/Blog', EEM_TD ),
+					'priority' => 60,
+					'fields'   => array_merge( $common_fields, array(
+						array(
+							'id'      => "count",
+							'title'   => esc_html__( 'Posts count', EEM_TD ),
+							'details' => esc_html__( 'How many posts you want to display in this section. Default: 8', EEM_TD ),
+							'type'    => 'number',
+						),
+						array(
+							'id'   => "button",
+							'type' => 'checkbox',
+							'args' => array(
+								'yes' => esc_html__( 'Disable all posts button', EEM_TD ),
+							),
+						),
+					) ),
+				),
+			);
+
+			return apply_filters( 'eem_filters_eem_template_sections', $sections );
 		}
 
 

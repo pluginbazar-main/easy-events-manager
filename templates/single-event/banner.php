@@ -10,27 +10,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+global $event, $template_section;
+
+$button    = $template_section && isset( $template_section['button'] ) && is_array( $template_section['button'] ) ? reset( $template_section['button'] ) : '';
+$bg_image  = $template_section && isset( $template_section['bg_image'] ) ? $template_section['bg_image'] : '';
+$bg_image  = wp_get_attachment_image_url( $bg_image, 'full' );
+$bg_image  = empty( $bg_image ) ? '' : sprintf( 'style="background-image: url(\'%s\')"', $bg_image );
 $unique_id = uniqid();
 
 ?>
-<div class="eem-event-section eem-force-full-width eem-banner-style-1"
-     style="background-image: url(http://smart.commonsupport.com/miexpo/wp-content/uploads/2019/07/1-1.jpg)">
+<div class="eem-event-section eem-force-full-width eem-banner-style-1" <?php echo $bg_image; ?>>
     <div class="pb-container">
         <div class="eem-banner-wrap">
-            <h3 class="eem-banner-sub-title">International Convention City Bashundhara, Dhaka</h3>
-            <h1 class="eem-banner-title">Welcome to WordCamp Dhaka 2019</h1>
+            <h3 class="eem-banner-sub-title"><?php echo esc_html( $event->get_location() ); ?></h3>
+            <h1 class="eem-banner-title"><?php echo esc_html( $event->get_name() ); ?></h1>
 
             <div id="eem-countdown-timer-<?php echo esc_attr( $unique_id ); ?>" class="eem-countdown-timer"></div>
 
             <script>
-
-
                 (function ($, window, document) {
                     "use strict";
 
                     (function updateTime() {
 
-                        var countDownDate = new Date(new Date('Sep 20, 2020').toString()).getTime(),
+                        var countDownDate = new Date(new Date('<?php echo $event->get_event_datetime( 'start', 'M d, Y H:i' ); ?>').toString()).getTime(),
                             now = new Date().getTime(),
                             distance = countDownDate - now,
                             days = 0, hours = 0, minutes = 0, seconds = 0;
@@ -61,7 +64,13 @@ $unique_id = uniqid();
 
             </script>
 
-            <a href="#" class="eem-btn eem-btn-large">Buy Ticket</a>
+			<?php if ( $button !== 'yes' ) : ?>
+                <div class="banner-ticket">
+                    <a href="<?php echo esc_url( $event->get_endpoint_url( 'tickets' ) ); ?>"
+                       class="eem-btn eem-btn-large"><?php esc_html_e( 'Buy Ticket', EEM_TD ); ?></a>
+                    <span class="tickets-available">100 Tickets available</span>
+                </div>
+			<?php endif; ?>
         </div>
     </div>
 </div>

@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+global $event;
+
 ?>
 <div class="eem-event-section eem-blog-style-1 eem-force-full-width eem-spacer">
 	<div class="pb-container">

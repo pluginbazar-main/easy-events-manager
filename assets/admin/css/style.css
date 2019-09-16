@@ -150,6 +150,10 @@
     border-bottom-right-radius: 3px;
 }
 
+.event-location-field .wps-field-inputs input[type="text"] {
+    width: 100%;
+}
+
 /**
  * eem-side-nav-container
  */
@@ -215,3 +219,62 @@
     border-color: #b59d62;
 }
 
+/**
+ * Template Meta box
+ */
+
+#template_meta_box .handlediv,
+#template_meta_box .hndle.ui-sortable-handle {
+    display: none !important;
+}
+
+.eem-cta-style-1 .eem-cta-button > a
+#template_meta_box .inside {
+    margin: 0 !important;
+    padding: 10px 20px;
+}
+
+.eem-templates-builder {
+    padding: 12px 0;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.eem-templates-builder > div > h3 {
+    margin-top: 0;
+}
+
+.eem-templates-builder .eem-sections-selected {
+    width: 75%;
+}
+
+.eem-templates-builder .eem-sections-available {
+    width: 25%;
+    min-width: 120px;
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.eem-templates-builder .eem-sections-available .eem-section {
+    background: #e91e63c9;
+    color: #fff;
+    margin: 0 15px 20px 0;
+    font-size: 16px;
+    padding: 17px;
+    border-radius: 3px;
+    vertical-align: bottom;
+    cursor: pointer;
+    transition: 0.3s;
+    width: calc(100% - 54px);
+    display: inline-flex;
+}
+
+.eem-templates-builder .eem-sections-available .eem-section:hover {
+    background: #9c27b0c9;
+}
+
+.eem-templates-builder span.section-label {
+    font-size: 15px;
+    line-height: 32px;
+}

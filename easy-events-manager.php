@@ -57,6 +57,7 @@ class EasyEventsManager {
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-hooks.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-event.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-event-meta.php' );
+		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-template-meta.php' );
 
 		require_once( EEM_PLUGIN_DIR . 'includes/functions.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/template-hooks.php' );
@@ -89,6 +90,7 @@ class EasyEventsManager {
 	 */
 	function load_admin_scripts() {
 
+		wp_enqueue_media();
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'eem_admin_js', plugins_url( '/assets/admin/js/scripts.js', __FILE__ ), array( 'jquery' ) );
 		wp_localize_script( 'eem_admin_js', 'eem_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
@@ -97,7 +99,7 @@ class EasyEventsManager {
 		wp_enqueue_style( 'niceselect', EEM_PLUGIN_URL . 'assets/nice-select.css' );
 		wp_enqueue_style( 'icofont', EEM_PLUGIN_URL . 'assets/fonts/icofont.min.css' );
 		wp_enqueue_style( 'eem_tool_tip', EEM_PLUGIN_URL . 'assets/tool-tip.min.css' );
-		wp_enqueue_style( 'eem_admin_style', EEM_PLUGIN_URL . 'assets/admin/css/style.css', false, time() );
+		wp_enqueue_style( 'eem_admin_style', EEM_PLUGIN_URL . 'assets/admin/css/style.css' );
 	}
 
 

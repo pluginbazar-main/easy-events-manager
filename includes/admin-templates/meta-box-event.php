@@ -14,19 +14,19 @@ $event = eem_get_event();
 <div class="eem-tab-panel">
 
     <div class="tab-nav">
-        <div class="tab-nav-item" data-target="general-info"><?php esc_html_e( 'General Info', EEM_TD ); ?></div>
-        <div class="tab-nav-item active" data-target="speakers"><?php esc_html_e( 'Speakers', EEM_TD ); ?></div>
+        <div class="tab-nav-item active" data-target="general-info"><?php esc_html_e( 'General Info', EEM_TD ); ?></div>
+        <div class="tab-nav-item" data-target="speakers"><?php esc_html_e( 'Speakers', EEM_TD ); ?></div>
         <div class="tab-nav-item" data-target="schedules"><?php esc_html_e( 'Schedules', EEM_TD ); ?></div>
         <div class="tab-nav-item" data-target="guests"><?php esc_html_e( 'Guests', EEM_TD ); ?></div>
     </div>
 
     <div class="tab-content">
 
-        <div class="tab-item-content general-info">
+        <div class="tab-item-content general-info active">
 			<?php eem()->PB()->generate_fields( $this->get_meta_fields( 'general-info' ), $post->ID ); ?>
         </div>
 
-        <div class="tab-item-content speakers active">
+        <div class="tab-item-content speakers">
 
             <div class="button eem-add-speaker"><?php esc_html_e( 'Add Speaker', EEM_TD ); ?></div>
 

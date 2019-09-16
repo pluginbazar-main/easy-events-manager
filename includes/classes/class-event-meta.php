@@ -55,7 +55,9 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 			update_post_meta( $post_id, '_event_schedules', $_event_schedules );
 			update_post_meta( $post_id, '_event_speakers', $_event_speakers );
 
-			echo '<pre>'; print_r( $_event_speakers ); echo '</pre>';
+			echo '<pre>';
+			print_r( $_event_speakers );
+			echo '</pre>';
 
 
 //			die();
@@ -132,6 +134,14 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 			return apply_filters( 'eem_filters_event_meta_fields', array(
 
 				array(
+					'id'      => '_event_template',
+					'title'   => esc_html__( 'Event Template', EEM_TD ),
+					'type'    => 'select',
+					'class'   => 'nice-select-wrap',
+					'args'    => 'POSTS_%event_template%',
+				),
+
+				array(
 					'id'            => 'content',
 					'title'         => esc_html__( 'Event Description', EEM_TD ),
 					'details'       => esc_html__( 'Write some details about this Event', EEM_TD ),
@@ -186,6 +196,16 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 						'dynamic'  => true,
 					),
 				),
+
+				array(
+					'id'          => '_event_location',
+					'details'     => esc_html__( 'Add your event location.', EEM_TD ),
+					'type'        => 'text',
+					'class'       => 'event-location-field',
+					'placeholder' => esc_html( 'International Convention City Bashundhara, Dhaka' ),
+				),
+
+
 			) );
 		}
 	}

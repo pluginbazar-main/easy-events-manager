@@ -3,7 +3,63 @@
  * EEM - Functions
  */
 
-if( ! function_exists( 'eem_render_social_profiles' ) ) {
+
+
+if( ! function_exists( 'eem_set_template_section' ) ) {
+	/**
+	 * Set current template section
+	 *
+	 * @param string $this_section_id
+	 */
+	function eem_set_template_section( $this_section_id = '' ) {
+
+		global $event, $template_section;
+
+		if ( empty( $this_section_id ) || ! $event instanceof EEM_Event ) {
+			return;
+		}
+
+		if ( empty( $_sections = eem()->get_meta( '_sections', $event->get_template_id(), array() ) ) ) {
+			return;
+		}
+
+		$template_section = isset( $_sections[ $this_section_id ] ) ? $_sections[ $this_section_id ] : array();
+	}
+}
+
+
+if ( ! function_exists( 'eem_is_event_endpoint' ) ) {
+	function eem_is_event_endpoint() {
+
+		$current_endpoint = eem_get_current_endpoint();
+
+		if ( empty( $current_endpoint ) ) {
+			return false;
+		}
+
+		return true;
+	}
+}
+
+
+if ( ! function_exists( 'eem_get_current_endpoint' ) ) {
+	function eem_get_current_endpoint() {
+
+		global $wp_query;
+
+		$current_endpoint = '';
+		foreach ( eem()->get_custom_endpoints() as $endpoint ) {
+			if ( isset( $wp_query->query_vars[ $endpoint ] ) ) {
+				$current_endpoint = $endpoint;
+			}
+		}
+
+		return $current_endpoint;
+	}
+}
+
+
+if ( ! function_exists( 'eem_render_social_profiles' ) ) {
 	/**
 	 * Render social profiles HTML
 	 *
@@ -70,6 +126,63 @@ if ( ! function_exists( 'eem_the_event' ) ) {
 
 		if ( get_post_type( $event_id ) == 'event' && ! $event instanceof EEM_Event ) {
 			$event = new EEM_Event( $event_id );
+		}
+	}
+}
+
+
+if ( ! function_exists( 'eem_print_template_section' ) ) {
+	function eem_print_template_section( $section = array(), $echo = true ) {
+
+		$section_id         = isset( $section['section_id'] ) ? $section['section_id'] : '';
+		$section_value      = isset( $section['value'] ) ? $section['value'] : array();
+		$template_sections  = eem()->get_template_sections();
+		$this_section       = isset( $template_sections[ $section_id ] ) ? $template_sections[ $section_id ] : array();
+		$this_section_label = isset( $this_section['label'] ) ? $this_section['label'] : '';
+
+		if ( empty( $this_section ) ) {
+			return new WP_Error( 'not_found', esc_html__( 'Section not found !', EEM_TD ) );
+		}
+
+		$section_fields = isset( $this_section['fields'] ) ? $this_section['fields'] : array();
+		$section_fields = empty( $section_fields ) ? array() : $section_fields;
+
+		foreach ( $section_fields as $index => $field ) {
+			if ( isset( $field['id'] ) && ! empty( $field['id'] ) ) {
+
+				$section_fields[ $index ]['id'] = sprintf( '_sections[%s][%s]', $section_id, $field['id'] );
+
+				if ( isset( $section_value[ $field['id'] ] ) ) {
+					$section_fields[ $index ]['value'] = $section_value[ $field['id'] ];
+				}
+			}
+		}
+
+		ob_start();
+
+		if ( empty( $section_fields ) ) {
+			printf( '<input type="hidden" name="_sections[%s]">', $section_id );
+		}
+
+		?>
+
+        <div class="eem-repeat-single eem-section">
+            <div class="eem-repeat-head">
+                <span class="section-label"><?php echo esc_html( $this_section_label ); ?></span>
+                <div class="eem-head-button eem-repeat-close"><i class="icofont-close"></i></div>
+                <div class="eem-head-button eem-repeat-sort"><i class="icofont-drag1"></i></div>
+                <div class="eem-head-button eem-repeat-toggle"><i class="icofont-curved-down"></i></div>
+            </div>
+            <div class="eem-repeat-content">
+				<?php eem()->PB()->generate_fields( array( array( 'options' => $section_fields ) ) ); ?>
+            </div>
+        </div>
+
+		<?php
+		if ( $echo ) {
+			print ob_get_clean();
+		} else {
+			return ob_get_clean();
 		}
 	}
 }
