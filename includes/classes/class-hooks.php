@@ -20,7 +20,6 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 
 			add_filter( 'archive_template', array( $this, 'display_event_archive' ) );
 			add_filter( 'single_template', array( $this, 'display_single_event' ) );
-			add_filter( 'eem_filters_eem_template_sections', array( $this, 'manage_template_sections' ) );
 
 			add_action( 'wp_ajax_eem_add_new_day', array( $this, 'ajax_add_new_day' ) );
 			add_action( 'wp_ajax_eem_add_new_session', array( $this, 'ajax_add_new_session' ) );
@@ -62,24 +61,6 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			return $archive_template;
 		}
 
-		function manage_template_sections( $sections ) {
-
-			echo '<pre>'; print_r( 'ok' ); echo '</pre>';
-
-			$event = eem_get_event();
-
-			if ( ! $event instanceof EEM_Event ) {
-				return $sections;
-			}
-
-			$priority = 1000;
-			foreach ( eem()->get_meta( '_sections', $event->get_template_id(), array() ) as $section_id => $section ) {
-				$sections[ $section_id ]['priority'] = $priority --;
-			}
-
-//			return $sections;
-		}
-
 
 		function display_single_event( $single_template ) {
 
@@ -96,10 +77,12 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 
 			if ( ! empty( $_sections ) ) {
 				foreach ( eem()->get_template_sections() as $section_id => $section ) {
-					if ( isset( $section['priority'] ) && ! empty( $section['priority'] ) && ! in_array( $section_id, $_sections ) ) {
-						remove_action( 'eem_single_event_main', sprintf( 'eem_single_event_main_%s', $section_id ), $section['priority'] );
-					}
+					remove_action( 'eem_single_event_main', sprintf( 'eem_single_event_main_%s', $section_id ), $section['priority'] );
 				}
+			}
+
+			foreach ( $_sections as $index => $section_id ) {
+				add_action( 'eem_single_event_main', sprintf( 'eem_single_event_main_%s', $section_id ), 100 + $index );
 			}
 
 			return $single_template;
