@@ -4,41 +4,126 @@
  */
 
 
-function eem_print_event_section_heading() {
-
-	global $template_section, $template_section_id;
-
-	$html        = array();
-	$sub_heading = $template_section && isset( $template_section['sub_heading'] ) ? $template_section['sub_heading'] : '';
-	$heading     = $template_section && isset( $template_section['heading'] ) ? $template_section['heading'] : '';
-	$short_desc  = $template_section && isset( $template_section['short_desc'] ) ? $template_section['short_desc'] : '';
-	$button      = $template_section && isset( $template_section['button'] ) ? $template_section['button'] : array();
-	$button_url  = $template_section && isset( $template_section['button_url'] ) ? $template_section['button_url'] : '';
-
-	if ( ! empty( $sub_heading ) ) {
-		$html[] = sprintf( '<h6 class="eem-sh-tagline">%s</h6>', $sub_heading );
-	}
-
-	if ( ! empty( $heading ) ) {
-		$html[] = sprintf( '<h2 class="eem-sh-title">%s</h2>', $heading );
-	}
-
-	if ( ! empty( $short_desc ) ) {
-		$html[] = sprintf( '<h5 class="eem-sh-subtitle">%s</h5>', $short_desc );
-	}
-
+if ( ! function_exists( 'eem_print_button' ) ) {
 	/**
-	 * Print Button for register section
+	 * Print button html with multiple options
+	 *
+	 * @param string $text
+	 * @param string $tag
+	 * @param bool $classes
+	 * @param string $href
+	 * @param string $wrapper
+	 * @param bool $echo
+	 *
+	 * @return mixed|string
 	 */
-	if ( $template_section_id == 'register' && reset( $button ) != 'yes' ) {
-		$html[] = sprintf( '<div class="join-as-volunteer"><a href="%s" class="eem-btn eem-btn-large">%s</a></div>', esc_url( $button_url ), apply_filters( 'eem_filters_volunteer_join_button_text', esc_html__( 'Join As volunteer', EEM_TD ) ) );
-	}
+	function eem_print_button( $text = '', $tag = 'a', $classes = false, $href = '', $wrapper = '', $echo = true ) {
 
+		if ( empty( $text ) ) {
+			return '';
+		}
+
+		if ( ! in_array( $tag, array( 'a', 'div', 'p', 'span' ) ) ) {
+			return '';
+		}
+
+		$classes = eem_get_classes_array( $classes );
+		$classes = implode( ' ', $classes );
+		$button  = sprintf( '<%1$s class="%2$s" href="%3$s">%4$s</%1$s>', $tag, $classes, esc_url( $href ), esc_html( $text ) );
+		$button  = empty( $wrapper ) ? $button : str_replace( '%', $button, $wrapper );
+
+		if ( $echo ) {
+			print $button;
+		} else {
+			return $button;
+		}
+	}
+}
+
+
+if ( ! function_exists( 'eem_print_event_notice' ) ) {
 	/**
-	 * All together in $html and print now
+	 * Print Event notice
+	 *
+	 * @param string $message
+	 * @param string $type
 	 */
-	if ( ! empty( $html ) ) {
-		printf( '<div class="eem-section-heading">%s</div>', implode( $html ) );
+	function eem_print_event_notice( $message = '', $type = 'success' ) {
+
+		if ( empty( $message ) ) {
+			return;
+		}
+
+		printf( '<div class="eem-notice eem-notice-%s">%s</div>', $type, $message );
+	}
+}
+
+
+if ( ! function_exists( 'eem_print_event_section_heading' ) ) {
+	/**
+	 * Print event section heading
+	 *
+	 * @param array $args
+	 */
+	function eem_print_event_section_heading( $args = array() ) {
+
+		global $template_section, $template_section_id;
+
+		$html        = array();
+		$heading     = $template_section && isset( $template_section['heading'] ) ? $template_section['heading'] : '';
+		$sub_heading = $template_section && isset( $template_section['sub_heading'] ) ? $template_section['sub_heading'] : '';
+		$short_desc  = $template_section && isset( $template_section['short_desc'] ) ? $template_section['short_desc'] : '';
+		$button      = $template_section && isset( $template_section['button'] ) ? $template_section['button'] : array();
+		$button_url  = $template_section && isset( $template_section['button_url'] ) ? $template_section['button_url'] : '';
+
+		$heading     = empty( $heading ) && isset( $args['heading'] ) ? $args['heading'] : '';
+		$sub_heading = empty( $sub_heading ) && isset( $args['sub_heading'] ) ? $args['sub_heading'] : '';
+		$short_desc  = empty( $short_desc ) && isset( $args['short_desc'] ) ? $args['short_desc'] : '';
+
+		if ( ! empty( $sub_heading ) ) {
+			$html[] = sprintf( '<h6 class="eem-sh-tagline">%s</h6>', $sub_heading );
+		}
+
+		if ( ! empty( $heading ) ) {
+			$html[] = sprintf( '<h2 class="eem-sh-title">%s</h2>', $heading );
+		}
+
+		if ( ! empty( $short_desc ) ) {
+			$html[] = sprintf( '<h5 class="eem-sh-subtitle">%s</h5>', $short_desc );
+		}
+
+		/**
+		 * Print Button for register section
+		 */
+		if ( $template_section_id == 'register' && reset( $button ) != 'yes' ) {
+			$html[] = sprintf( '<div class="join-as-volunteer"><a href="%s" class="eem-btn eem-btn-large">%s</a></div>', esc_url( $button_url ), apply_filters( 'eem_filters_volunteer_join_button_text', esc_html__( 'Join As volunteer', EEM_TD ) ) );
+		}
+
+		/**
+		 * All together in $html and print now
+		 */
+		if ( ! empty( $html ) ) {
+			printf( '<div class="eem-section-heading">%s</div>', implode( $html ) );
+		}
+	}
+}
+
+
+if ( ! function_exists( 'eem_get_classes_array' ) ) {
+	/**
+	 * Generate array of classes from string in different for of string
+	 *
+	 * @param bool $classes
+	 *
+	 * @return array
+	 */
+	function eem_get_classes_array( $classes = false ) {
+
+		if ( ! is_array( $classes ) ) {
+			return explode( '~', str_replace( array( ' ', ',', ', ' ), '~', $classes ) );
+		}
+
+		return array();
 	}
 }
 
@@ -51,10 +136,7 @@ if ( ! function_exists( 'eem_print_event_section_classes' ) ) {
 	 */
 	function eem_print_event_section_classes( $classes = false ) {
 
-		if ( ! is_array( $classes ) ) {
-			$classes = explode( '~', str_replace( array( ' ', ',', ', ' ), '~', $classes ) );
-		}
-
+		$classes = eem_get_classes_array( $classes );
 
 		global $template_section;
 

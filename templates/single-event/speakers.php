@@ -12,14 +12,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $event, $template_section;
 
-//echo '<pre>'; print_r( $template_section ); echo '</pre>';
+$event_speakers = $event->get_speakers();
 
 
 ?>
 <div <?php eem_print_event_section_classes( 'eem-event-section eem-speaker-style-1 eem-spacer bg-white eem-force-full-width' ); ?>>
     <div class="pb-container">
 
-		<?php eem_print_event_section_heading(); ?>
+		<?php eem_print_event_section_heading( array( 'heading' => esc_html__( 'Speakers', EEM_TD ) ) ); ?>
+
+		<?php
+		if ( empty( $event_speakers ) ) {
+			eem_print_event_notice( apply_filters( 'eem_filters_speakers_not_found_text',
+				esc_html__( 'No speaker assigned yet. We will announce latter. Stay close', EEM_TD ) ), 'error'
+			);
+		}
+		?>
 
         <div class="pb-row pb-justify-content-center">
 
@@ -57,8 +65,10 @@ global $event, $template_section;
 
         </div>
 
-        <div class="view-more text-center">
-            <a href="#" class="eem-btn eem-btn-large">All Speakers</a>
-        </div>
+		<?php if ( ! empty( $event_speakers ) ) {
+			eem_print_button( esc_html__( 'All Speakers', EEM_TD ), 'a', 'eem-btn eem-btn-large',
+				$event->get_endpoint_url( 'speakers' ), '<div class="view-more text-center">%</div>' );
+		} ?>
+
     </div>
 </div>
