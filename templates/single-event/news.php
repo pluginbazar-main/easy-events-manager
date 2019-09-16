@@ -16,7 +16,13 @@ global $event;
 <div <?php eem_print_event_section_classes( 'eem-event-section eem-blog-style-1 eem-force-full-width eem-spacer' ); ?>>
 	<div class="pb-container">
 
-		<?php eem_print_event_section_heading(); ?>
+		<?php eem_print_event_section_heading(
+			array(
+				'heading'     => esc_html__( 'News', EEM_TD ),
+				'sub_heading' => esc_html__( 'Know more about this event', EEM_TD ),
+				'short_desc'  => esc_html__( 'Read some informative posts from our blog about this event', EEM_TD ),
+			)
+		); ?>
 
 		<div class="pb-row">
 			<div class="pb-col-lg-4 pb-col-md-6">

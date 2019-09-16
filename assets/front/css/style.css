@@ -919,7 +919,7 @@ img {
     border: 1px solid #dedede;
     text-align: center;
     border-radius: 50%;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     font-size: 19px;
     font-weight: 600;
     color: #e91e63;
@@ -933,7 +933,7 @@ img {
 }
 
 .eem-sidebar-tabs .tab-nav-item.active {
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 
 .eem-sidebar-tabs .tab-nav-item:last-child {
@@ -1296,6 +1296,10 @@ img {
 /**
 * Gallery
 */
+
+.eem-gallery-style-1.eem-spacer {
+    padding-bottom: 0;
+}
 
 .eem-gallery-style-1 .gallery-single {
     position: relative;

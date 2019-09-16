@@ -19,7 +19,13 @@ $event_speakers = $event->get_speakers();
 <div <?php eem_print_event_section_classes( 'eem-event-section eem-speaker-style-1 eem-spacer bg-white eem-force-full-width' ); ?>>
     <div class="pb-container">
 
-		<?php eem_print_event_section_heading( array( 'heading' => esc_html__( 'Speakers', EEM_TD ) ) ); ?>
+		<?php eem_print_event_section_heading(
+			array(
+				'heading'     => esc_html__( 'Speakers', EEM_TD ),
+				'sub_heading' => esc_html__( 'Who will deliver speeches', EEM_TD ),
+				'short_desc'  => esc_html__( 'Meet our speakers who will continue with their discussion', EEM_TD ),
+			)
+		); ?>
 
 		<?php
 		if ( empty( $event_speakers ) ) {

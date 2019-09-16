@@ -16,7 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="pb-row">
 
             <div class="pb-col-md-7">
-	            <?php eem_print_event_section_heading(); ?>
+	            <?php eem_print_event_section_heading(
+		            array(
+			            'heading'     => esc_html__( 'Register Now', EEM_TD ),
+			            'sub_heading' => esc_html__( 'Ready to reserve your seat', EEM_TD ),
+			            'short_desc'  => esc_html__( 'Never be late with registration, all available seats can fill quickly.', EEM_TD ),
+		            )
+	            ); ?>
             </div>
 
             <div class="pb-col-md-5">

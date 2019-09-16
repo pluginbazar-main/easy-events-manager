@@ -14,7 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div <?php eem_print_event_section_classes( 'eem-event-section eem-sponsors-style-1 eem-spacer eem-force-full-width' ); ?>>
 	<div class="pb-container">
 
-		<?php eem_print_event_section_heading(); ?>
+		<?php eem_print_event_section_heading(
+			array(
+				'heading'     => esc_html__( 'Sponsors', EEM_TD ),
+				'sub_heading' => esc_html__( 'Who make this event grateful', EEM_TD ),
+				'short_desc'  => esc_html__( 'See the sponsors who helps sponsored this event and give them a big hands', EEM_TD ),
+			)
+		); ?>
 
 		<div class="pb-grid pb-grid-4">
 			<div class="pb-grid-col">

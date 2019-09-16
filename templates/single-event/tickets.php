@@ -15,7 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div <?php eem_print_event_section_classes( 'eem-event-section eem-pricing-style-1 bg-white eem-spacer eem-force-full-width' ); ?>>
 	<div class="pb-container">
 
-		<?php eem_print_event_section_heading(); ?>
+		<?php eem_print_event_section_heading(
+			array(
+				'heading'     => esc_html__( 'Pricing', EEM_TD ),
+				'sub_heading' => esc_html__( 'How much it costs', EEM_TD ),
+				'short_desc'  => esc_html__( 'Look at the features and choose the correct ticket which suits best', EEM_TD ),
+			)
+		); ?>
 
 		<div class="pb-row">
 			<div class="pb-col-md-6 pb-col-lg-4">

@@ -14,16 +14,19 @@ global $event;
 
 $schedules = $event->get_schedules();
 
-echo '<pre>';
-print_r( $schedules );
-echo '</pre>';
-
 ?>
 
 <div <?php eem_print_event_section_classes( 'eem-event-section eem-schedules-style-1 eem-spacer eem-force-full-width' ); ?>>
     <div class="pb-container">
 
-		<?php eem_print_event_section_heading( array( 'heading' => esc_html__( 'Schedules', EEM_TD ) ) ); ?>
+	    <?php eem_print_event_section_heading(
+		    array(
+			    'heading'     => esc_html__( 'Schedules', EEM_TD ),
+			    'sub_heading' => esc_html__( 'When our event will happen', EEM_TD ),
+			    'short_desc'  => esc_html__( 'Have a close look at the detailed schedules of our event and make a calendar entry', EEM_TD ),
+		    )
+	    ); ?>
+
 
         <div class="eem-tab-panel">
 
@@ -107,37 +110,11 @@ echo '</pre>';
 									?>
 
                                     <div class="tab-item-content <?php echo esc_attr( $active ); ?> session-<?php echo esc_attr( $session_id ); ?>">
-                                        <h3 class="eem-session-title">Introduction to WordPress</h3>
+										<?php printf( '<h3 class="eem-session-title">%s</h3>', esc_html( $s_label ) ); ?>
 
 										<?php printf( '<div class="eem-session-meta">%s</div>', implode( '', $s_meta ) ); ?>
 
-                                        <?php printf( '<div class="eem-session-desc">%s</div>', wpautop( $s_desc ) ); ?>
-
-                                        <div class="eem-session-speakers">
-                                            <div class="eem-session-speaker">
-                                                <div class="speaker-img">
-                                                    <a href="#"><img
-                                                                src="http://demo.themewinter.com/wp/exhibz/wp-content/uploads/2018/12/speaker1.jpg"
-                                                                alt="Speaker 1"></a>
-                                                </div>
-                                                <div class="speaker-info">
-                                                    <h3 class="speaker-name"><a href="#">J. Robert Hales</a></h3>
-                                                    <h4 class="speaker-topics">Intro WordPress</h4>
-                                                </div>
-                                            </div>
-
-                                            <div class="eem-session-speaker">
-                                                <div class="speaker-img">
-                                                    <a href="#"><img
-                                                                src="http://demo.themewinter.com/wp/exhibz/wp-content/uploads/2018/12/speaker1.jpg"
-                                                                alt="Speaker 1"></a>
-                                                </div>
-                                                <div class="speaker-info">
-                                                    <h3 class="speaker-name"><a href="#">J. Alex Furguson</a></h3>
-                                                    <h4 class="speaker-topics">Intro WordPress</h4>
-                                                </div>
-                                            </div>
-                                        </div>
+										<?php printf( '<div class="eem-session-desc">%s</div>', wpautop( $s_desc ) ); ?>
                                     </div>
 
 								<?php endforeach; ?>
@@ -147,7 +124,6 @@ echo '</pre>';
                         </div>
 
                     </div>
-
 
 				<?php endforeach; ?>
 

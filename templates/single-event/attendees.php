@@ -13,12 +13,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="eem-event-section eem-attendees-style-1 eem-spacer eem-force-full-width bg-white">
 	<div class="pb-container">
-		<div class="eem-section-heading">
-			<h6 class="eem-sh-tagline">Who Attend our Meetup?</h6>
-			<h2 class="eem-sh-title">Full Attendees List</h2>
-			<h5 class="eem-sh-subtitle">Suspendisse hendrerit turpis dui, eget ultricies erat consequat. Sed ac
-				velit iaculis, condimentum neque maximus urna. </h5>
-		</div>
+
+		<?php eem_print_event_section_heading(
+			array(
+				'heading'     => esc_html__( 'Attendees List', EEM_TD ),
+				'sub_heading' => esc_html__( 'Who attend our Event', EEM_TD ),
+				'short_desc'  => esc_html__( 'See the peoples are already reserved their seat and ready to attend this event', EEM_TD ),
+			)
+		); ?>
+
 		<div class="pb-row">
 			<div class="pb-col-md-6 pb-col-lg-3">
 				<div class="eem-attendees-single">
