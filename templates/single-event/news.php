@@ -13,14 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $event;
 
 ?>
-<div class="eem-event-section eem-blog-style-1 eem-force-full-width eem-spacer">
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-blog-style-1 eem-force-full-width eem-spacer' ); ?>>
 	<div class="pb-container">
-		<div class="eem-section-heading">
-			<h6 class="eem-sh-tagline">Donec hendrerit turpis</h6>
-			<h2 class="eem-sh-title">Latest News</h2>
-			<h5 class="eem-sh-subtitle">Nuonec hendrerit turpis dui, eget ultricies erat consequat. Sed ac velit
-				iaculis, condimentum neque maximus urna. </h5>
-		</div>
+
+		<?php eem_print_event_section_heading(); ?>
 
 		<div class="pb-row">
 			<div class="pb-col-lg-4 pb-col-md-6">

@@ -1539,7 +1539,7 @@ img {
     content: '';
     position: absolute;
     top: 0;
-    right: -9px;
+    right: 0;
     z-index: -1;
     height: 100%;
     width: 100%;

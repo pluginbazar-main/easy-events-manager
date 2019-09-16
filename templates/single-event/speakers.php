@@ -16,14 +16,10 @@ global $event, $template_section;
 
 
 ?>
-<div class="eem-event-section eem-speaker-style-1 eem-spacer bg-white eem-force-full-width">
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-speaker-style-1 eem-spacer bg-white eem-force-full-width' ); ?>>
     <div class="pb-container">
-        <div class="eem-section-heading">
-            <h6 class="eem-sh-tagline">Welcome to Meetup</h6>
-            <h2 class="eem-sh-title">Event Speakers</h2>
-            <h5 class="eem-sh-subtitle">Suspendisse hendrerit turpis dui, eget ultricies erat consequat. Sed ac
-                velit iaculis, condimentum neque maximus urna. </h5>
-        </div>
+
+		<?php eem_print_event_section_heading(); ?>
 
         <div class="pb-row pb-justify-content-center">
 

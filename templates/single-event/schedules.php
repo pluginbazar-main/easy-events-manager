@@ -15,15 +15,10 @@ global $event;
 
 ?>
 
-<div class="eem-event-section eem-schedules-style-1 eem-spacer eem-force-full-width">
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-schedules-style-1 eem-spacer eem-force-full-width' ); ?>>
 	<div class="pb-container">
 
-        <div class="eem-section-heading">
-            <h6 class="eem-sh-tagline">Donec hendrerit turpis</h6>
-            <h2 class="eem-sh-title">Event Schedule's</h2>
-            <h5 class="eem-sh-subtitle">Phelhas duis turpis dui, eget ultricies erat consequat. Sed ac velit
-                iaculis, condimentum neque maximus urna. </h5>
-        </div>
+		<?php eem_print_event_section_heading(); ?>
 
         <div class="eem-tab-panel">
 

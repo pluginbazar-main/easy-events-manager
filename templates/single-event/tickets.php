@@ -11,14 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div class="eem-event-section eem-pricing-style-1 bg-white eem-spacer eem-force-full-width">
+
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-pricing-style-1 bg-white eem-spacer eem-force-full-width' ); ?>>
 	<div class="pb-container">
-		<div class="eem-section-heading">
-			<h6 class="eem-sh-tagline">Our Pricing Plans</h6>
-			<h2 class="eem-sh-title">Get your Tickets</h2>
-			<h5 class="eem-sh-subtitle">Suspendisse hendrerit turpis dui, eget ultricies erat consequat. Sed ac
-				velit iaculis, condimentum neque maximus urna. </h5>
-		</div>
+
+		<?php eem_print_event_section_heading(); ?>
+
 		<div class="pb-row">
 			<div class="pb-col-md-6 pb-col-lg-4">
 				<div class="eem-pricing-plan">

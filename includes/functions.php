@@ -4,33 +4,72 @@
  */
 
 
-if( ! function_exists( 'print_event_section_classes' ) ) {
+function eem_print_event_section_heading() {
+
+	global $template_section, $template_section_id;
+
+	$html        = array();
+	$sub_heading = $template_section && isset( $template_section['sub_heading'] ) ? $template_section['sub_heading'] : '';
+	$heading     = $template_section && isset( $template_section['heading'] ) ? $template_section['heading'] : '';
+	$short_desc  = $template_section && isset( $template_section['short_desc'] ) ? $template_section['short_desc'] : '';
+	$button      = $template_section && isset( $template_section['button'] ) ? $template_section['button'] : array();
+	$button_url  = $template_section && isset( $template_section['button_url'] ) ? $template_section['button_url'] : '';
+
+	if ( ! empty( $sub_heading ) ) {
+		$html[] = sprintf( '<h6 class="eem-sh-tagline">%s</h6>', $sub_heading );
+	}
+
+	if ( ! empty( $heading ) ) {
+		$html[] = sprintf( '<h2 class="eem-sh-title">%s</h2>', $heading );
+	}
+
+	if ( ! empty( $short_desc ) ) {
+		$html[] = sprintf( '<h5 class="eem-sh-subtitle">%s</h5>', $short_desc );
+	}
+
 	/**
-     * print event section classes
-     *
-	 * @param bool $classes
+	 * Print Button for register section
 	 */
-	function print_event_section_classes( $classes = false) {
+	if ( $template_section_id == 'register' && reset( $button ) != 'yes' ) {
+		$html[] = sprintf( '<div class="join-as-volunteer"><a href="%s" class="eem-btn eem-btn-large">%s</a></div>', esc_url( $button_url ), apply_filters( 'eem_filters_volunteer_join_button_text', esc_html__( 'Join As volunteer', EEM_TD ) ) );
+	}
 
-	    if ( ! is_array( $classes ) ) {
-            $classes = explode( '~', str_replace( array( ' ', ',', ', ' ), '~', $classes ) );
-        }
-
-
-	    global $template_section;
-
-	    if( isset( $template_section['box_layout'] ) && reset( $template_section['box_layout'] ) == 'yes' ) {
-		    if (($key = array_search('eem-force-full-width', $classes)) !== false) {
-			    unset( $classes[$key] );
-		    }
-        }
-
-		printf( 'class="%s"', esc_attr( implode( ' ', apply_filters( 'print_event_section_classes', $classes ) ) ) );
+	/**
+	 * All together in $html and print now
+	 */
+	if ( ! empty( $html ) ) {
+		printf( '<div class="eem-section-heading">%s</div>', implode( $html ) );
 	}
 }
 
 
-if( ! function_exists( 'eem_set_template_section' ) ) {
+if ( ! function_exists( 'eem_print_event_section_classes' ) ) {
+	/**
+	 * print event section classes
+	 *
+	 * @param bool $classes
+	 */
+	function eem_print_event_section_classes( $classes = false ) {
+
+		if ( ! is_array( $classes ) ) {
+			$classes = explode( '~', str_replace( array( ' ', ',', ', ' ), '~', $classes ) );
+		}
+
+
+		global $template_section;
+
+		if ( isset( $template_section['box_layout'] ) && reset( $template_section['box_layout'] ) == 'yes' ) {
+			if ( ( $key = array_search( 'eem-force-full-width', $classes ) ) !== false ) {
+				unset( $classes[ $key ] );
+			}
+		}
+
+		printf( 'class="%s"', esc_attr( implode( ' ', apply_filters( 'eem_print_event_section_classes', $classes ) ) ) );
+	}
+}
+
+
+if ( ! function_exists( 'eem_set_template_section' ) ) {
 	/**
 	 * Set current template section
 	 *
@@ -38,7 +77,7 @@ if( ! function_exists( 'eem_set_template_section' ) ) {
 	 */
 	function eem_set_template_section( $this_section_id = '' ) {
 
-		global $event, $template_section;
+		global $event, $template_section, $template_section_id;
 
 		if ( empty( $this_section_id ) || ! $event instanceof EEM_Event ) {
 			return;
@@ -48,7 +87,8 @@ if( ! function_exists( 'eem_set_template_section' ) ) {
 			return;
 		}
 
-		$template_section = isset( $_sections[ $this_section_id ] ) ? $_sections[ $this_section_id ] : array();
+		$template_section_id = $this_section_id;
+		$template_section    = isset( $_sections[ $this_section_id ] ) ? $_sections[ $this_section_id ] : array();
 	}
 }
 

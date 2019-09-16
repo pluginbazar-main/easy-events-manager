@@ -40,6 +40,7 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 			) );
 		}
 
+
 		/**
 		 * Return template sections
 		 *
@@ -49,15 +50,15 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 
 			$common_fields = array(
 				array(
-					'id'      => "sub_heading",
-					'title'   => esc_html__( 'Sub heading', EEM_TD ),
-					'details' => esc_html__( 'Set section sub heading', EEM_TD ),
-					'type'    => 'text',
-				),
-				array(
 					'id'      => "heading",
 					'title'   => esc_html__( 'Heading', EEM_TD ),
 					'details' => esc_html__( 'Set section heading', EEM_TD ),
+					'type'    => 'text',
+				),
+				array(
+					'id'      => "sub_heading",
+					'title'   => esc_html__( 'Sub heading', EEM_TD ),
+					'details' => esc_html__( 'Set section sub heading', EEM_TD ),
 					'type'    => 'text',
 				),
 				array(
@@ -316,6 +317,7 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 			return new PB_Settings();
 		}
 
+
 		/**
 		 * Return Post Meta Value
 		 *
@@ -358,6 +360,7 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 
 			return apply_filters( 'wpp_filters_option_' . $option_key, $option_val );
 		}
+
 
 		function get_meta_fields_data( $meta_data = array(), $args = array() ) {
 

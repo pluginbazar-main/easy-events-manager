@@ -11,14 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div class="eem-event-section eem-sponsors-style-1 eem-spacer eem-force-full-width">
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-sponsors-style-1 eem-spacer eem-force-full-width' ); ?>>
 	<div class="pb-container">
-		<div class="eem-section-heading">
-			<h6 class="eem-sh-tagline">Who Help Us</h6>
-			<h2 class="eem-sh-title">Big Thanks our Sponsors</h2>
-			<h5 class="eem-sh-subtitle">Donec hendrerit turpis dui, eget ultricies erat consequat. Sed ac velit
-				iaculis, condimentum neque maximus urna. </h5>
-		</div>
+
+		<?php eem_print_event_section_heading(); ?>
 
 		<div class="pb-grid pb-grid-4">
 			<div class="pb-grid-col">

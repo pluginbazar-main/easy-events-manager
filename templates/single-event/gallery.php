@@ -11,7 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div class="eem-event-section eem-gallery-style-1 bg-white eem-force-full-width">
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-gallery-style-1 bg-white eem-force-full-width' ); ?>>
+
+	<?php eem_print_event_section_heading(); ?>
+
+
 	<div class="eem-gallery-wrap pb-grid pb-grid-4 pb-no-gutters">
 		<div class="pb-grid-col">
 			<div class="gallery-single">
