@@ -67,6 +67,13 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 					'type'    => 'textarea',
 					'rows'    => 2,
 				),
+				array(
+					'id'   => 'box_layout',
+					'type' => 'checkbox',
+					'args' => array(
+						'yes' => esc_html__( 'Make this section box layout', EEM_TD ),
+					),
+				),
 			);
 
 			$sections = array(
@@ -85,6 +92,13 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 							'type' => 'checkbox',
 							'args' => array(
 								'yes' => esc_html__( 'Disable ticket button', EEM_TD ),
+							),
+						),
+						array(
+							'id'   => 'box_layout',
+							'type' => 'checkbox',
+							'args' => array(
+								'yes' => esc_html__( 'Make this section box layout', EEM_TD ),
 							),
 						),
 					),

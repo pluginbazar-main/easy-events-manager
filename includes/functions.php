@@ -4,6 +4,31 @@
  */
 
 
+if( ! function_exists( 'print_event_section_classes' ) ) {
+	/**
+     * print event section classes
+     *
+	 * @param bool $classes
+	 */
+	function print_event_section_classes( $classes = false) {
+
+	    if ( ! is_array( $classes ) ) {
+            $classes = explode( '~', str_replace( array( ' ', ',', ', ' ), '~', $classes ) );
+        }
+
+
+	    global $template_section;
+
+	    if( isset( $template_section['box_layout'] ) && reset( $template_section['box_layout'] ) == 'yes' ) {
+		    if (($key = array_search('eem-force-full-width', $classes)) !== false) {
+			    unset( $classes[$key] );
+		    }
+        }
+
+		printf( 'class="%s"', esc_attr( implode( ' ', apply_filters( 'print_event_section_classes', $classes ) ) ) );
+	}
+}
+
 
 if( ! function_exists( 'eem_set_template_section' ) ) {
 	/**

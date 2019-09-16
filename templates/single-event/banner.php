@@ -19,7 +19,8 @@ $bg_image  = empty( $bg_image ) ? '' : sprintf( 'style="background-image: url(\'
 $unique_id = uniqid();
 
 ?>
-<div class="eem-event-section eem-force-full-width eem-banner-style-1" <?php echo $bg_image; ?>>
+
+<div <?php print_event_section_classes( 'eem-event-section eem-banner-style-1 eem-force-full-width' ); ?> <?php echo $bg_image; ?>>
     <div class="pb-container">
         <div class="eem-banner-wrap">
             <h3 class="eem-banner-sub-title"><?php echo esc_html( $event->get_location() ); ?></h3>
