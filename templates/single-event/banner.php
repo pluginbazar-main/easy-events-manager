@@ -20,7 +20,7 @@ $unique_id = uniqid();
 
 ?>
 
-<div <?php print_event_section_classes( 'eem-event-section eem-banner-style-1 eem-force-full-width' ); ?> <?php echo $bg_image; ?>>
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-banner-style-1 eem-force-full-width' ); ?> <?php echo $bg_image; ?>>
     <div class="pb-container">
         <div class="eem-banner-wrap">
             <h3 class="eem-banner-sub-title"><?php echo esc_html( $event->get_location() ); ?></h3>
@@ -65,10 +65,11 @@ $unique_id = uniqid();
 
             </script>
 
-			<?php if ( $button !== 'yes' ) : ?>
+			<?php
+			if ( $button !== 'yes' ) : ?>
                 <div class="banner-ticket">
-                    <a href="<?php echo esc_url( $event->get_endpoint_url( 'tickets' ) ); ?>"
-                       class="eem-btn eem-btn-large"><?php esc_html_e( 'Buy Ticket', EEM_TD ); ?></a>
+					<?php eem_print_button( esc_html__( 'Buy Ticket', EEM_TD ), 'a', 'eem-btn eem-btn-large', $event->get_endpoint_url( 'tickets' ) ); ?>
+
                     <span class="tickets-available">100 Tickets available</span>
                 </div>
 			<?php endif; ?>

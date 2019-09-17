@@ -11,7 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div class="eem-event-section eem-gallery-style-1 bg-white eem-force-full-width">
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-spacer eem-gallery-style-1 bg-white eem-force-full-width' ); ?>>
+
+	<?php eem_print_event_section_heading(
+		array(
+			'heading'     => esc_html__( 'Some Memories', EEM_TD ),
+			'sub_heading' => esc_html__( 'Moments from past', EEM_TD ),
+			'short_desc'  => esc_html__( 'See some great moments from our previous events', EEM_TD ),
+		)
+	); ?>
+
 	<div class="eem-gallery-wrap pb-grid pb-grid-4 pb-no-gutters">
 		<div class="pb-grid-col">
 			<div class="gallery-single">
