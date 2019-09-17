@@ -744,6 +744,11 @@ img {
     background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
 }
 
+.eem-banner-wrap .tickets-available {
+    color: #fff;
+    margin-left: 10px;
+}
+
 
 /**
 * Speaker Style 1
