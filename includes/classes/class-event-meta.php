@@ -51,17 +51,11 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 
 			$_event_schedules = isset( $_POST['_event_schedules'] ) ? stripslashes_deep( $_POST['_event_schedules'] ) : array();
 			$_event_speakers  = isset( $_POST['_event_speakers'] ) ? stripslashes_deep( $_POST['_event_speakers'] ) : array();
+			$_event_sponsors  = isset( $_POST['_event_sponsors'] ) ? stripslashes_deep( $_POST['_event_sponsors'] ) : array();
 
 			update_post_meta( $post_id, '_event_schedules', $_event_schedules );
 			update_post_meta( $post_id, '_event_speakers', $_event_speakers );
-
-			echo '<pre>';
-			print_r( $_event_speakers );
-			echo '</pre>';
-
-
-//			die();
-
+			update_post_meta( $post_id, '_event_sponsors', $_event_sponsors );
 		}
 
 
@@ -134,11 +128,11 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 			return apply_filters( 'eem_filters_event_meta_fields', array(
 
 				array(
-					'id'      => '_event_template',
-					'title'   => esc_html__( 'Event Template', EEM_TD ),
-					'type'    => 'select',
-					'class'   => 'nice-select-wrap',
-					'args'    => 'POSTS_%event_template%',
+					'id'    => '_event_template',
+					'title' => esc_html__( 'Event Template', EEM_TD ),
+					'type'  => 'select',
+					'class' => 'nice-select-wrap',
+					'args'  => 'POSTS_%event_template%',
 				),
 
 				array(

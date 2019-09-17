@@ -52,6 +52,13 @@ if ( ! class_exists( 'EEM_Event' ) ) {
 			return apply_filters( 'eem_filters_event_location', $this->get_meta( '_event_location' ) );
 		}
 
+		function get_sponsors() {
+
+			$sponsors = $this->get_meta( '_event_sponsors', array() );
+
+			return apply_filters( 'eem_filters_event_sponsors', $sponsors );
+		}
+
 
 		function get_speakers() {
 
@@ -62,7 +69,6 @@ if ( ! class_exists( 'EEM_Event' ) ) {
 					unset( $speakers[ $speaker_id ] );
 				}
 			}
-
 
 			return apply_filters( 'eem_filters_event_speakers', $speakers );
 		}

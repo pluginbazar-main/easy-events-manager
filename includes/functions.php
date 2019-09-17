@@ -335,6 +335,85 @@ if ( ! function_exists( 'eem_print_template_section' ) ) {
 }
 
 
+if ( ! function_exists( 'eem_print_event_sponsor' ) ) {
+	function eem_print_event_sponsor( $sponsor = array(), $echo = true ) {
+
+		$sponsor_id = isset( $sponsor['id'] ) ? $sponsor['id'] : current_time( 'timestamp' );
+		$type       = isset( $sponsor['type'] ) ? $sponsor['type'] : '';
+		$name       = isset( $sponsor['name'] ) ? $sponsor['name'] : '';
+		$logo       = isset( $sponsor['logo'] ) ? $sponsor['logo'] : '';
+
+		$sponsor_fields = array(
+			array(
+				'options' => apply_filters( 'eem_filters_sponsors_fields', array(
+					array(
+						'id'    => "_event_sponsors[$sponsor_id][type]",
+						'title' => esc_html__( 'Type', EEM_TD ),
+						'type'  => 'select',
+						'args'  => eem()->get_sponsor_types(),
+						'value' => $type,
+					),
+					array(
+						'id'      => "_event_sponsors[$sponsor_id][logo]",
+						'title'   => esc_html__( 'Logo', EEM_TD ),
+						'details' => esc_html__( 'Add company logo for this sponsor', EEM_TD ),
+						'type'    => 'media',
+						'value'   => $logo,
+					),
+					array(
+						'id'          => "_event_sponsors[$sponsor_id][url]",
+						'title'       => esc_html__( 'URL', EEM_TD ),
+						'details'     => esc_html__( 'Add URL for this sponsor, you can their website or a blog post link on your website.', EEM_TD ),
+						'type'        => 'text',
+						'placeholder' => 'https://company.com/',
+						'value'       => $logo,
+					),
+				), $sponsor ),
+			)
+		);
+
+		?>
+
+        <div class="eem-repeat-single">
+            <div class="eem-repeat-head">
+
+				<?php eem()->PB()->generate_text(
+					array(
+						'id'          => "_event_sponsors[$sponsor_id][name]",
+						'placeholder' => esc_html__( 'Company or Sponsor name', EEM_TD ),
+						'type'        => 'text',
+						'value'       => $name,
+					)
+				); ?>
+
+                <div class="eem-head-button eem-repeat-close"><i class="icofont-close"></i></div>
+                <div class="eem-head-button eem-repeat-sort"><i class="icofont-drag1"></i></div>
+                <div class="eem-head-button eem-repeat-toggle"><i class="icofont-curved-down"></i></div>
+            </div>
+            <div class="eem-repeat-content">
+				<?php eem()->PB()->generate_fields( $sponsor_fields ); ?>
+
+                <script>
+                    (function ($) {
+                        $(function () {
+                            $('#_event_sponsors_<?php echo esc_html( $sponsor_id ); ?>__type_').niceSelect();
+                        });
+                    })(jQuery);
+                </script>
+            </div>
+        </div>
+
+
+		<?php
+		if ( $echo ) {
+			print ob_get_clean();
+		} else {
+			return ob_get_clean();
+		}
+	}
+}
+
+
 if ( ! function_exists( 'eem_print_event_speaker' ) ) {
 	function eem_print_event_speaker( $speaker = array(), $echo = true ) {
 

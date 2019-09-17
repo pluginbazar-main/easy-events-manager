@@ -10,6 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+global $event, $template_section;
+
+echo '<pre>'; print_r( $template_section ); echo '</pre>';
+
+
 ?>
 <div <?php eem_print_event_section_classes( 'eem-event-section eem-sponsors-style-1 eem-spacer eem-force-full-width' ); ?>>
 	<div class="pb-container">
@@ -111,8 +116,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 
-		<div class="view-more text-center">
-			<a href="#" class="eem-btn eem-btn-large">View All Sponsors</a>
-		</div>
+		<?php if ( ! empty( $event_speakers ) ) {
+			eem_print_button( esc_html__( 'View All Sponsors', EEM_TD ), 'a', 'eem-btn eem-btn-large',
+				$event->get_endpoint_url( 'sponsors' ), '<div class="view-more text-center">%</div>' );
+		} ?>
+
 	</div>
 </div>
