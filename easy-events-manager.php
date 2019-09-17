@@ -58,6 +58,7 @@ class EasyEventsManager {
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-event.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-event-meta.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-template-meta.php' );
+		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-shortcodes.php' );
 
 		require_once( EEM_PLUGIN_DIR . 'includes/functions.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/template-hooks.php' );

@@ -677,6 +677,10 @@ img {
     padding: 150px 0;
     position: relative;
     z-index: 10;
+    background-image: url('../../images/bg-banner.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .eem-banner-style-1:before {
