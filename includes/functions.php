@@ -372,6 +372,7 @@ if ( ! function_exists( 'eem_print_event_sponsor' ) ) {
 			)
 		);
 
+		ob_start();
 		?>
 
         <div class="eem-repeat-single">

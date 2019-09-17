@@ -72,7 +72,7 @@ $event = eem_get_event();
 
             <div class="eem-repeat-container eem-sponsors">
 		        <?php foreach ( $event->get_sponsors() as $sponsor_id => $sponsor ) {
-			        eem_print_event_sponsor( array_merge( array( 'id' => $speaker_id ), $sponsor ) );
+			        eem_print_event_sponsor( array_merge( array( 'id' => $sponsor_id ), $sponsor ) );
 		        } ?>
             </div>
 
