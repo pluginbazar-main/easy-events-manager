@@ -10,6 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+global $event;
+
+$nearby_facts = eem()->get_nearby_facts();
+
+//echo '<pre>'; print_r( $nearby_facts ); echo '</pre>';
+
 ?>
 
 <div <?php eem_print_event_section_classes( 'eem-event-section eem-nearby-style-1 eem-blog-style-1 bg-white eem-force-full-width eem-spacer' ); ?>>
@@ -23,54 +29,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 			)
 		); ?>
 
-        <div class="pb-row">
-            <div class="pb-col-md-6">
-                <div class="tab-nav">
-                    <div class="tab-nav-item active" data-target="day-1">
-                        <i class="icofont-hotel"></i>
-                        <span>Nearby Hotel</span>
-                    </div>
-                    <div class="tab-nav-item" data-target="day-2">
-                        <i class="icofont-airplane-alt"></i>
-                        <span>Transport Services</span>
-                    </div>
-                    <div class="tab-nav-item" data-target="day-3">
-                        <i class="icofont-location-pin"></i>
-                        <span>Historical Places</span>
-                    </div>
-                </div>
+        <div class="pb-row eem-tab-panel">
+            <div class="pb-col-md-6 tab-nav">
+
+					<?php $index = 0;
+					foreach ( $nearby_facts as $fact_id => $nearby ) {
+
+						$index ++;
+
+						$active = $index == 1 ? 'active' : '';
+						$label  = isset( $nearby['label'] ) ? $nearby['label'] : '';
+						$icon   = isset( $nearby['icon'] ) ? $nearby['icon'] : '';
+
+						printf( '<div class="tab-nav-item %s" data-target="nearby-%s">%s<span>%s</span></div>', $active, $fact_id, $icon, $label );
+					} ?>
+
             </div>
 
-            <div class="pb-col-md-6">
-                <div class="post-item">
-                    <div class="post-image">
-                        <a href="#">
-                            <img src="http://demo.themewinter.com/wp/exhibz/wp-content/uploads/2019/01/Blog-3.jpg"
-                                 alt="Blog Image">
-                        </a>
-                    </div>
-                    <div class="post-body">
-                        <div class="post-meta">
-                                <span class="post-author">
-                                    <i class="icofont-user"></i>
-                                    <a href="#">Pluginbazar</a>
-                                </span>
-                            <span class="post-meta-date">
-                                    <i class="icofont-calendar"></i> January 01,2019
-                                </span>
-                        </div>
-                        <h2 class="post-title">
-                            <a href="#">Budgets for Business Events</a>
-                        </h2>
-                        <div class="post-content">
-                            <p>There’s such a thing as “too much information”, especially for</p>
-                        </div>
-                        <div class="post-footer">
-                            <a href="#" class="eem-btn"> Read More <i class="icofont-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+            <div class="pb-col-md-6 tab-content">
+
+				<?php $index = 0;
+				foreach ( $nearby_facts as $fact_id => $nearby ) {
+
+					$index ++;
+
+					$active  = $index == 1 ? 'active' : '';
+					$label   = isset( $nearby['label'] ) ? $nearby['label'] : '';
+					$icon    = isset( $nearby['icon'] ) ? $nearby['icon'] : '';
+					$post_id = $event->get_meta( "_event_nearby_{$fact_id}" );
+
+					printf( '<div class="tab-item-content %s nearby-%s">%s</div>', $active, $fact_id, eem_print_blog_post( $post_id, false ) );
+				} ?>
             </div>
+
         </div>
     </div>
 </div>

@@ -4,6 +4,69 @@
  */
 
 
+
+
+
+if ( ! function_exists( 'eem_print_blog_post' ) ) {
+	/**
+	 * Print blog post
+	 *
+	 * @param $post_id
+	 * @param bool $echo
+	 *
+	 * @return false|string
+	 */
+	function eem_print_blog_post( $post_id, $echo = true ) {
+
+		ob_start();
+
+		if( empty( $post_id ) || $post_id == 0 ) {
+		    return ob_get_clean();
+        }
+
+		$post        = get_post( $post_id );
+		$post_author = get_user_by( 'ID', $post->post_author );
+
+		?>
+        <div class="post-item">
+
+			<?php if ( has_post_thumbnail( $post_id ) ) : ?>
+                <div class="post-image">
+                    <a href="<?php echo esc_url( get_the_permalink( $post_id ) ); ?>">
+                        <img src="<?php echo esc_url( get_the_post_thumbnail_url( $post_id ) ); ?>"
+                             alt="<?php echo get_the_title( $post_id ); ?>">
+                    </a>
+                </div>
+			<?php endif; ?>
+
+            <div class="post-body">
+                <div class="post-meta">
+					<?php printf( '<span class="post-author"><i class="icofont-user"></i> <a href="%s">%s</a></span>', get_author_posts_url( $post_author->ID ), $post_author->display_name ); ?>
+					<?php printf( '<span class="post-meta-date"><i class="icofont-calendar"></i> %s</span>', get_the_date( 'F jS, Y', $post_id ) ); ?>
+                </div>
+                <h2 class="post-title">
+                    <a href="<?php echo esc_url( get_the_permalink( $post_id ) ); ?>"><?php echo get_the_title( $post_id ); ?></a>
+                </h2>
+                <div class="post-content">
+					<?php echo wpautop( wp_trim_words( get_the_content( null, false, $post_id ), 20 ) ); ?>
+                </div>
+                <div class="post-footer">
+                    <a href="<?php echo esc_url( get_the_permalink( $post_id ) ); ?>"
+                       class="eem-btn"><?php esc_html_e( 'Read More', EEM_TD ); ?> <i
+                                class="icofont-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+		<?php
+		if ( $echo ) {
+			print ob_get_clean();
+		} else {
+			return ob_get_clean();
+		}
+	}
+}
+
+
 if ( ! function_exists( 'eem_print_button' ) ) {
 	/**
 	 * Print button html with multiple options

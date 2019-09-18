@@ -22,6 +22,26 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 		}
 
 
+		function get_nearby_facts() {
+
+			$nearby_facts = array(
+				'hotels'     => array(
+					'label' => esc_html__( 'Nearby Hotels', EEM_TD ),
+					'icon'  => '<i class="icofont-hotel"></i>',
+				),
+				'transports' => array(
+					'label' => esc_html__( 'Transport Services', EEM_TD ),
+					'icon'  => '<i class="icofont-airplane-alt"></i>',
+				),
+				'places'     => array(
+					'label' => esc_html__( 'Historical Places', EEM_TD ),
+					'icon'  => '<i class="icofont-location-pin"></i>',
+				),
+			);
+
+			return apply_filters( 'eem_filters_nearby_facts', $nearby_facts );
+		}
+
 		function get_sponsor_types() {
 
 			$types = array(

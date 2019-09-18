@@ -199,6 +199,25 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 					'details' => esc_html__( 'Share some images to your users from this or past events', EEM_TD ),
 					'type'    => 'gallery',
 				),
+				array(
+					'id'      => '_event_nearby_hotels',
+					'title'   => esc_html__( 'Nearby', EEM_TD ),
+					'details' => esc_html__( 'Hotels: Select a post where you wrote about nearby hotels around your event location.', EEM_TD ),
+					'type'    => 'select2',
+					'args'    => 'POSTS_%post%',
+				),
+				array(
+					'id'      => '_event_nearby_transports',
+					'details' => esc_html__( 'Transport Services: Select a post where you wrote about nearby transport services around your event location.', EEM_TD ),
+					'type'    => 'select2',
+					'args'    => 'POSTS_%post%',
+				),
+				array(
+					'id'      => '_event_nearby_places',
+					'details' => esc_html__( 'PLaces: Select a post where you wrote about nearby historical places around your event location.', EEM_TD ),
+					'type'    => 'select2',
+					'args'    => 'POSTS_%post%',
+				),
 			) );
 		}
 	}
