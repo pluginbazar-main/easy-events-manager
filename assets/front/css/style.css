@@ -81,13 +81,16 @@ img {
     padding: 14px 17px;
     line-height: 1;
     text-align: center;
-    background-color: #e91e63;
-    color: #fff;
+    /*background-color: #e91e63;*/
+    /*color: #fff;*/
     min-width: 120px;
     display: inline-block;
     border: 0;
     border-radius: 40px;
     transition: 0.3s;
+    color: #fff;
+    background-color: #E91E63;
+    background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
 }
 
 .eem-btn:hover, .eem-btn:focus {
