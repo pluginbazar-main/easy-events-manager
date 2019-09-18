@@ -80,17 +80,21 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 				$single_template = EEM_PLUGIN_DIR . 'templates/single-event.php';
 			}
 
-			$event     = eem_get_event();
-			$_sections = array_keys( eem()->get_meta( '_sections', $event->get_template_id(), array() ) );
+			$event = eem_get_event();
 
-			if ( ! empty( $_sections ) ) {
-				foreach ( eem()->get_template_sections() as $section_id => $section ) {
-					remove_action( 'eem_single_event_main', sprintf( 'eem_single_event_main_%s', $section_id ), $section['priority'] );
+			if ( $event instanceof EEM_Event ) {
+
+				$_sections = array_keys( eem()->get_meta( '_sections', $event->get_template_id(), array() ) );
+
+				if ( ! empty( $_sections ) ) {
+					foreach ( eem()->get_template_sections() as $section_id => $section ) {
+						remove_action( 'eem_single_event_main', sprintf( 'eem_single_event_main_%s', $section_id ), $section['priority'] );
+					}
 				}
-			}
 
-			foreach ( $_sections as $index => $section_id ) {
-				add_action( 'eem_single_event_main', sprintf( 'eem_single_event_main_%s', $section_id ), 100 + $index );
+				foreach ( $_sections as $index => $section_id ) {
+					add_action( 'eem_single_event_main', sprintf( 'eem_single_event_main_%s', $section_id ), 100 + $index );
+				}
 			}
 
 			return $single_template;

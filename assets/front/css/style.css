@@ -816,7 +816,7 @@ img {
 * Schedules
 */
 
-.eem-tab-panel > .tab-nav .tab-nav-item {
+.eem-tab-panel .tab-nav .tab-nav-item {
     padding: 15px 35px;
     margin: 0 15px 30px 0;
     cursor: pointer;
@@ -831,16 +831,16 @@ img {
     line-height: 1.4;
 }
 
-.eem-tab-panel > .tab-nav .tab-nav-item::selection {
+.eem-tab-panel .tab-nav .tab-nav-item::selection {
     color: #fff;
     background: #E91E63;
 }
 
-.eem-tab-panel > .tab-nav .tab-nav-item:last-child {
+.eem-tab-panel .tab-nav .tab-nav-item:last-child {
     margin-right: 0;
 }
 
-.eem-tab-panel > .tab-nav .tab-nav-item:hover {
+.eem-tab-panel .tab-nav .tab-nav-item:hover {
     color: #fff;
     background-color: #E91E63;
     background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
@@ -848,11 +848,11 @@ img {
     transform: translateY(-4px);
 }
 
-.eem-tab-panel > .tab-nav .tab-nav-item:active {
+.eem-tab-panel .tab-nav .tab-nav-item:active {
     transform: translateY(4px);
 }
 
-.eem-tab-panel > .tab-nav .tab-nav-item.active {
+.eem-tab-panel .tab-nav .tab-nav-item.active {
     color: #fff;
     background-color: #E91E63;
     background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
@@ -860,13 +860,13 @@ img {
 }
 
 
-.eem-tab-panel > .tab-nav {
+.eem-tab-panel .tab-nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.eem-tab-panel > .tab-content {
+.eem-tab-panel .tab-content {
     padding: 30px;
     background-color: #fff;
     border-radius: 4px;
@@ -1687,7 +1687,16 @@ img {
 * Explore Nearby
 */
 
-.eem-nearby-style-1 .tab-nav-item {
+.eem-nearby-style-1 .eem-tab-panel > .tab-nav {
+    display: inline-block;
+}
+
+.eem-nearby-style-1 .eem-tab-panel > .tab-nav .tab-nav-item {
+    transform: none;
+}
+
+
+.eem-nearby-style-1 .eem-tab-panel > .tab-nav .tab-nav-item {
     padding: 20px;
     margin: 0 auto 30px auto;
     border-radius: 60px;
@@ -1696,6 +1705,7 @@ img {
     box-shadow: 0 20px 40px -5px rgba(9, 30, 66, .1);
     background-color: #fff;
     transition: color 0.2s ease-in, background-color 0.5s ease, background-image 0.6s ease-in-out, box-shadow 0.5s ease;
+    text-align: left;
 }
 
 .eem-nearby-style-1 .tab-nav-item > i {
@@ -1717,13 +1727,13 @@ img {
     margin-top: 10px;
 }
 
-.eem-nearby-style-1 .tab-nav-item:hover,
-.eem-nearby-style-1 .tab-nav-item.active {
-    color: #fff;
-    background-color: #E91E63;
-    background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
-    box-shadow: 0 20px 40px -5px rgba(9, 30, 66, .4);
+.eem-nearby-style-1 .eem-tab-panel .tab-content {
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
 }
+
 
 /**
 * Floating Box
