@@ -1960,6 +1960,192 @@ img {
 
 
 /**
+* User Profile Banner
+*/
+
+.eem-user-profile .eem-user-banner {
+    position: relative;
+    z-index: 10;
+    background-image: url(../../images/user-profile-banner.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.eem-user-profile .eem-user-banner .btn-control {
+    position: absolute;
+    bottom: 30px;
+    right: 0;
+}
+
+.eem-user-profile .eem-user-banner .btn-control > a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    min-width: 120px;
+    text-align: center;
+    border-radius: 50px;
+    color: #4a4a4a;
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-right: 15px;
+    transition: 0.6s;
+}
+
+.eem-user-profile .eem-user-banner .btn-control > .btn-logout {
+    color: #fff;
+    background-color: #E91E63;
+}
+
+.eem-user-profile .eem-user-banner .btn-control > a:hover {
+    color: #fff;
+    background-color: #E91E63;
+    background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
+    box-shadow: 0 20px 40px -5px rgba(9, 30, 66, .3);
+    transform: translateY(-2px);
+}
+
+.eem-user-profile .eem-user-banner .pb-container {
+    position: relative;
+    min-height: 300px;
+}
+
+.eem-user-sidebar {
+    padding: 40px 25px;
+    background-color: #fff;
+    border-radius: 4px;
+    margin-top: -150px;
+    z-index: 999;
+    position: relative;
+    box-shadow: 0 20px 40px -5px rgba(9, 30, 66, .15);
+}
+
+.eem-user-sidebar h2,
+.eem-user-sidebar h3,
+.eem-user-sidebar h4 {
+    color: #2a2a2a;
+}
+
+.eem-user-sidebar p,
+.eem-user-sidebar a,
+.eem-user-sidebar span,
+.eem-user-sidebar ul {
+    color: #797979;
+}
+
+.eem-user-sidebar .user-avatar {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.eem-user-sidebar .user-avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.eem-user-sidebar .user-info {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.eem-user-sidebar .user-info > * {
+    display: block;
+    margin: 0;
+    font-size: 13px;
+}
+
+.eem-user-sidebar .user-info > .user-name {
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 2px;
+}
+
+.eem-user-sidebar .user-info .user-website:hover {
+    color: #e91e63;
+}
+
+.eem-user-sidebar .user-stats {
+    margin: 0 0 30px;
+    list-style: none;
+    padding: 0;
+}
+
+.eem-user-sidebar .user-stats > li {
+    margin-bottom: 10px;
+}
+
+.eem-user-sidebar .user-stats .stats-label > * {
+    color: #2a2a2a
+}
+
+.eem-user-sidebar .user-stats .stats-label > i {
+    font-size: 14px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 31px;
+    text-align: center;
+    color: #e91e63;
+    background-color: rgba(233, 30, 99, 0.1);
+    border-radius: 50%;
+    margin-right: 10px;
+    text-indent: 2px;
+}
+
+.eem-user-sidebar .user-stats .stats-label > i.icofont-check {
+    font-size: 18px;
+}
+
+.eem-user-sidebar .user-stats .stats-count {
+    float: right;
+}
+
+.eem-user-profile .eem-user-content-wrap {
+    background-color: #f7f7f7;
+    padding-bottom: 100px;
+}
+
+.eem-user-profile .eem-user-content {
+    padding-top: 40px;
+}
+
+.eem-user-sidebar .user-experience h3,
+.eem-user-sidebar .user-find h3,
+.eem-user-sidebar .user-about h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.eem-user-sidebar .user-experience {
+    margin-bottom: 30px;
+}
+
+.eem-user-sidebar .user-about {
+    margin-bottom: 30px;
+}
+
+.eem-user-sidebar .user-about p:last-child {
+    margin-bottom: 0;
+}
+
+.eem-user-sidebar .user-find a {
+    display: inline-block;
+    margin-right: 10px;
+    width: 20px;
+    font-size: 16px;
+    line-height: 1;
+    transition: 0.3s;
+}
+
+.eem-user-sidebar .user-find a:hover,
+.eem-user-sidebar .user-experience a:hover {
+    color: #e91e63;
+}
+
+
+/**
  * EEM Notices
  */
 
