@@ -25,6 +25,14 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			add_action( 'wp_ajax_eem_add_new_session', array( $this, 'ajax_add_new_session' ) );
 			add_action( 'wp_ajax_eem_add_new_speaker', array( $this, 'ajax_add_new_speaker' ) );
 			add_action( 'wp_ajax_eem_add_section', array( $this, 'ajax_eem_add_section' ) );
+			add_action( 'wp_ajax_eem_add_new_sponsor', array( $this, 'ajax_eem_add_sponsor' ) );
+		}
+
+		function ajax_eem_add_sponsor() {
+
+			$unique_id = isset( $_POST['unique_id'] ) ? sanitize_text_field( $_POST['unique_id'] ) : current_time( 'timestamp' );
+
+			wp_send_json_success( eem_print_event_sponsor( array( 'id' => $unique_id ), false ) );
 		}
 
 

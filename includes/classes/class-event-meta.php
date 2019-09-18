@@ -51,17 +51,11 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 
 			$_event_schedules = isset( $_POST['_event_schedules'] ) ? stripslashes_deep( $_POST['_event_schedules'] ) : array();
 			$_event_speakers  = isset( $_POST['_event_speakers'] ) ? stripslashes_deep( $_POST['_event_speakers'] ) : array();
+			$_event_sponsors  = isset( $_POST['_event_sponsors'] ) ? stripslashes_deep( $_POST['_event_sponsors'] ) : array();
 
 			update_post_meta( $post_id, '_event_schedules', $_event_schedules );
 			update_post_meta( $post_id, '_event_speakers', $_event_speakers );
-
-			echo '<pre>';
-			print_r( $_event_speakers );
-			echo '</pre>';
-
-
-//			die();
-
+			update_post_meta( $post_id, '_event_sponsors', $_event_sponsors );
 		}
 
 
@@ -134,13 +128,12 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 			return apply_filters( 'eem_filters_event_meta_fields', array(
 
 				array(
-					'id'      => '_event_template',
-					'title'   => esc_html__( 'Event Template', EEM_TD ),
-					'type'    => 'select',
-					'class'   => 'nice-select-wrap',
-					'args'    => 'POSTS_%event_template%',
+					'id'    => '_event_template',
+					'title' => esc_html__( 'Event Template', EEM_TD ),
+					'type'  => 'select',
+					'class' => 'nice-select-wrap',
+					'args'  => 'POSTS_%event_template%',
 				),
-
 				array(
 					'id'            => 'content',
 					'title'         => esc_html__( 'Event Description', EEM_TD ),
@@ -152,7 +145,6 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 						'drag_drop_upload' => true,
 					),
 				),
-
 				array(
 					'id'            => '_event_start_date',
 					'title'         => esc_html__( 'Start Date/Time', EEM_TD ),
@@ -163,7 +155,6 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 						'dateFormat' => 'yy-mm-dd',
 					),
 				),
-
 				array(
 					'id'            => '_event_start_time',
 					'details'       => esc_html__( 'Specify event start time here', EEM_TD ),
@@ -174,7 +165,6 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 						'dynamic'  => true,
 					),
 				),
-
 				array(
 					'id'            => '_event_end_date',
 					'title'         => esc_html__( 'End Date/Time', EEM_TD ),
@@ -185,7 +175,6 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 						'dateFormat' => 'yy-mm-dd',
 					),
 				),
-
 				array(
 					'id'            => '_event_end_time',
 					'details'       => esc_html__( 'Specify event end time. This means the time of the date when event ends. You can leave empty the end date but can fill this.', EEM_TD ),
@@ -196,16 +185,20 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 						'dynamic'  => true,
 					),
 				),
-
 				array(
 					'id'          => '_event_location',
+					'title'       => esc_html__( 'Location', EEM_TD ),
 					'details'     => esc_html__( 'Add your event location.', EEM_TD ),
 					'type'        => 'text',
 					'class'       => 'event-location-field',
 					'placeholder' => esc_html( 'International Convention City Bashundhara, Dhaka' ),
 				),
-
-
+				array(
+					'id'      => '_event_gallery',
+					'title'   => esc_html__( 'Gallery', EEM_TD ),
+					'details' => esc_html__( 'Share some images to your users from this or past events', EEM_TD ),
+					'type'    => 'gallery',
+				),
 			) );
 		}
 	}

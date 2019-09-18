@@ -75,6 +75,25 @@
     });
 
 
+    $(document).on('click', '.eem-add-sponsor', function () {
+
+        $.ajax({
+            type: 'POST',
+            url: pluginObject.ajaxurl,
+            context: this,
+            data: {
+                'action': 'eem_add_new_sponsor',
+                'unique_id': $.now(),
+            },
+            success: function (response) {
+
+                if (response.success) {
+                    $(response.data).appendTo($(this).parent().find('.eem-sponsors')).hide().slideDown();
+                }
+            }
+        });
+    });
+
     $(document).on('click', '.eem-add-speaker', function () {
 
         $.ajax({

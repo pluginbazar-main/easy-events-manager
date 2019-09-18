@@ -1286,6 +1286,18 @@ img {
 * Sponsors
 */
 
+.eem-sponsors-style-1 .sponsor-type {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 27px;
+    line-height: 1.6;
+    color: #999;
+    font-weight: 500;
+    font-family: 'Roboto Slab', serif;
+    margin-bottom: 25px;
+}
+
 .eem-sponsors-style-1 .sponsors-single {
     background: #fff;
     margin-bottom: 30px;
@@ -1425,21 +1437,27 @@ img {
     max-width: calc(100% - 260px);
 }
 
-.eem-cta-style-1 .eem-cta-title {
-    font-size: 42px;
+.eem-cta-style-1 .eem-section-heading {
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.eem-cta-style-1 .eem-section-heading .eem-sh-title {
+    font-size: 34px;
     line-height: 1.2;
     color: #fff;
     margin-bottom: 13px;
 }
 
-.eem-cta-style-1 .eem-cta-desc {
+.eem-cta-style-1 .eem-section-heading .eem-sh-subtitle {
     font-size: 18px;
     line-height: 28px;
     color: rgba(255, 255, 255, 0.72);
+    margin-left: 0;
 }
 
-.eem-cta-style-1 .eem-cta-desc:last-child {
-    margin-bottom: 0;
+.eem-cta-style-1 .eem-section-heading .eem-sh-tagline {
+    color: #fff;
 }
 
 .eem-cta-style-1 .eem-cta-button > a {

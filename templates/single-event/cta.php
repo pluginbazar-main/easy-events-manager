@@ -12,16 +12,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <div class="eem-event-section eem-cta-style-1 eem-force-full-width">
-	<div class="pb-container">
-		<div class="eem-cta-wrap">
-			<div class="eem-cta-content">
-				<h2 class="eem-cta-title">You'll Fall in Love Barcelona</h2>
-				<p class="eem-cta-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-					ipsum dolor Tur adipiscing elit, sed do eiusmod sed do eiusmod.</p>
-			</div>
-			<div class="eem-cta-button">
-				<a href="#">Get Ticket Now!</a>
-			</div>
-		</div>
-	</div>
+    <div class="pb-container">
+        <div class="eem-cta-wrap">
+            <div class="eem-cta-content">
+
+				<?php eem_print_event_section_heading(
+					array(
+						'heading'     => esc_html__( 'Speakers', EEM_TD ),
+						'sub_heading' => esc_html__( 'Who will deliver speeches', EEM_TD ),
+						'short_desc'  => esc_html__( 'Meet our speakers who will continue with their discussion', EEM_TD ),
+					)
+				); ?>
+
+            </div>
+            <div class="eem-cta-button">
+                <a href="#">Get Ticket Now!</a>
+            </div>
+        </div>
+    </div>
 </div>

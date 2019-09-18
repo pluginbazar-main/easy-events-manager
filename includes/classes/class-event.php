@@ -10,6 +10,16 @@ if ( ! class_exists( 'EEM_Event' ) ) {
 			parent::__construct( $event_id );
 		}
 
+		function get_gallery_images( $size = 'thumbnail' ) {
+
+			$images = array();
+
+			foreach ( $this->get_meta( '_event_gallery', array() ) as $image_id ) {
+				$images[ $image_id ] = wp_get_attachment_image_url( $image_id, $size );
+			}
+
+			return apply_filters( 'eem_filters_event_gallery', $images, $this->get_id() );
+		}
 
 		function get_template_id() {
 
@@ -52,6 +62,13 @@ if ( ! class_exists( 'EEM_Event' ) ) {
 			return apply_filters( 'eem_filters_event_location', $this->get_meta( '_event_location' ) );
 		}
 
+		function get_sponsors() {
+
+			$sponsors = $this->get_meta( '_event_sponsors', array() );
+
+			return apply_filters( 'eem_filters_event_sponsors', $sponsors );
+		}
+
 
 		function get_speakers() {
 
@@ -62,7 +79,6 @@ if ( ! class_exists( 'EEM_Event' ) ) {
 					unset( $speakers[ $speaker_id ] );
 				}
 			}
-
 
 			return apply_filters( 'eem_filters_event_speakers', $speakers );
 		}

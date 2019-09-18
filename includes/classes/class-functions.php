@@ -22,6 +22,19 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 		}
 
 
+		function get_sponsor_types() {
+
+			$types = array(
+				'platinum' => esc_html__( 'Platinum package', EEM_TD ),
+				'gold'     => esc_html__( 'Gold package', EEM_TD ),
+				'silver'   => esc_html__( 'Silver package', EEM_TD ),
+				'bronze'   => esc_html__( 'Bronze package', EEM_TD ),
+			);
+
+			return apply_filters( 'eem_filters_sponsor_types', $types );
+		}
+
+
 		/**
 		 * Return array of custom endpoints
 		 *

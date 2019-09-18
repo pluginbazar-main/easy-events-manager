@@ -10,6 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+global $event;
+
+
 ?>
 <div <?php eem_print_event_section_classes( 'eem-event-section eem-spacer eem-gallery-style-1 bg-white eem-force-full-width' ); ?>>
 
@@ -21,86 +24,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		)
 	); ?>
 
-	<div class="eem-gallery-wrap pb-grid pb-grid-4 pb-no-gutters">
-		<div class="pb-grid-col">
-			<div class="gallery-single">
-				<img src="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-2.jpg"
-				     alt="Gallery Image">
-				<a href="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-2.jpg"
-				   class="gallery-zoon-icon" data-effect="mfp-3d-unfold">
-					<i class="icofont-search"></i>
-				</a>
-			</div>
-		</div>
-		<div class="pb-grid-col">
-			<div class="gallery-single">
-				<img src="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-5.jpg"
-				     alt="Gallery Image">
-				<a href="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-5.jpg"
-				   class="gallery-zoon-icon" data-effect="mfp-3d-unfold">
-					<i class="icofont-search"></i>
-				</a>
-			</div>
-		</div>
-		<div class="pb-grid-col">
-			<div class="gallery-single">
-				<img src="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-3.jpg"
-				     alt="Gallery Image">
-				<a href="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-3.jpg"
-				   class="gallery-zoon-icon" data-effect="mfp-3d-unfold">
-					<i class="icofont-search"></i>
-				</a>
-			</div>
-		</div>
-		<div class="pb-grid-col">
-			<div class="gallery-single">
-				<img src="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-4.jpg"
-				     alt="Gallery Image">
-				<a href="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-4.jpg"
-				   class="gallery-zoon-icon" data-effect="mfp-3d-unfold">
-					<i class="icofont-search"></i>
-				</a>
-			</div>
-		</div>
-		<div class="pb-grid-col">
-			<div class="gallery-single">
-				<img src="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-2.jpg"
-				     alt="Gallery Image">
-				<a href="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-2.jpg"
-				   class="gallery-zoon-icon" data-effect="mfp-3d-unfold">
-					<i class="icofont-search"></i>
-				</a>
-			</div>
-		</div>
-		<div class="pb-grid-col">
-			<div class="gallery-single">
-				<img src="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-5.jpg"
-				     alt="Gallery Image">
-				<a href="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-5.jpg"
-				   class="gallery-zoon-icon" data-effect="mfp-3d-unfold">
-					<i class="icofont-search"></i>
-				</a>
-			</div>
-		</div>
-		<div class="pb-grid-col">
-			<div class="gallery-single">
-				<img src="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-3.jpg"
-				     alt="Gallery Image">
-				<a href="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-3.jpg"
-				   class="gallery-zoon-icon" data-effect="mfp-3d-unfold">
-					<i class="icofont-search"></i>
-				</a>
-			</div>
-		</div>
-		<div class="pb-grid-col">
-			<div class="gallery-single">
-				<img src="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-4.jpg"
-				     alt="Gallery Image">
-				<a href="https://evently.mikado-themes.com/wp-content/uploads/2017/06/h1-gallery-img-4.jpg"
-				   class="gallery-zoon-icon" data-effect="mfp-3d-unfold">
-					<i class="icofont-search"></i>
-				</a>
-			</div>
-		</div>
-	</div>
+    <div class="eem-gallery-wrap pb-grid pb-grid-4 pb-no-gutters">
+
+		<?php foreach ( $event->get_gallery_images('full') as $image_id => $image_url ) {
+			printf( '<div class="pb-grid-col"><div class="gallery-single"><img src="%1$s" alt="%2$s"><a href="%1$s" class="gallery-zoon-icon" data-effect="mfp-3d-unfold"><i class="icofont-search"></i></a></div></div>',
+				$image_url, eem()->get_meta( '_wp_attachment_image_alt', $image_id )
+			);
+		} ?>
+
+    </div>
 </div>
