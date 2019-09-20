@@ -22,6 +22,22 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 		}
 
 
+		function get_user_event( $user_id = false, $args = array() ) {
+
+			$user_id = ! $user_id || empty( $user_id ) || $user_id == 0 ? get_current_user_id() : $user_id;
+
+			$args['post_type'] = 'event';
+			$args['author']    = $user_id;
+
+			if ( ! isset( $args['posts_per_page'] ) ) {
+				$args['posts_per_page'] = - 1;
+			}
+
+			$events = get_posts( $args );
+
+			return apply_filters( 'eem_filters_user_events', $events, $args );
+		}
+
 		function get_nearby_facts() {
 
 			$nearby_facts = array(
@@ -69,7 +85,8 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 				'register',
 				'attendees',
 				'gallery',
-				'news'
+				'news',
+				'profile',
 			) );
 		}
 
@@ -167,7 +184,7 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 					'fields'   => $common_fields,
 				),
 				'register'  => array(
-					'label'    => esc_html__( 'CTA - Register', EEM_TD ),
+					'label'    => esc_html__( 'Register', EEM_TD ),
 					'priority' => 30,
 					'fields'   => array_merge( $common_fields, array(
 						array(
@@ -205,9 +222,21 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 					) ),
 				),
 				'cta'       => array(
-					'label'    => esc_html__( 'CTA - Tickets', EEM_TD ),
+					'label'    => esc_html__( 'Call to Action', EEM_TD ),
 					'priority' => 40,
-					'fields'   => $common_fields
+					'fields'   => array_merge( $common_fields, array(
+						array(
+							'id'      => "button_text",
+							'title'   => esc_html__( 'Button', EEM_TD ),
+							'details' => esc_html__( 'Button Text: Write the button text.', EEM_TD ),
+							'type'    => 'text',
+						),
+						array(
+							'id'      => "button_url",
+							'details' => esc_html__( 'Button URL: Where the users will redirect with this button', EEM_TD ),
+							'type'    => 'text',
+						),
+					) ),
 				),
 				'sponsors'  => array(
 					'label'    => esc_html__( 'Sponsors', EEM_TD ),
@@ -346,8 +375,8 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 		}
 
 
-		function PB() {
-			return new PB_Settings();
+		function PB( $args = array() ) {
+			return new PB_Settings( $args );
 		}
 
 

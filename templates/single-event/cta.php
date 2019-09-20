@@ -10,6 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+global $event, $template_section;
+
+$button_text = $template_section && isset( $template_section['button_text'] ) ? $template_section['button_text'] : esc_html__('Get Tickets');
+$button_url  = $template_section && isset( $template_section['button_url'] ) ? $template_section['button_url'] : '';
+
 ?>
 <div class="eem-event-section eem-cta-style-1 eem-force-full-width">
     <div class="pb-container">
@@ -18,16 +23,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				<?php eem_print_event_section_heading(
 					array(
-						'heading'     => esc_html__( 'Speakers', EEM_TD ),
-						'sub_heading' => esc_html__( 'Who will deliver speeches', EEM_TD ),
-						'short_desc'  => esc_html__( 'Meet our speakers who will continue with their discussion', EEM_TD ),
+						'heading'     => esc_html__( 'Purchase your Ticket', EEM_TD ),
+						'sub_heading' => esc_html__( 'Why be late!', EEM_TD ),
+						'short_desc'  => esc_html__( 'Hurry up! Get your tickets right now. We have only few tickets left.', EEM_TD ),
 					)
 				); ?>
 
             </div>
-            <div class="eem-cta-button">
-                <a href="#">Get Ticket Now!</a>
-            </div>
+
+	        <?php eem_print_button( $button_text, 'a', '', $button_url, '<div class="eem-cta-button">%</div>' ); ?>
+
         </div>
     </div>
 </div>

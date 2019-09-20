@@ -13,7 +13,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		 */
 		function __construct() {
 
-			add_action( 'init', array( $this, 'register_post_types_taxs' ) );
+			add_action( 'init', array( $this, 'register_post_types_taxs_pages' ) );
 
 			add_filter( 'query_vars', array( $this, 'add_query_vars' ), 10 );
 			add_filter( 'init', array( $this, 'add_endpoints' ), 10 );
@@ -139,7 +139,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		function add_endpoints() {
 
 			foreach ( eem()->get_custom_endpoints() as $endpoint ) {
-				add_rewrite_endpoint( $endpoint, EP_PERMALINK | EP_PAGES );
+				add_rewrite_endpoint( $endpoint, EP_PERMALINK | EP_PAGES | EP_ALL );
 			}
 		}
 
@@ -163,7 +163,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		/**
 		 * Register Post types and taxonomies
 		 */
-		function register_post_types_taxs() {
+		function register_post_types_taxs_pages() {
 
 			eem()->PB()->register_post_type( 'event', array(
 				'singular'      => esc_html__( 'Event', EEM_TD ),
@@ -187,7 +187,26 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 				'show_in_menu' => 'edit.php?post_type=event',
 			) );
 
-			do_action( 'eem_register_post_types_taxs', $this );
+			add_image_size( 'event_post', 350, 196 );
+			add_image_size( 'event_nearby', 570, 319 );
+			add_image_size( 'event_gallery', 360, 360 );
+
+			/**
+			 * Register Attendees Admin Page
+			 */
+			eem()->PB( array(
+				'add_in_menu'     => true,
+				'menu_type'       => 'submenu',
+				'menu_title'      => esc_html__( 'Attendees', EEM_TD ),
+				'page_title'      => esc_html__( 'Attendees', EEM_TD ),
+				'menu_page_title' => esc_html__( 'View Attendees', EEM_TD ),
+				'capability'      => 'manage_options',
+				'menu_slug'       => 'attendees',
+				'parent_slug'     => "edit.php?post_type=event",
+				'show_submit'     => false,
+			) );
+
+			do_action( 'eem_post_types_taxs_pages', $this );
 		}
 	}
 

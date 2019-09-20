@@ -4,6 +4,17 @@
  */
 
 
+/**
+ * Admin Templates
+ */
+
+if( ! function_exists( 'eem_pb_settings_attendees' ) ) {
+	function eem_pb_settings_attendees() {
+		require_once( EEM_PLUGIN_DIR . 'includes/admin-templates/attendees.php' );
+	}
+}
+
+
 if ( ! function_exists( 'eem_single_event_main_banner' ) ) {
 	function eem_single_event_main_banner() {
 		eem_set_template_section( 'banner' );

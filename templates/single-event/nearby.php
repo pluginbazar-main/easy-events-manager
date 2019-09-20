@@ -32,22 +32,21 @@ $nearby_facts = eem()->get_nearby_facts();
         <div class="pb-row eem-tab-panel">
             <div class="pb-col-md-6 tab-nav">
 
-					<?php $index = 0;
-					foreach ( $nearby_facts as $fact_id => $nearby ) {
+				<?php $index = 0;
+				foreach ( $nearby_facts as $fact_id => $nearby ) {
 
-						$index ++;
+					$index ++;
 
-						$active = $index == 1 ? 'active' : '';
-						$label  = isset( $nearby['label'] ) ? $nearby['label'] : '';
-						$icon   = isset( $nearby['icon'] ) ? $nearby['icon'] : '';
+					$active = $index == 1 ? 'active' : '';
+					$label  = isset( $nearby['label'] ) ? $nearby['label'] : '';
+					$icon   = isset( $nearby['icon'] ) ? $nearby['icon'] : '';
 
-						printf( '<div class="tab-nav-item %s" data-target="nearby-%s">%s<span>%s</span></div>', $active, $fact_id, $icon, $label );
-					} ?>
+					printf( '<div class="tab-nav-item %s" data-target="nearby-%s">%s<span>%s</span></div>', $active, $fact_id, $icon, $label );
+				} ?>
 
             </div>
 
             <div class="pb-col-md-6 tab-content">
-
 				<?php $index = 0;
 				foreach ( $nearby_facts as $fact_id => $nearby ) {
 
@@ -58,7 +57,7 @@ $nearby_facts = eem()->get_nearby_facts();
 					$icon    = isset( $nearby['icon'] ) ? $nearby['icon'] : '';
 					$post_id = $event->get_meta( "_event_nearby_{$fact_id}" );
 
-					printf( '<div class="tab-item-content %s nearby-%s">%s</div>', $active, $fact_id, eem_print_blog_post( $post_id, false ) );
+					printf( '<div class="tab-item-content %s nearby-%s">%s</div>', $active, $fact_id, eem_print_blog_post( $post_id, 'event_nearby', false ) );
 				} ?>
             </div>
 

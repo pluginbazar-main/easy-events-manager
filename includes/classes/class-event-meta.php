@@ -218,6 +218,14 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 					'type'    => 'select2',
 					'args'    => 'POSTS_%post%',
 				),
+				array(
+					'id'       => '_event_posts',
+					'title'    => esc_html__( 'Event News', EEM_TD ),
+					'details'  => esc_html__( 'Select some posts to display on the news section for this event.', EEM_TD ),
+					'type'     => 'select2',
+					'multiple' => true,
+					'args'     => 'POSTS_%post%',
+				),
 			) );
 		}
 	}

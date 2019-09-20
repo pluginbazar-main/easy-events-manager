@@ -10,12 +10,29 @@ if ( ! class_exists( 'EEM_Event' ) ) {
 			parent::__construct( $event_id );
 		}
 
-		function get_gallery_images( $size = 'thumbnail' ) {
+		function get_attendees( $count = 999 ) {
+
+			$attendees = eem_get_attendees( $this->get_id(), array( 'email' ), 'ARRAY_A', $count );
+
+			return apply_filters( 'eem_filters_event_attendees', $attendees, $this->get_id() );
+		}
+
+		function get_posts() {
+
+			return apply_filters( 'eem_filters_event_posts', $this->get_meta( '_event_posts', array() ), $this->get_id() );
+		}
+
+		function get_gallery_images( $size = 'thumbnail', $count = 999 ) {
 
 			$images = array();
+			$index = 0;
 
 			foreach ( $this->get_meta( '_event_gallery', array() ) as $image_id ) {
-				$images[ $image_id ] = wp_get_attachment_image_url( $image_id, $size );
+				$index++;
+
+				if( $index <= $count ) {
+					$images[ $image_id ] = wp_get_attachment_image_url( $image_id, $size );
+				}
 			}
 
 			return apply_filters( 'eem_filters_event_gallery', $images, $this->get_id() );
@@ -70,12 +87,14 @@ if ( ! class_exists( 'EEM_Event' ) ) {
 		}
 
 
-		function get_speakers() {
+		function get_speakers( $count = 999 ) {
 
+			$index    = 0;
 			$speakers = $this->get_meta( '_event_speakers', array() );
 
 			foreach ( $speakers as $speaker_id => $speaker ) {
-				if ( ! isset( $speaker['user_id'] ) || empty( $speaker['user_id'] ) ) {
+				$index ++;
+				if ( $index > $count || ! isset( $speaker['user_id'] ) || empty( $speaker['user_id'] ) ) {
 					unset( $speakers[ $speaker_id ] );
 				}
 			}

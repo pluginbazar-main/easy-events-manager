@@ -10,12 +10,19 @@
      */
     $(document).on('ready', function () {
 
-        $('.eem-speakers .eem-repeat-head select, .nice-select-wrap select').niceSelect();
+        $('.eem-speakers .eem-repeat-head select, .nice-select-wrap select, form.eem-attendees-wrap select').niceSelect();
 
         $(".eem-repeat-container").sortable({
             handle: ".eem-repeat-sort",
             revert: true
         });
+    });
+
+
+    $(document).on('change', '.eem-attendees-wrap #event', function () {
+        if( $(this).val().length !== 0 ) {
+            $('form.eem-attendees-wrap').submit();
+        }
     });
 
 
@@ -42,7 +49,7 @@
             },
             success: function (response) {
 
-                console.log( response );
+                console.log(response);
 
                 if (response.success) {
                     $(response.data).appendTo(selectedSections).hide().slideDown();
