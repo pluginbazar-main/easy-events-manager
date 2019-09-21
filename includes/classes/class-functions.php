@@ -22,6 +22,65 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 		}
 
 
+		function get_event_archive_item_parts() {
+
+			return apply_filters( 'eem_filters_event_archive_item_parts', array(
+				'thumb'    => esc_html__( 'Thumbnail', EEM_TD ),
+				'title'    => esc_html__( 'Event Title', EEM_TD ),
+				'date'     => esc_html__( 'Published Date', EEM_TD ),
+				'location' => esc_html__( 'Location', EEM_TD ),
+				'excerpt'  => esc_html__( 'Excerpt', EEM_TD ),
+				'button'   => esc_html__( 'View details button', EEM_TD ),
+			) );
+		}
+
+		function get_settings() {
+
+			$pages['archive'] = apply_filters( 'eem_filters_event_settings_page_archive', array(
+
+				'page_nav'      => sprintf( '<i class="icofont-tasks-alt"></i> %s', esc_html__( 'Archive', EEM_TD ) ),
+				'page_settings' => array(
+
+					array(
+						'title'   => esc_html__( 'Event archive options', EEM_TD ),
+						'options' => array(
+							array(
+								'id'          => 'eem_archive_slug',
+								'title'       => esc_html__( 'Archive slug', EEM_TD ),
+								'details'     => esc_html__( 'Set archive slug for events. After changing slug you must reset the permalink from WP Settings > Permalink', EEM_TD ),
+								'type'        => 'text',
+								'placeholder' => esc_html__( 'events', EEM_TD ),
+							),
+							array(
+								'id'          => 'eem_archive_items',
+								'title'       => esc_html__( 'Events per Page', EEM_TD ),
+								'details'     => esc_html__( 'How many events you want to show on each page.', EEM_TD ),
+								'type'        => 'number',
+								'placeholder' => '6',
+							),
+							array(
+								'id'          => 'eem_archive_items_per_row',
+								'title'       => esc_html__( 'Items per Row', EEM_TD ),
+								'details'     => esc_html__( 'How many events you want to display on each row.', EEM_TD ),
+								'type'        => 'number',
+								'placeholder' => '3',
+							),
+							array(
+								'id'      => 'eem_archive_hide_item_parts',
+								'title'   => esc_html__( 'Hide item parts', EEM_TD ),
+								'details' => esc_html__( 'Select the parts you want to hide for each event item.', EEM_TD ),
+								'type'    => 'checkbox',
+								'args'    => $this->get_event_archive_item_parts(),
+							),
+						)
+					),
+				),
+			) );
+
+			return apply_filters( 'eem_filters_event_settings', $pages );
+		}
+
+
 		function get_user_event( $user_id = false, $args = array() ) {
 
 			$user_id = ! $user_id || empty( $user_id ) || $user_id == 0 ? get_current_user_id() : $user_id;

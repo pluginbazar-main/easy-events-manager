@@ -10,6 +10,12 @@ if ( ! class_exists( 'EEM_Event' ) ) {
 			parent::__construct( $event_id );
 		}
 
+
+		function get_event_status() {
+
+			return apply_filters( 'eem_filters_event_status', 'live' );
+		}
+
 		function get_attendees( $count = 999 ) {
 
 			$attendees = eem_get_attendees( $this->get_id(), array( 'email' ), 'ARRAY_A', $count );
@@ -25,12 +31,12 @@ if ( ! class_exists( 'EEM_Event' ) ) {
 		function get_gallery_images( $size = 'thumbnail', $count = 999 ) {
 
 			$images = array();
-			$index = 0;
+			$index  = 0;
 
 			foreach ( $this->get_meta( '_event_gallery', array() ) as $image_id ) {
-				$index++;
+				$index ++;
 
-				if( $index <= $count ) {
+				if ( $index <= $count ) {
 					$images[ $image_id ] = wp_get_attachment_image_url( $image_id, $size );
 				}
 			}

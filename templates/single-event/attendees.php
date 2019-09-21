@@ -27,7 +27,7 @@ $button = $template_section && isset( $template_section['button'] ) && is_array(
 			)
 		); ?>
 
-        <div class="pb-row">
+        <div class="pb-row pb-justify-content-center">
 			<?php foreach ( $event->get_attendees( $count ) as $attendee_email ) {
 
 				$attendee      = get_user_by( 'email', $attendee_email );

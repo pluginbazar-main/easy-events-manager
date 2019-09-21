@@ -40,7 +40,7 @@ class EEM_Attendees_list extends WP_List_Table {
 
 		$result = $wpdb->get_results( $sql, 'ARRAY_A' );
 
-		return $result;
+		return array_reverse( $result );
 	}
 
 

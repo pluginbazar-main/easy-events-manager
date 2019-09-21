@@ -4,6 +4,52 @@
  */
 
 
+if ( ! function_exists( 'eem_pagination' ) ) {
+	/**
+	 * Return Pagination HTML Content
+	 *
+	 * @param bool $query_object
+	 * @param array $args
+	 *
+	 * @return array|string|void
+	 */
+	function eem_pagination( $query_object = false, $args = array() ) {
+
+		global $wp_query;
+
+		$previous_query = $wp_query;
+
+		if ( $query_object ) {
+			$wp_query = $query_object;
+		}
+
+		if ( get_query_var( 'paged' ) ) {
+			$paged = absint( get_query_var( 'paged' ) );
+		} elseif ( get_query_var( 'page' ) ) {
+			$paged = absint( get_query_var( 'page' ) );
+		} else {
+			$paged = 1;
+		}
+
+		$defaults = array(
+			'base'      => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
+			'format'    => '?paged=%#%',
+			'current'   => max( 1, $paged ),
+			'total'     => $wp_query->max_num_pages,
+			'prev_text' => $wp_query->get( 'prev_text' ),
+			'next_text' => $wp_query->get( 'next_text' ),
+		);
+
+		$args           = apply_filters( 'eem_filters_pagination', array_merge( $defaults, $args ) );
+		$paginate_links = paginate_links( $args );
+
+		$wp_query = $previous_query;
+
+		return $paginate_links;
+	}
+}
+
+
 if ( ! function_exists( 'eem_get_user_profile_url' ) ) {
 	/**
 	 * Return user profile URL
@@ -26,23 +72,24 @@ if ( ! function_exists( 'eem_get_user_profile_url' ) ) {
 }
 
 
-function eem_remove_attendee( $row_id_or_email = false, $event_id = 0 ) {
+if ( ! function_exists( 'eem_remove_attendee' ) ) {
+	function eem_remove_attendee( $row_id_or_email = false, $event_id = 0 ) {
 
-	global $wpdb;
+		global $wpdb;
 
-	if ( ! $row_id_or_email ) {
-		return false;
+		if ( ! $row_id_or_email ) {
+			return false;
+		}
+
+		if ( is_email( $row_id_or_email ) ) {
+			$row_id_or_email = $wpdb->get_var( sprintf( 'SELECT id FROM %s WHERE event_id = %s AND email = \'%s\'',
+					EEM_TABLE_ATTENDEES, $event_id, $row_id_or_email )
+			);
+		}
+
+		return $wpdb->delete( EEM_TABLE_ATTENDEES, array( 'id' => $row_id_or_email ) );
 	}
-
-	if ( is_email( $row_id_or_email ) ) {
-		$row_id_or_email = $wpdb->get_var( sprintf( 'SELECT id FROM %s WHERE event_id = %s AND email = \'%s\'',
-				EEM_TABLE_ATTENDEES, $event_id, $row_id_or_email )
-		);
-	}
-
-	return $wpdb->delete( EEM_TABLE_ATTENDEES, array( 'id' => $row_id_or_email ) );
 }
-
 
 if ( ! function_exists( 'eem_insert_attendee' ) ) {
 	/**

@@ -18,6 +18,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			add_filter( 'query_vars', array( $this, 'add_query_vars' ), 10 );
 			add_filter( 'init', array( $this, 'add_endpoints' ), 10 );
 
+			add_filter( '404_template', array( $this, 'manage_archive_template' ) );
 			add_filter( 'archive_template', array( $this, 'display_event_archive' ) );
 			add_filter( 'single_template', array( $this, 'display_single_event' ) );
 
@@ -26,7 +27,46 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			add_action( 'wp_ajax_eem_add_new_speaker', array( $this, 'ajax_add_new_speaker' ) );
 			add_action( 'wp_ajax_eem_add_section', array( $this, 'ajax_eem_add_section' ) );
 			add_action( 'wp_ajax_eem_add_new_sponsor', array( $this, 'ajax_eem_add_sponsor' ) );
+
+			add_action( 'eem_before_event_archive_main', array( $this, 'event_query_start' ), 1 );
+			add_action( 'eem_after_event_archive_main', array( $this, 'event_query_end' ), 999 );
 		}
+
+
+		function event_query_start() {
+
+			global $wp_query, $eem_query_prev;
+
+			if ( get_query_var( 'paged' ) ) {
+				$paged = absint( get_query_var( 'paged' ) );
+			} elseif ( get_query_var( 'page' ) ) {
+				$paged = absint( get_query_var( 'page' ) );
+			} else {
+				$paged = 1;
+			}
+
+			$eem_query_prev          = $wp_query;
+			$args['post_type']       = 'event';
+			$args['paged']           = $paged;
+			$args['posts_per_page']  = eem()->get_option( 'eem_archive_items', 6 );
+			$args['posts_per_row']   = (int) ( 12 / eem()->get_option( 'eem_archive_items_per_row', 3 ) );
+			$args['hide_item_parts'] = eem()->get_option( 'eem_archive_hide_item_parts', array() );
+			$args['show_pagination'] = eem()->get_option( 'eem_archive_show_pagination', 'yes' );
+			$args['prev_text']       = eem()->get_option( 'eem_archive_pagination_prev_text', esc_html__( 'Prev', EEM_TD ) );
+			$args['next_text']       = eem()->get_option( 'eem_archive_pagination_next_text', esc_html__( 'Next', EEM_TD ) );
+
+			$wp_query = new WP_Query( apply_filters( 'eem_filters_event_archive_args', $args ) );
+		}
+
+		function event_query_end() {
+
+			global $wp_query, $eem_query_prev;
+
+			wp_reset_query();
+
+			$wp_query = $eem_query_prev;
+		}
+
 
 		function ajax_eem_add_sponsor() {
 
@@ -67,6 +107,33 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			}
 
 			return $archive_template;
+		}
+
+		/**
+		 * Manage Archive page template with an issue with 404 template
+		 *
+		 * @param $template
+		 *
+		 * @return string
+		 * @todo needs improvements in the method used to solve the issue
+		 */
+		function manage_archive_template( $template ) {
+
+			global $wp_query;
+
+			if ( get_query_var( 'paged' ) ) {
+				$paged = absint( get_query_var( 'paged' ) );
+			} elseif ( get_query_var( 'page' ) ) {
+				$paged = absint( get_query_var( 'page' ) );
+			} else {
+				$paged = 1;
+			}
+
+			if ( $wp_query->get( 'post_type' ) == 'event' && $paged > 1 ) {
+				$template = EEM_PLUGIN_DIR . 'templates/archive-event.php';
+			}
+
+			return $template;
 		}
 
 
@@ -169,9 +236,15 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 				'singular'      => esc_html__( 'Event', EEM_TD ),
 				'plural'        => esc_html__( 'All Events', EEM_TD ),
 				'menu_icon'     => 'dashicons-nametag',
-				'has_archive'   => true,
 				'menu_position' => 15,
 				'supports'      => array( 'title', 'thumbnail' ),
+				'has_archive'   => eem()->get_option( 'eem_archive_slug', 'events' ),
+				'rewrite'       => array(
+					'slug'       => 'event',
+					'with_front' => false,
+					'pages'      => true,
+					'feeds'      => true,
+				),
 			) );
 
 			eem()->PB()->register_taxonomy( 'event_cat', 'event', array(
@@ -204,6 +277,18 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 				'menu_slug'       => 'attendees',
 				'parent_slug'     => "edit.php?post_type=event",
 				'show_submit'     => false,
+			) );
+
+			eem()->PB( array(
+				'add_in_menu'     => true,
+				'menu_type'       => 'submenu',
+				'menu_title'      => esc_html__( 'Settings', EEM_TD ),
+				'page_title'      => esc_html__( 'Settings', EEM_TD ),
+				'menu_page_title' => esc_html__( 'Easy Events Manager - Settings', EEM_TD ),
+				'capability'      => 'manage_options',
+				'menu_slug'       => 'eem-settings',
+				'parent_slug'     => "edit.php?post_type=event",
+				'pages'           => eem()->get_settings(),
 			) );
 
 			do_action( 'eem_post_types_taxs_pages', $this );
