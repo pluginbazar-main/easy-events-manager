@@ -405,6 +405,9 @@
     font-size: 15px;
 }
 
+.row-actions > span {
+    color: #00BCD4;
+}
 
 /**
 * jQuery UI Calender

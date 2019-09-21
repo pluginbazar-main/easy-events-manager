@@ -6,7 +6,11 @@
  */
 
 if ( ! class_exists( 'EEM_Hooks' ) ) {
+	/**
+	 * Class EEM_Hooks
+	 */
 	class EEM_Hooks {
+
 
 		/**
 		 * EEM_Hooks constructor.
@@ -28,11 +32,17 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			add_action( 'wp_ajax_eem_add_section', array( $this, 'ajax_eem_add_section' ) );
 			add_action( 'wp_ajax_eem_add_new_sponsor', array( $this, 'ajax_eem_add_sponsor' ) );
 
+			add_action( 'wp_ajax_eem_add_attendees', 'eem_add_attendees' );
+			add_action( 'wp_ajax_nopriv_eem_add_attendees', 'eem_add_attendees' );
+
 			add_action( 'eem_before_event_archive_main', array( $this, 'event_query_start' ), 1 );
 			add_action( 'eem_after_event_archive_main', array( $this, 'event_query_end' ), 999 );
 		}
 
 
+		/**
+		 * Archive event query start
+		 */
 		function event_query_start() {
 
 			global $wp_query, $eem_query_prev;
@@ -58,6 +68,10 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			$wp_query = new WP_Query( apply_filters( 'eem_filters_event_archive_args', $args ) );
 		}
 
+
+		/**
+		 * Archive event query end
+		 */
 		function event_query_end() {
 
 			global $wp_query, $eem_query_prev;
@@ -68,6 +82,60 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		}
 
 
+		/**
+		 * Add ajax attendees in backend
+		 *
+		 * @ajax eem_add_attendees
+		 */
+		function eem_add_attendees() {
+
+			if ( ! isset( $_POST['form_data'] ) ) {
+				wp_send_json_error();
+			}
+
+			parse_str( $_POST['form_data'], $form_data );
+
+			$event_id  = isset( $form_data['event_id'] ) ? sanitize_text_field( $form_data['event_id'] ) : '';
+			$full_name = isset( $form_data['full_name'] ) ? sanitize_text_field( $form_data['full_name'] ) : '';
+			$email_add = isset( $form_data['email_add'] ) ? sanitize_email( $form_data['email_add'] ) : '';
+
+			if ( empty( $event_id ) || $event_id === 0 ) {
+				wp_send_json_error( esc_html__( 'Trying invalid event !', EEM_TD ) );
+			}
+
+			if ( empty( $email_add ) ) {
+				wp_send_json_error( esc_html__( 'Invalid email address provided !', EEM_TD ) );
+			}
+
+			$user_id = email_exists( $email_add );
+
+			if ( ! $user_id ) {
+
+				$user_args = array(
+					'user_login'   => eem_create_username( $email_add, array( 'full_name' => $full_name ) ),
+					'user_email'   => $email_add,
+					'display_name' => $full_name,
+				);
+				$user_id   = wp_insert_user( $user_args );
+
+				if ( is_wp_error( $user_id ) ) {
+					wp_send_json_error( $user_id->get_error_message() );
+				}
+			}
+
+			$ret = eem_insert_attendee( $event_id, $user_id );
+
+			if ( is_wp_error( $ret ) ) {
+				wp_send_json_error( $ret->get_error_message() );
+			}
+
+			wp_send_json_success( esc_html__( 'Attendee added successfully', EEM_TD ) );
+		}
+
+
+		/**
+		 * Add ajax sponsors in backend
+		 */
 		function ajax_eem_add_sponsor() {
 
 			$unique_id = isset( $_POST['unique_id'] ) ? sanitize_text_field( $_POST['unique_id'] ) : current_time( 'timestamp' );
@@ -76,6 +144,9 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		}
 
 
+		/**
+		 * Add ajax add section in backend
+		 */
 		function ajax_eem_add_section() {
 
 			$section_id = isset( $_POST['section_id'] ) ? sanitize_text_field( $_POST['section_id'] ) : '';
@@ -94,6 +165,50 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		}
 
 		/**
+		 * Add ajax speaker in backend
+		 */
+		function ajax_add_new_speaker() {
+
+			$unique_id = isset( $_POST['unique_id'] ) ? sanitize_text_field( $_POST['unique_id'] ) : current_time( 'timestamp' );
+
+			wp_send_json_success( eem_print_event_speaker( array( 'id' => $unique_id ), false ) );
+		}
+
+
+		/**
+		 * Add ajax session in backend
+		 */
+		function ajax_add_new_session() {
+
+			$unique_id   = isset( $_POST['unique_id'] ) ? sanitize_text_field( $_POST['unique_id'] ) : date( 'U' );
+			$schedule_id = isset( $_POST['schedule_id'] ) ? sanitize_text_field( $_POST['schedule_id'] ) : 0;
+
+			wp_send_json_success( eem_print_session_content( $schedule_id, array( 'id' => $unique_id ), false ) );
+		}
+
+
+		/**
+		 * Add ajax day in backend
+		 */
+		function ajax_add_new_day() {
+
+			$unique_id = isset( $_POST['unique_id'] ) ? sanitize_text_field( $_POST['unique_id'] ) : date( 'U' );
+			$index_id  = isset( $_POST['index_id'] ) ? sanitize_text_field( $_POST['index_id'] ) : 0;
+
+			wp_send_json_success( array(
+				'day_nav'     => eem_print_event_schedule_day_nav( array(
+					'id'    => $unique_id,
+					'index' => $index_id,
+				), false ),
+				'day_content' => eem_print_event_schedule_day_content( array(
+					'id'    => $unique_id,
+					'index' => $index_id,
+				), false ),
+			) );
+		}
+
+
+		/**
 		 * Display Archive template for Event
 		 *
 		 * @param $archive_template
@@ -108,6 +223,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 
 			return $archive_template;
 		}
+
 
 		/**
 		 * Manage Archive page template with an issue with 404 template
@@ -137,6 +253,13 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		}
 
 
+		/**
+		 * Display single template
+		 *
+		 * @param $single_template
+		 *
+		 * @return string
+		 */
 		function display_single_event( $single_template ) {
 
 			if ( is_singular( 'event_template' ) ) {
@@ -168,38 +291,6 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		}
 
 
-		function ajax_add_new_speaker() {
-
-			$unique_id = isset( $_POST['unique_id'] ) ? sanitize_text_field( $_POST['unique_id'] ) : current_time( 'timestamp' );
-
-			wp_send_json_success( eem_print_event_speaker( array( 'id' => $unique_id ), false ) );
-		}
-
-		function ajax_add_new_session() {
-
-			$unique_id   = isset( $_POST['unique_id'] ) ? sanitize_text_field( $_POST['unique_id'] ) : date( 'U' );
-			$schedule_id = isset( $_POST['schedule_id'] ) ? sanitize_text_field( $_POST['schedule_id'] ) : 0;
-
-			wp_send_json_success( eem_print_session_content( $schedule_id, array( 'id' => $unique_id ), false ) );
-		}
-
-		function ajax_add_new_day() {
-
-			$unique_id = isset( $_POST['unique_id'] ) ? sanitize_text_field( $_POST['unique_id'] ) : date( 'U' );
-			$index_id  = isset( $_POST['index_id'] ) ? sanitize_text_field( $_POST['index_id'] ) : 0;
-
-			wp_send_json_success( array(
-				'day_nav'     => eem_print_event_schedule_day_nav( array(
-					'id'    => $unique_id,
-					'index' => $index_id,
-				), false ),
-				'day_content' => eem_print_event_schedule_day_content( array(
-					'id'    => $unique_id,
-					'index' => $index_id,
-				), false ),
-			) );
-		}
-
 		/**
 		 * Add custom endpoint
 		 */
@@ -209,6 +300,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 				add_rewrite_endpoint( $endpoint, EP_PERMALINK | EP_PAGES | EP_ALL );
 			}
 		}
+
 
 		/**
 		 * Add Query Var

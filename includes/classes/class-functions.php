@@ -22,6 +22,35 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 		}
 
 
+		/**
+		 * Return events in multiple ways
+		 *
+		 * @param array $args
+		 * @param string $return
+		 *
+		 * @return bool|int[]|WP_Post[]|WP_Query
+		 */
+		function get_events( $args = array(), $return = 'array' ) {
+
+			$defaults = array(
+				'post_type'      => 'event',
+				'posts_per_page' => - 1,
+			);
+
+			$args = wp_parse_args( $args, $defaults );
+
+			if ( $return == 'array' ) {
+				return get_posts( $args );
+			}
+
+			if ( $return == 'object' ) {
+				return new WP_Query( $args );
+			}
+
+			return false;
+		}
+
+
 		function get_event_archive_item_parts() {
 
 			return apply_filters( 'eem_filters_event_archive_item_parts', array(

@@ -89,7 +89,6 @@ class EasyEventsManager {
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-admin-attendees.php' );
 
 		require_once( EEM_PLUGIN_DIR . 'includes/functions.php' );
-		require_once( EEM_PLUGIN_DIR . 'includes/functions-ajax.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/template-hooks.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/template-hook-functions.php' );
 	}
