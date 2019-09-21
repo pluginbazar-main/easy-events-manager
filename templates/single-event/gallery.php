@@ -27,6 +27,15 @@ $images = $event->get_gallery_images( 'event_gallery', $count );
 		)
 	); ?>
 
+	<?php
+	if ( empty( $images ) ) {
+		eem_print_event_notice( apply_filters( 'eem_filters_gallery_not_found_text',
+			esc_html__( 'No images/memories shared yet. We will announce latter. Stay close !', EEM_TD ) ), 'warning',
+			'div', '<div class="pb-container">%</div>'
+		);
+	}
+	?>
+
     <div class="eem-gallery-wrap pb-grid pb-grid-4 pb-no-gutters pb-justify-content-center">
 
 		<?php foreach ( $images as $image_id => $image_url ) {

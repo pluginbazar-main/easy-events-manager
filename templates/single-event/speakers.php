@@ -32,7 +32,7 @@ $event_speakers = $event->get_speakers();
 		<?php
 		if ( empty( $event_speakers ) ) {
 			eem_print_event_notice( apply_filters( 'eem_filters_speakers_not_found_text',
-				esc_html__( 'No speaker assigned yet. We will announce latter. Stay close', EEM_TD ) ), 'error'
+				esc_html__( 'No speaker assigned yet. We will announce latter. Stay close !', EEM_TD ) ), 'warning'
 			);
 		}
 		?>

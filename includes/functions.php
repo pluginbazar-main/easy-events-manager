@@ -211,7 +211,7 @@ if ( ! function_exists( 'eem_print_blog_post' ) ) {
                     <a href="<?php echo esc_url( get_the_permalink( $post_id ) ); ?>"><?php echo get_the_title( $post_id ); ?></a>
                 </h2>
                 <div class="post-content">
-					<?php echo wpautop( wp_trim_words( get_the_content( null, false, $post_id ), 20 ) ); ?>
+					<?php echo wpautop( wp_trim_words( get_the_content( null, false, $post_id ), 15 ) ); ?>
                 </div>
                 <div class="post-footer">
                     <a href="<?php echo esc_url( get_the_permalink( $post_id ) ); ?>"
@@ -269,23 +269,34 @@ if ( ! function_exists( 'eem_print_button' ) ) {
 
 if ( ! function_exists( 'eem_print_event_notice' ) ) {
 	/**
-	 * Print Event notice
-	 *
+     * Print Event notice
+     *
 	 * @param string $message
 	 * @param string $type
 	 * @param string $tag
+	 * @param string $wrapper
+	 * @param bool $echo
+	 *
+	 * @return mixed|string|void
 	 */
-	function eem_print_event_notice( $message = '', $type = 'success', $tag = 'div' ) {
+	function eem_print_event_notice( $message = '', $type = 'success', $tag = 'div', $wrapper = '', $echo = true ) {
 
 		if ( empty( $message ) ) {
-			return;
+			return false;
 		}
 
 		if ( ! in_array( $tag, array( 'div', 'p', 'span' ) ) ) {
-			return;
+			return false;
 		}
 
-		printf( '<%1$s class="eem-notice eem-notice-%2$s">%3$s</%1$s>', $tag, $type, $message );
+		$notice = sprintf( '<%1$s class="eem-notice eem-notice-%2$s">%3$s</%1$s>', $tag, $type, $message );
+		$notice = empty( $wrapper ) ? $notice : str_replace( '%', $notice, $wrapper );
+
+		if ( $echo ) {
+			print $notice;
+		} else {
+			return $notice;
+		}
 	}
 }
 

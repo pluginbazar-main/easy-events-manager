@@ -10,5 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+global $event, $wp_query;
+
+if ( in_array( 'title', $wp_query->get( 'hide_item_parts' ) ) ) {
+	return;
+}
+
+
 ?>
-<h2><a href="#">Welcome to WordCamp Dhaka 2019</a></h2>
+<h2><a href="<?php echo esc_url( $event->get_permalink() ); ?>"><?php echo esc_html( $event->get_name() ); ?></a></h2>

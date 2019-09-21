@@ -65,14 +65,8 @@ $unique_id = uniqid();
 
             </script>
 
-			<?php
-			if ( $button !== 'yes' ) : ?>
-                <div class="banner-ticket">
-					<?php eem_print_button( esc_html__( 'Buy Ticket', EEM_TD ), 'a', 'eem-btn eem-btn-large', $event->get_endpoint_url( 'tickets' ) ); ?>
+			<?php do_action( 'eem_section_banner_button', $button, $template_section ); ?>
 
-                    <span class="tickets-available">100 Tickets available</span>
-                </div>
-			<?php endif; ?>
         </div>
     </div>
 </div>

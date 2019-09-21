@@ -34,6 +34,12 @@ foreach ( $event->get_sponsors() as $sponsor ) {
 			)
 		);
 
+		if ( empty( $event_sponsors ) ) {
+			eem_print_event_notice( apply_filters( 'eem_filters_sponsors_not_found_text',
+				esc_html__( 'No sponsors confirmed yet. We will announce latter. Stay close !', EEM_TD ) ), 'warning'
+			);
+		}
+
 		foreach ( $sponsor_types as $type => $label ) {
 
 			$sponsors = isset( $event_sponsors[ $type ] ) ? $event_sponsors[ $type ] : array();

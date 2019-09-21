@@ -12,8 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $event, $template_section;
 
-$count  = $template_section && isset( $template_section['count'] ) ? $template_section['count'] : 8;
-$button = $template_section && isset( $template_section['button'] ) && is_array( $template_section['button'] ) ? reset( $template_section['button'] ) : '';
+$count     = $template_section && isset( $template_section['count'] ) ? $template_section['count'] : 8;
+$button    = $template_section && isset( $template_section['button'] ) && is_array( $template_section['button'] ) ? reset( $template_section['button'] ) : '';
+$attendees = $event->get_attendees( $count );
 
 ?>
 <div class="eem-event-section eem-attendees-style-1 eem-spacer eem-force-full-width bg-white">
@@ -27,8 +28,16 @@ $button = $template_section && isset( $template_section['button'] ) && is_array(
 			)
 		); ?>
 
+	    <?php
+	    if ( empty( $attendees ) ) {
+		    eem_print_event_notice( apply_filters( 'eem_filters_attendees_not_found_text',
+			    esc_html__( 'No attendees are confirmed yet. We will announce latter. Stay close !', EEM_TD ) ), 'warning'
+		    );
+	    }
+	    ?>
+
         <div class="pb-row pb-justify-content-center">
-			<?php foreach ( $event->get_attendees( $count ) as $attendee_email ) {
+			<?php foreach ( $attendees as $attendee_email ) {
 
 				$attendee      = get_user_by( 'email', $attendee_email );
 				$attendee_url  = eem_get_user_profile_url( $attendee->ID );
@@ -39,7 +48,7 @@ $button = $template_section && isset( $template_section['button'] ) && is_array(
 			} ?>
         </div>
 
-		<?php if ( $button !== 'yes' ) {
+		<?php if ( ! empty( $attendees ) && $button !== 'yes' ) {
 			eem_print_button( esc_html__( 'All Attendees', EEM_TD ), 'a', 'eem-btn eem-btn-large',
 				$event->get_endpoint_url( 'attendees' ), '<div class="view-more text-center">%</div>' );
 		} ?>
