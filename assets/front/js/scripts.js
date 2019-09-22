@@ -8,7 +8,7 @@
 
     $(document).ready(function () {
 
-        $('.single-event select, .post-type-archive-event select').niceSelect();
+        $('.single-event select, .post-type-archive-event select, .pb-form .select select').niceSelect();
 
         var gallery_zoom = $('.gallery-zoon-icon');
 
