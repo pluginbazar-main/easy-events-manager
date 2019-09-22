@@ -14,10 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }  // if direct access
 
+global $wpdb;
+
 define( 'EEM_PLUGIN_URL', WP_PLUGIN_URL . '/' . plugin_basename( dirname( __FILE__ ) ) . '/' );
 define( 'EEM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'EEM_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 define( 'EEM_TD', 'easy-events-manager' );
+
+define( 'EEM_TABLE_ATTENDEES', $wpdb->prefix . 'eem_attendees' );
 
 
 class EasyEventsManager {
@@ -31,6 +35,8 @@ class EasyEventsManager {
 		$this->define_scripts();
 		$this->define_classes_functions();
 
+		register_activation_hook( __FILE__, array( $this, 'activation' ) );
+
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 	}
 
@@ -40,6 +46,27 @@ class EasyEventsManager {
 	 */
 	function load_textdomain() {
 		load_plugin_textdomain( 'eem-events-manager', false, plugin_basename( dirname( __FILE__ ) ) . '/languages/' );
+	}
+
+	/**
+	 * On Activation Create the Custom Data Table
+	 */
+	public function activation() {
+
+		global $wpdb;
+
+		$sql = "CREATE TABLE IF NOT EXISTS " . EEM_TABLE_ATTENDEES . " (
+			id int(100) NOT NULL AUTO_INCREMENT,
+			email VARCHAR(255) NOT NULL,
+			order_id int(100),
+			event_id int(100),
+			status VARCHAR(50),
+			datetime DATETIME NOT NULL,
+			UNIQUE KEY id (id)
+		) {$wpdb->get_charset_collate()};";
+
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		dbDelta( $sql );
 	}
 
 
@@ -59,10 +86,18 @@ class EasyEventsManager {
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-event-meta.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-template-meta.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-shortcodes.php' );
+		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-admin-attendees.php' );
 
 		require_once( EEM_PLUGIN_DIR . 'includes/functions.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/template-hooks.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/template-hook-functions.php' );
+	}
+
+
+	function localize_script() {
+		return array(
+			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+		);
 	}
 
 
@@ -75,7 +110,7 @@ class EasyEventsManager {
 		wp_enqueue_script( 'niceselect', plugins_url( '/assets/nice-select.min.js', __FILE__ ), array( 'jquery' ) );
 		wp_enqueue_script( 'magnific-popup-js', plugins_url( '/assets/front/js/jquery.magnific-popup.min.js', __FILE__ ), array( 'jquery' ) );
 		wp_enqueue_script( 'eem_front_js', plugins_url( '/assets/front/js/scripts.js', __FILE__ ), array( 'jquery' ) );
-		wp_localize_script( 'eem_front_js', 'eem_object', array( 'woc_ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+		wp_localize_script( 'eem_front_js', 'eem_object', $this->localize_script() );
 
 		wp_enqueue_style( 'niceselect', EEM_PLUGIN_URL . 'assets/nice-select.css' );
 		wp_enqueue_style( 'icofont', EEM_PLUGIN_URL . 'assets/fonts/icofont.min.css' );
@@ -94,7 +129,7 @@ class EasyEventsManager {
 		wp_enqueue_media();
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'eem_admin_js', plugins_url( '/assets/admin/js/scripts.js', __FILE__ ), array( 'jquery' ) );
-		wp_localize_script( 'eem_admin_js', 'eem_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+		wp_localize_script( 'eem_admin_js', 'eem_object', $this->localize_script() );
 		wp_enqueue_script( 'niceselect', plugins_url( '/assets/nice-select.min.js', __FILE__ ), array( 'jquery' ) );
 
 		wp_enqueue_style( 'niceselect', EEM_PLUGIN_URL . 'assets/nice-select.css' );

@@ -60,7 +60,32 @@
         $search_expand_btn.on('click', function () {
             $search_expand_btn.parent().parent().find('.advanced-field').slideToggle();
         });
+    });
 
+
+    $(document).on('submit', '.eem-register-form', function () {
+
+        let registerForm = $(this),
+            noticeArea = registerForm.find('.eem-form-notices'),
+            noticeContent = $('<div class="eem-notice"></div>');
+
+        noticeArea.html('');
+
+        $.ajax({
+            type: 'POST',
+            url: pluginObject.ajaxurl,
+            context: this,
+            data: {
+                'action': 'eem_add_attendees',
+                'form_data': registerForm.serialize(),
+            },
+            success: function (response) {
+                noticeContent.html(response.data).addClass(response.success ? 'eem-notice-success' : 'eem-notice-error');
+                noticeContent.appendTo(noticeArea).hide().slideDown();
+            }
+        });
+
+        return false;
     });
 
 

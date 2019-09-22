@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $event, $template_section;
 
+$count          = $template_section && isset( $template_section['count'] ) ? $template_section['count'] : 4;
+$button         = $template_section && isset( $template_section['button'] ) && is_array( $template_section['button'] ) ? reset( $template_section['button'] ) : '';
 $event_speakers = $event->get_speakers();
 
 
@@ -30,14 +32,14 @@ $event_speakers = $event->get_speakers();
 		<?php
 		if ( empty( $event_speakers ) ) {
 			eem_print_event_notice( apply_filters( 'eem_filters_speakers_not_found_text',
-				esc_html__( 'No speaker assigned yet. We will announce latter. Stay close', EEM_TD ) ), 'error'
+				esc_html__( 'No speaker assigned yet. We will announce latter. Stay close !', EEM_TD ) ), 'warning'
 			);
 		}
 		?>
 
         <div class="pb-row pb-justify-content-center">
 
-			<?php foreach ( $event->get_speakers() as $speaker_id => $speaker ) :
+			<?php foreach ( $event->get_speakers( $count ) as $speaker_id => $speaker ) :
 
 				$user_id = isset( $speaker['user_id'] ) ? $speaker['user_id'] : '';
 				$topics = isset( $speaker['topics'] ) ? $speaker['topics'] : '';
@@ -71,7 +73,7 @@ $event_speakers = $event->get_speakers();
 
         </div>
 
-		<?php if ( ! empty( $event_speakers ) ) {
+		<?php if ( ! empty( $event_speakers ) && $button !== 'yes' ) {
 			eem_print_button( esc_html__( 'All Speakers', EEM_TD ), 'a', 'eem-btn eem-btn-large',
 				$event->get_endpoint_url( 'speakers' ), '<div class="view-more text-center">%</div>' );
 		} ?>

@@ -9,9 +9,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 if ( ! class_exists( 'EEM_Post_meta' ) ) {
+	/**
+	 * Class EEM_Post_meta
+	 */
 	class EEM_Post_meta {
 
+		/**
+		 * Event Meta Fields
+		 *
+		 * @var array
+		 */
 		public $meta_fields = array();
+
 
 		/**
 		 * EEM_Post_meta constructor.
@@ -21,6 +30,71 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 			add_action( 'init', array( $this, 'add_meta_fields' ) );
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 			add_action( 'save_post', array( $this, 'save_event_meta' ) );
+
+			add_action( 'manage_event_posts_columns', array( $this, 'add_columns' ), 16, 1 );
+			add_action( 'manage_event_posts_custom_column', array( $this, 'columns_content' ), 10, 2 );
+			add_filter( 'post_row_actions', array( $this, 'remove_row_actions' ), 10, 1 );
+		}
+
+
+		/**
+		 * Remove Post row actions
+		 *
+		 * @param $actions
+		 *
+		 * @return mixed
+		 */
+		public function remove_row_actions( $actions ) {
+			global $post;
+
+			if ( $post->post_type === 'event' ) {
+				unset( $actions['inline hide-if-no-js'] );
+			}
+
+			return $actions;
+		}
+
+
+		/**
+		 * Content of custom column
+		 *
+		 * @param $column
+		 * @param $post_id
+		 */
+		function columns_content( $column, $post_id ) {
+
+			$event = eem_get_event( $post_id );
+
+			if ( $column == 'status' ) {
+				printf( '<span class="event-status">%s</span>', ucwords( esc_html( str_replace( '_', ' ', $event->get_event_status() ) ) ) );
+			}
+
+			if ( $column == 'datetime' ) {
+
+				$actions[] = sprintf( esc_html__( 'Created %s ago', EEM_TD ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
+
+				printf( '<span class="event-date">%s</span>', $event->get_event_datetime( 'start' ) );
+				printf( '<div class="row-actions"><span>%s</span></div>', implode( '', $actions ) );
+			}
+		}
+
+
+		/**
+		 * Add Custom column
+		 *
+		 * @param $columns
+		 *
+		 * @return array
+		 */
+		function add_columns( $columns ) {
+
+			$columns['title']    = esc_html__( 'Event Title', EEM_TD );
+			$columns['status']   = esc_html__( 'Status', EEM_TD );
+			$columns['datetime'] = esc_html__( 'Event Date', EEM_TD );
+
+			unset( $columns['date'] );
+
+			return $columns;
 		}
 
 
@@ -217,6 +291,14 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 					'details' => esc_html__( 'PLaces: Select a post where you wrote about nearby historical places around your event location.', EEM_TD ),
 					'type'    => 'select2',
 					'args'    => 'POSTS_%post%',
+				),
+				array(
+					'id'       => '_event_posts',
+					'title'    => esc_html__( 'Event News', EEM_TD ),
+					'details'  => esc_html__( 'Select some posts to display on the news section for this event.', EEM_TD ),
+					'type'     => 'select2',
+					'multiple' => true,
+					'args'     => 'POSTS_%post%',
 				),
 			) );
 		}

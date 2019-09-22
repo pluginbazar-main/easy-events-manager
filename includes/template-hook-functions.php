@@ -4,6 +4,17 @@
  */
 
 
+/**
+ * Admin Templates
+ */
+
+if ( ! function_exists( 'eem_pb_settings_attendees' ) ) {
+	function eem_pb_settings_attendees() {
+		require_once( EEM_PLUGIN_DIR . 'includes/admin-templates/attendees.php' );
+	}
+}
+
+
 if ( ! function_exists( 'eem_single_event_main_banner' ) ) {
 	function eem_single_event_main_banner() {
 		eem_set_template_section( 'banner' );
@@ -84,5 +95,61 @@ if ( ! function_exists( 'eem_single_event_main_news' ) ) {
 if ( ! function_exists( 'eem_single_event_main_floating_box' ) ) {
 	function eem_single_event_main_floating_box() {
 		eem_get_template( 'single-event/floating-box.php' );
+	}
+}
+
+if ( ! function_exists( 'eem_archive_event_search' ) ) {
+	function eem_archive_event_search() {
+		eem_get_template( 'loop/search.php' );
+	}
+}
+
+if ( ! function_exists( 'eem_archive_event_loop_start' ) ) {
+	function eem_archive_event_loop_start() {
+		eem_get_template( 'loop/start.php' );
+	}
+}
+
+if ( ! function_exists( 'eem_archive_event_pagination' ) ) {
+	function eem_archive_event_pagination() {
+		eem_get_template( 'loop/pagination.php' );
+	}
+}
+
+if ( ! function_exists( 'eem_archive_event_loop_end' ) ) {
+	function eem_archive_event_loop_end() {
+		eem_get_template( 'loop/end.php' );
+	}
+}
+
+if ( ! function_exists( 'eem_event_archive_item_main_thumb' ) ) {
+	function eem_event_archive_item_main_thumb() {
+		eem_get_template( 'loop/thumb.php' );
+	}
+}
+
+if ( ! function_exists( 'eem_event_archive_item_main_title' ) ) {
+	function eem_event_archive_item_main_title() {
+		eem_get_template( 'loop/title.php' );
+	}
+}
+
+if ( ! function_exists( 'eem_event_archive_item_main_meta' ) ) {
+	function eem_event_archive_item_main_meta() {
+		eem_get_template( 'loop/meta.php' );
+	}
+}
+
+
+if ( ! function_exists( 'eem_event_archive_item_main_excerpt' ) ) {
+	function eem_event_archive_item_main_excerpt() {
+		eem_get_template( 'loop/excerpt.php' );
+	}
+}
+
+
+if ( ! function_exists( 'eem_event_archive_item_main_button' ) ) {
+	function eem_event_archive_item_main_button() {
+		eem_get_template( 'loop/button.php' );
 	}
 }

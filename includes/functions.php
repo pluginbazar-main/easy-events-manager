@@ -4,7 +4,169 @@
  */
 
 
+if ( ! function_exists( 'eem_pagination' ) ) {
+	/**
+	 * Return Pagination HTML Content
+	 *
+	 * @param bool $query_object
+	 * @param array $args
+	 *
+	 * @return array|string|void
+	 */
+	function eem_pagination( $query_object = false, $args = array() ) {
 
+		global $wp_query;
+
+		$previous_query = $wp_query;
+
+		if ( $query_object ) {
+			$wp_query = $query_object;
+		}
+
+		if ( get_query_var( 'paged' ) ) {
+			$paged = absint( get_query_var( 'paged' ) );
+		} elseif ( get_query_var( 'page' ) ) {
+			$paged = absint( get_query_var( 'page' ) );
+		} else {
+			$paged = 1;
+		}
+
+		$defaults = array(
+			'base'      => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
+			'format'    => '?paged=%#%',
+			'current'   => max( 1, $paged ),
+			'total'     => $wp_query->max_num_pages,
+			'prev_text' => $wp_query->get( 'prev_text' ),
+			'next_text' => $wp_query->get( 'next_text' ),
+		);
+
+		$args           = apply_filters( 'eem_filters_pagination', array_merge( $defaults, $args ) );
+		$paginate_links = paginate_links( $args );
+
+		$wp_query = $previous_query;
+
+		return $paginate_links;
+	}
+}
+
+
+if ( ! function_exists( 'eem_get_user_profile_url' ) ) {
+	/**
+	 * Return user profile URL
+	 *
+	 * @param bool $user_id
+	 *
+	 * @return mixed|void
+	 */
+	function eem_get_user_profile_url( $user_id = false ) {
+
+		if ( ! $user_id || empty( $user_id ) || $user_id == 0 ) {
+			$user_id = get_current_user_id();
+		}
+
+		$this_user   = get_user_by( 'ID', $user_id );
+		$profile_url = site_url( sprintf( 'profile/%s', $this_user->user_login ) );
+
+		return apply_filters( 'eem_filters_user_profile_url', $profile_url, $this_user );
+	}
+}
+
+
+if ( ! function_exists( 'eem_remove_attendee' ) ) {
+	function eem_remove_attendee( $row_id_or_email = false, $event_id = 0 ) {
+
+		global $wpdb;
+
+		if ( ! $row_id_or_email ) {
+			return false;
+		}
+
+		if ( is_email( $row_id_or_email ) ) {
+			$row_id_or_email = $wpdb->get_var( sprintf( 'SELECT id FROM %s WHERE event_id = %s AND email = \'%s\'',
+					EEM_TABLE_ATTENDEES, $event_id, $row_id_or_email )
+			);
+		}
+
+		return $wpdb->delete( EEM_TABLE_ATTENDEES, array( 'id' => $row_id_or_email ) );
+	}
+}
+
+if ( ! function_exists( 'eem_insert_attendee' ) ) {
+	/**
+	 * Insert attendees to an event
+	 *
+	 * @param $event_id
+	 * @param bool $user_id
+	 *
+	 * @return false|int|WP_Error
+	 */
+	function eem_insert_attendee( $event_id, $user_id = false ) {
+
+		if ( empty( $user_id ) || ! $user_id || $user_id == 0 ) {
+			return new WP_Error( 'invalid_data', esc_html__( 'Invalid user id provided', EEM_TD ) );
+		}
+
+		global $wpdb;
+
+		$user      = get_user_by( 'ID', $user_id );
+		$attendees = eem_get_attendees( $event_id, array( 'email' ) );
+
+		if ( $attendees && is_array( $attendees ) && in_array( $user->user_email, $attendees ) ) {
+			return new WP_Error( 'duplicate_entry', esc_html__( 'You have already in attendees list !', EEM_TD ) );
+		}
+
+		$insert_id = $wpdb->insert( EEM_TABLE_ATTENDEES, array(
+			'email'    => $user->user_email,
+			'order_id' => 0,
+			'event_id' => $event_id,
+			'status'   => apply_filters( 'eem_filters_new_attendee_status', 'pending', $event_id, $user_id ),
+			'datetime' => current_time( 'mysql' )
+		) );
+
+		if ( ! $insert_id ) {
+			return new WP_Error( 'invalid_data', esc_html__( 'Something went wrong !', EEM_TD ) );
+		}
+
+		return $insert_id;
+	}
+}
+
+
+if ( ! function_exists( 'eem_get_attendees' ) ) {
+	/**
+	 * Return attendees list by giving event ID
+	 *
+	 * @param bool $event_id
+	 * @param string $get_fields
+	 * @param string $output
+	 * @param int $count
+	 *
+	 * @return array|mixed|void
+	 */
+	function eem_get_attendees( $event_id = false, $get_fields = '*', $output = 'OBJECT', $count = 999 ) {
+
+		if ( empty( $event_id ) || ! $event_id || $event_id == 0 ) {
+			return array();
+		}
+
+		if ( is_array( $get_fields ) ) {
+			$_get_fields = implode( ', ', $get_fields );
+		}
+
+		global $wpdb;
+
+		$query     = sprintf( 'SELECT %s FROM %s WHERE event_id = %s LIMIT %s', $_get_fields, EEM_TABLE_ATTENDEES, $event_id, $count );
+		$attendees = $wpdb->get_results( $query, $output );
+
+		if ( is_array( $get_fields ) && count( $get_fields ) == 1 ) {
+			$attendees = array_map( function ( $attendee ) {
+				return reset( $attendee );
+			}, $attendees );
+		}
+
+		return apply_filters( 'eem_filters_eem_attendees', $attendees, $event_id );
+	}
+}
 
 
 if ( ! function_exists( 'eem_print_blog_post' ) ) {
@@ -12,17 +174,18 @@ if ( ! function_exists( 'eem_print_blog_post' ) ) {
 	 * Print blog post
 	 *
 	 * @param $post_id
+	 * @param string $size
 	 * @param bool $echo
 	 *
 	 * @return false|string
 	 */
-	function eem_print_blog_post( $post_id, $echo = true ) {
+	function eem_print_blog_post( $post_id, $size = 'post-thumbnail', $echo = true ) {
 
 		ob_start();
 
-		if( empty( $post_id ) || $post_id == 0 ) {
-		    return ob_get_clean();
-        }
+		if ( empty( $post_id ) || $post_id == 0 ) {
+			return ob_get_clean();
+		}
 
 		$post        = get_post( $post_id );
 		$post_author = get_user_by( 'ID', $post->post_author );
@@ -33,7 +196,7 @@ if ( ! function_exists( 'eem_print_blog_post' ) ) {
 			<?php if ( has_post_thumbnail( $post_id ) ) : ?>
                 <div class="post-image">
                     <a href="<?php echo esc_url( get_the_permalink( $post_id ) ); ?>">
-                        <img src="<?php echo esc_url( get_the_post_thumbnail_url( $post_id ) ); ?>"
+                        <img src="<?php echo esc_url( get_the_post_thumbnail_url( $post_id, $size ) ); ?>"
                              alt="<?php echo get_the_title( $post_id ); ?>">
                     </a>
                 </div>
@@ -42,13 +205,13 @@ if ( ! function_exists( 'eem_print_blog_post' ) ) {
             <div class="post-body">
                 <div class="post-meta">
 					<?php printf( '<span class="post-author"><i class="icofont-user"></i> <a href="%s">%s</a></span>', get_author_posts_url( $post_author->ID ), $post_author->display_name ); ?>
-					<?php printf( '<span class="post-meta-date"><i class="icofont-calendar"></i> %s</span>', get_the_date( 'F jS, Y', $post_id ) ); ?>
+					<?php printf( '<span class="post-meta-date"><i class="icofont-calendar"></i> %s</span>', get_the_date( 'M jS, Y', $post_id ) ); ?>
                 </div>
                 <h2 class="post-title">
                     <a href="<?php echo esc_url( get_the_permalink( $post_id ) ); ?>"><?php echo get_the_title( $post_id ); ?></a>
                 </h2>
                 <div class="post-content">
-					<?php echo wpautop( wp_trim_words( get_the_content( null, false, $post_id ), 20 ) ); ?>
+					<?php echo wpautop( wp_trim_words( get_the_content( null, false, $post_id ), 15 ) ); ?>
                 </div>
                 <div class="post-footer">
                     <a href="<?php echo esc_url( get_the_permalink( $post_id ) ); ?>"
@@ -92,7 +255,7 @@ if ( ! function_exists( 'eem_print_button' ) ) {
 
 		$classes = eem_get_classes_array( $classes );
 		$classes = implode( ' ', $classes );
-		$button  = sprintf( '<%1$s class="%2$s" href="%3$s">%4$s</%1$s>', $tag, $classes, esc_url( $href ), esc_html( $text ) );
+		$button  = sprintf( '<%1$s class="%2$s" href="%3$s">%4$s</%1$s>', $tag, $classes, esc_url( $href ), $text );
 		$button  = empty( $wrapper ) ? $button : str_replace( '%', $button, $wrapper );
 
 		if ( $echo ) {
@@ -106,18 +269,34 @@ if ( ! function_exists( 'eem_print_button' ) ) {
 
 if ( ! function_exists( 'eem_print_event_notice' ) ) {
 	/**
-	 * Print Event notice
-	 *
+     * Print Event notice
+     *
 	 * @param string $message
 	 * @param string $type
+	 * @param string $tag
+	 * @param string $wrapper
+	 * @param bool $echo
+	 *
+	 * @return mixed|string|void
 	 */
-	function eem_print_event_notice( $message = '', $type = 'success' ) {
+	function eem_print_event_notice( $message = '', $type = 'success', $tag = 'div', $wrapper = '', $echo = true ) {
 
 		if ( empty( $message ) ) {
-			return;
+			return false;
 		}
 
-		printf( '<div class="eem-notice eem-notice-%s">%s</div>', $type, $message );
+		if ( ! in_array( $tag, array( 'div', 'p', 'span' ) ) ) {
+			return false;
+		}
+
+		$notice = sprintf( '<%1$s class="eem-notice eem-notice-%2$s">%3$s</%1$s>', $tag, $type, $message );
+		$notice = empty( $wrapper ) ? $notice : str_replace( '%', $notice, $wrapper );
+
+		if ( $echo ) {
+			print $notice;
+		} else {
+			return $notice;
+		}
 	}
 }
 
@@ -903,5 +1082,112 @@ if ( ! function_exists( 'eem' ) ) {
 		global $eem;
 
 		return $eem;
+	}
+}
+
+
+if ( ! function_exists( 'eem_create_username' ) ) {
+	/**
+	 * Create a unique username for a new user.
+	 *
+	 * @param string $email New customer email address.
+	 * @param array $new_user_args Array of new user args, maybe including first and last names.
+	 * @param string $suffix Append string to username to make it unique.
+	 *
+	 * @return string Generated username.
+	 */
+	function eem_create_username( $email, $new_user_args = array(), $suffix = '' ) {
+		$username_parts = array();
+
+		if ( isset( $new_user_args['full_name'] ) ) {
+			$username_parts[] = preg_replace( '/[^A-Za-z0-9\-]/', '', sanitize_user( $new_user_args['full_name'], true ) );
+		}
+
+		// Remove empty parts.
+		$username_parts = array_filter( $username_parts );
+
+		// If there are no parts, e.g. name had unicode chars, or was not provided, fallback to email.
+		if ( empty( $username_parts ) ) {
+			$email_parts    = explode( '@', $email );
+			$email_username = $email_parts[0];
+
+			// Exclude common prefixes.
+			if ( in_array(
+				$email_username,
+				array(
+					'sales',
+					'hello',
+					'mail',
+					'contact',
+					'info',
+				),
+				true
+			) ) {
+				// Get the domain part.
+				$email_username = $email_parts[1];
+			}
+
+			$username_parts[] = sanitize_user( $email_username, true );
+		}
+
+		$username = implode( '.', $username_parts );
+		$username = function_exists( 'mb_strtolower' ) ? mb_strtolower( $username ) : strtolower( $username );
+
+		if ( $suffix ) {
+			$username .= $suffix;
+		}
+
+		/**
+		 * WordPress 4.4 - filters the list of blacklisted usernames.
+		 *
+		 * @param array $usernames Array of blacklisted usernames.
+		 *
+		 * @since 3.7.0
+		 */
+		$illegal_logins = (array) apply_filters( 'illegal_user_logins', array() );
+
+		// Stop illegal logins and generate a new random username.
+		if ( in_array( strtolower( $username ), array_map( 'strtolower', $illegal_logins ), true ) ) {
+			$new_args = array();
+
+			/**
+			 * Filter generated username.
+			 *
+			 * @param string $username Generated username.
+			 * @param string $email New customer email address.
+			 * @param array $new_user_args Array of new user args, maybe including first and last names.
+			 * @param string $suffix Append string to username to make it unique.
+			 *
+			 * @since 3.7.0
+			 */
+			$new_args['full_name'] = apply_filters(
+				'eem_generated_username',
+				'eem_user_' . zeroise( wp_rand( 0, 9999 ), 4 ),
+				$email,
+				$new_user_args,
+				$suffix
+			);
+
+			return eem_create_username( $email, $new_args, $suffix );
+		}
+
+		if ( username_exists( $username ) ) {
+			// Generate something unique to append to the username in case of a conflict with another user.
+			$suffix = '-' . zeroise( wp_rand( 0, 9999 ), 4 );
+
+			return eem_create_username( $email, $new_user_args, $suffix );
+		}
+
+		/**
+		 * Filter new username.
+		 *
+		 * @param string $username Customer username.
+		 * @param string $email New customer email address.
+		 * @param array $new_user_args Array of new user args, maybe including first and last names.
+		 * @param string $suffix Append string to username to make it unique.
+		 *
+		 * @since 3.7.0
+		 */
+		return apply_filters( 'eem_generated_username', $username, $email, $new_user_args, $suffix );
 	}
 }

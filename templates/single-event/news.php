@@ -12,9 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $event;
 
+$event_posts = $event->get_posts();
+
 ?>
 <div <?php eem_print_event_section_classes( 'eem-event-section eem-blog-style-1 eem-force-full-width eem-spacer' ); ?>>
-	<div class="pb-container">
+    <div class="pb-container">
 
 		<?php eem_print_event_section_heading(
 			array(
@@ -24,99 +26,19 @@ global $event;
 			)
 		); ?>
 
-		<div class="pb-row">
-			<div class="pb-col-lg-4 pb-col-md-6">
-				<div class="post-item">
-					<div class="post-image">
-						<a href="#">
-							<img src="http://demo.themewinter.com/wp/exhibz/wp-content/uploads/2019/01/Blog-1.jpg"
-							     alt="Blog Image">
-						</a>
-					</div>
-					<div class="post-body">
-						<div class="post-meta">
-                                <span class="post-author">
-                                    <i class="icofont-user"></i>
-                                    <a href="#">Pluginbazar</a>
-                                </span>
-							<span class="post-meta-date">
-                                    <i class="icofont-calendar"></i> January 01,2019
-                                </span>
-						</div>
-						<h2 class="post-title">
-							<a href="#">Budgets for Business Events</a>
-						</h2>
-						<div class="post-content">
-							<p>There’s such a thing as “too much information”, especially for</p>
-						</div>
-						<div class="post-footer">
-							<a href="#" class="eem-btn"> Read More <i class="icofont-arrow-right"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
+	    <?php
+	    if ( empty( $event_posts ) ) {
+		    eem_print_event_notice( apply_filters( 'eem_filters_posts_not_found_text',
+			    esc_html__( 'No posts published yet. We will announce latter. Stay close !', EEM_TD ) ), 'warning'
+		    );
+	    }
+	    ?>
 
-			<div class="pb-col-lg-4 pb-col-md-6">
-				<div class="post-item">
-					<div class="post-image">
-						<a href="#">
-							<img src="http://demo.themewinter.com/wp/exhibz/wp-content/uploads/2019/01/Blog-2.jpg"
-							     alt="Blog Image">
-						</a>
-					</div>
-					<div class="post-body">
-						<div class="post-meta">
-                                <span class="post-author">
-                                    <i class="icofont-user"></i>
-                                    <a href="#">Pluginbazar</a>
-                                </span>
-							<span class="post-meta-date">
-                                    <i class="icofont-calendar"></i> January 01,2019
-                                </span>
-						</div>
-						<h2 class="post-title">
-							<a href="#">Budgets for Business Events</a>
-						</h2>
-						<div class="post-content">
-							<p>There’s such a thing as “too much information”, especially for</p>
-						</div>
-						<div class="post-footer">
-							<a href="#" class="eem-btn"> Read More <i class="icofont-arrow-right"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
+        <div class="pb-row">
+			<?php foreach ( $event_posts as $post_id ) {
+				printf( '<div class="pb-col-lg-4 pb-col-md-6">%s</div>', eem_print_blog_post( $post_id, 'event_post', false ) );
+			} ?>
+        </div>
+    </div>
 
-			<div class="pb-col-lg-4 pb-col-md-6">
-				<div class="post-item">
-					<div class="post-image">
-						<a href="#">
-							<img src="http://demo.themewinter.com/wp/exhibz/wp-content/uploads/2019/01/Blog-3.jpg"
-							     alt="Blog Image">
-						</a>
-					</div>
-					<div class="post-body">
-						<div class="post-meta">
-                                <span class="post-author">
-                                    <i class="icofont-user"></i>
-                                    <a href="#">Pluginbazar</a>
-                                </span>
-							<span class="post-meta-date">
-                                    <i class="icofont-calendar"></i> January 01,2019
-                                </span>
-						</div>
-						<h2 class="post-title">
-							<a href="#">Budgets for Business Events</a>
-						</h2>
-						<div class="post-content">
-							<p>There’s such a thing as “too much information”, especially for</p>
-						</div>
-						<div class="post-footer">
-							<a href="#" class="eem-btn"> Read More <i class="icofont-arrow-right"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </div>
