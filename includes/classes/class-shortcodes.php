@@ -120,6 +120,7 @@ if ( ! class_exists( 'EEM_Shortcodes' ) ) {
 					'field_options' => array(
 						'dateFormat' => 'yy-mm-dd',
 					),
+					'load_ui'       => false,
 				),
 
 				array(
