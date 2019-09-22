@@ -31,9 +31,9 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			add_action( 'wp_ajax_eem_add_new_speaker', array( $this, 'ajax_add_new_speaker' ) );
 			add_action( 'wp_ajax_eem_add_section', array( $this, 'ajax_eem_add_section' ) );
 			add_action( 'wp_ajax_eem_add_new_sponsor', array( $this, 'ajax_eem_add_sponsor' ) );
+			add_action( 'wp_ajax_eem_add_attendees', array( $this, 'ajax_eem_add_attendees' ) );
+			add_action( 'wp_ajax_nopriv_eem_add_attendees', array( $this, 'ajax_eem_add_attendees' ) );
 
-			add_action( 'wp_ajax_eem_add_attendees', 'eem_add_attendees' );
-			add_action( 'wp_ajax_nopriv_eem_add_attendees', 'eem_add_attendees' );
 
 			add_action( 'eem_before_event_archive_main', array( $this, 'event_query_start' ), 1 );
 			add_action( 'eem_after_event_archive_main', array( $this, 'event_query_end' ), 999 );
@@ -87,7 +87,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		 *
 		 * @ajax eem_add_attendees
 		 */
-		function eem_add_attendees() {
+		function ajax_eem_add_attendees() {
 
 			if ( ! isset( $_POST['form_data'] ) ) {
 				wp_send_json_error();
