@@ -1193,6 +1193,9 @@
 }
 
 @media ( max-width: 560px ) {
+    .pb-container {
+        padding: 0 30px;
+    }
     .pb-grid .pb-grid-col {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;

@@ -145,6 +145,77 @@ img {
 * Event Archive
 */
 
+/* Default Search form*/
+
+/* Default Search form*/
+
+.eem-default-search-form {
+    position: relative;
+    text-align: center;
+    z-index: 10;
+    padding: 85px 0 100px;
+    background-color: #E91E63;
+    background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
+}
+
+.eem-default-search-form:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    display: block;
+    background-image: url(../../../assets/images/bg-archive-search.jpg);
+    background-repeat: no-repeat;
+    background-position: right;
+    opacity: 0.75;
+    background-size: cover;
+}
+
+.eem-default-search-form .eem-event-search-form {
+    position: relative;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.eem-default-search-form .eem-event-search-form  .form-fields {
+    position: relative;
+}
+
+.eem-default-search-form .form-fields [type="text"] {
+    width: 100%;
+    border-radius: 50px;
+    height: 74px;
+    padding: 0 25px;
+    font-size: 20px;
+    color: #777;
+    line-height: 1;
+}
+
+.eem-default-search-form .form-fields .eem-btn {
+    position: absolute;
+    top: 50%;
+    right: 11px;
+    padding: 0 16px;
+    height: 54px;
+    margin-top: -27px;
+    min-width: auto;
+    width: 54px;
+    font-size: 19px;
+    text-indent: 3px;
+}
+
+.eem-default-search-form .eem-search-total-count {
+    color: #fff;
+    font-size: 20px;
+    line-height: 1.5;
+    margin: 20px 0 0;
+}
+
+
+/* advance search form */
 .eem-event-search {
     position: relative;
     z-index: 10;
@@ -396,6 +467,7 @@ img {
 .eem-event-style-1 .event-meta i {
     color: #e91e63;
     font-size: 18px;
+    margin-right: 4px;
 }
 
 .eem-event-style-1 .event-meta > * {
@@ -406,7 +478,7 @@ img {
 .eem-event-style-1 .eem-event-content > h2 {
     font-size: 24px;
     line-height: 1.4;
-    margin-bottom: 17px;
+    margin-bottom: 15px;
     font-weight: 600;
 }
 
