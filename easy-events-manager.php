@@ -117,6 +117,7 @@ class EasyEventsManager {
 		wp_enqueue_style( 'eem_tool_tip', EEM_PLUGIN_URL . 'assets/tool-tip.min.css' );
 		wp_enqueue_style( 'magnific-popup', EEM_PLUGIN_URL . 'assets/front/css/magnific-popup.css' );
 		wp_enqueue_style( 'pb-core-style', EEM_PLUGIN_URL . 'assets/front/css/pb-core-styles.css' );
+		wp_enqueue_style( 'eem_common_style', EEM_PLUGIN_URL . 'assets/common-style.css' );
 		wp_enqueue_style( 'eem_style', EEM_PLUGIN_URL . 'assets/front/css/style.css' );
 	}
 
@@ -135,6 +136,7 @@ class EasyEventsManager {
 		wp_enqueue_style( 'niceselect', EEM_PLUGIN_URL . 'assets/nice-select.css' );
 		wp_enqueue_style( 'icofont', EEM_PLUGIN_URL . 'assets/fonts/icofont.min.css' );
 		wp_enqueue_style( 'eem_tool_tip', EEM_PLUGIN_URL . 'assets/tool-tip.min.css' );
+		wp_enqueue_style( 'eem_common_style', EEM_PLUGIN_URL . 'assets/common-style.css' );
 		wp_enqueue_style( 'eem_admin_style', EEM_PLUGIN_URL . 'assets/admin/css/style.css' );
 	}
 
