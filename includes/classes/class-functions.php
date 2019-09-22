@@ -407,6 +407,7 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 					'placeholder' => esc_html__( 'Select Date', EEM_TD ),
 					'type'        => 'datepicker',
 					'class'       => 'advanced-field',
+					'load_ui'       => false,
 				),
 				array(
 					'id'    => 'sf_status',
