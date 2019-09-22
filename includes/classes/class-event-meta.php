@@ -228,6 +228,7 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 					'field_options' => array(
 						'dateFormat' => 'yy-mm-dd',
 					),
+					'load_ui'       => false,
 				),
 				array(
 					'id'            => '_event_start_time',
@@ -248,6 +249,7 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 					'field_options' => array(
 						'dateFormat' => 'yy-mm-dd',
 					),
+					'load_ui'       => false,
 				),
 				array(
 					'id'            => '_event_end_time',
