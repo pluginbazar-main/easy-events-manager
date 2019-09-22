@@ -92,12 +92,6 @@ if ( ! function_exists( 'eem_single_event_main_news' ) ) {
 	}
 }
 
-if ( ! function_exists( 'eem_single_event_main_floating_box' ) ) {
-	function eem_single_event_main_floating_box() {
-		eem_get_template( 'single-event/floating-box.php' );
-	}
-}
-
 if ( ! function_exists( 'eem_archive_event_search' ) ) {
 	function eem_archive_event_search() {
 		eem_get_template( 'loop/search.php' );

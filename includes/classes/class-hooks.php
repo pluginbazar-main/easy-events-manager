@@ -65,6 +65,11 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			$args['prev_text']       = eem()->get_option( 'eem_archive_pagination_prev_text', esc_html__( 'Prev', EEM_TD ) );
 			$args['next_text']       = eem()->get_option( 'eem_archive_pagination_next_text', esc_html__( 'Next', EEM_TD ) );
 
+			// Search Keyword
+			if ( isset( $_GET['k'] ) && ! empty( $keyword = sanitize_text_field( $_GET['k'] ) ) ) {
+				$args['s'] = $keyword;
+			}
+
 			$wp_query = new WP_Query( apply_filters( 'eem_filters_event_archive_args', $args ) );
 		}
 
@@ -381,6 +386,19 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 				'menu_slug'       => 'eem-settings',
 				'parent_slug'     => "edit.php?post_type=event",
 				'pages'           => eem()->get_settings(),
+			) );
+
+			eem()->PB( array(
+				'add_in_menu'     => true,
+				'menu_type'       => 'submenu',
+				'menu_title'      => esc_html__( 'Extensions', EEM_TD ),
+				'page_title'      => esc_html__( 'Extensions', EEM_TD ),
+				'menu_page_title' => esc_html__( 'Easy Events Manager - Extensions', EEM_TD ),
+				'capability'      => 'manage_options',
+				'menu_slug'       => 'eem-extensions',
+				'parent_slug'     => "edit.php?post_type=event",
+//				'pages'           => eem()->get_settings(),
+				'show_submit'     => false,
 			) );
 
 			do_action( 'eem_post_types_taxs_pages', $this );

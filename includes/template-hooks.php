@@ -22,8 +22,6 @@ foreach ( eem()->get_template_sections() as $section_id => $section ) {
 	}
 }
 
-add_action( 'eem_single_event_main', 'eem_single_event_main_floating_box', 65 );
-
 
 /**
  * Event Archive Page
