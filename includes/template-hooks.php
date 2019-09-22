@@ -30,7 +30,7 @@ add_action( 'eem_single_event_main', 'eem_single_event_main_floating_box', 65 );
  */
 
 add_action( 'eem_before_event_archive_loop', 'eem_archive_event_search', 10 );
-add_action( 'eem_before_event_archive_loop', 'eem_archive_event_loop_start', 10 );
+add_action( 'eem_before_event_archive_loop', 'eem_archive_event_loop_start', 15 );
 
 add_action( 'eem_after_event_archive_loop', 'eem_archive_event_pagination', 998 );
 add_action( 'eem_after_event_archive_loop', 'eem_archive_event_loop_end', 999 );

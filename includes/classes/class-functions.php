@@ -380,61 +380,6 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 		}
 
 
-		function get_archive_search_fields() {
-
-			$search_fields = array(
-				array(
-					'id'          => 'sf_keyword',
-					'title'       => esc_html__( 'Keyword', EEM_TD ),
-					'placeholder' => esc_html__( 'technology', EEM_TD ),
-					'type'        => 'text',
-				),
-				array(
-					'id'          => 'sf_location',
-					'title'       => esc_html__( 'Location', EEM_TD ),
-					'placeholder' => esc_html__( 'Dhaka, Bangladesh', EEM_TD ),
-					'type'        => 'text',
-				),
-				array(
-					'id'    => 'sf_category',
-					'title' => esc_html__( 'Category', EEM_TD ),
-					'type'  => 'select',
-					'args'  => 'TAX_%event_cat%',
-				),
-				array(
-					'id'          => 'sf_date',
-					'title'       => esc_html__( 'Date', EEM_TD ),
-					'placeholder' => esc_html__( 'Select Date', EEM_TD ),
-					'type'        => 'datepicker',
-					'class'       => 'advanced-field',
-					'load_ui'       => false,
-				),
-				array(
-					'id'    => 'sf_status',
-					'title' => esc_html__( 'Status', EEM_TD ),
-					'type'  => 'select',
-					'args'  => array(
-						'upcoming'  => esc_html__( 'Upcoming', EEM_TD ),
-						'completed' => esc_html__( 'Completed', EEM_TD ),
-					),
-					'class' => 'advanced-field',
-				),
-				array(
-					'id'    => 'sf_pricing',
-					'title' => esc_html__( 'Pricing', EEM_TD ),
-					'type'  => 'select',
-					'args'  => array(
-						'free'    => esc_html__( 'Free', EEM_TD ),
-						'premium' => esc_html__( 'Premium', EEM_TD ),
-					),
-					'class' => 'advanced-field',
-				),
-			);
-
-			return apply_filters( 'eem_filters_archive_search_fields', $search_fields );
-		}
-
-
 		function get_social_profile_platforms() {
 
 			$profile_platforms = array(

@@ -269,8 +269,8 @@ if ( ! function_exists( 'eem_print_button' ) ) {
 
 if ( ! function_exists( 'eem_print_event_notice' ) ) {
 	/**
-     * Print Event notice
-     *
+	 * Print Event notice
+	 *
 	 * @param string $message
 	 * @param string $type
 	 * @param string $tag
@@ -934,8 +934,9 @@ if ( ! function_exists( 'eem_get_template_part' ) ) {
 		$backtrace      = reset( $backtrace );
 		$backtrace_file = isset( $backtrace['file'] ) ? $backtrace['file'] : '';
 
-		if ( strpos( $backtrace_file, 'ext-slug' ) !== false && defined( 'EXT_PLUGIN_DIR' ) ) {
-			$plugin_dir = EXT_PLUGIN_DIR;
+		// Check from extensions
+		if ( ! empty( $backtrace_file ) && strpos( $backtrace_file, 'eem-advanced-search-filter' ) !== false && defined( 'EEM_ASF_PLUGIN_DIR' ) ) {
+			$plugin_dir = EEM_ASF_PLUGIN_DIR;
 		}
 
 		/**
@@ -1038,9 +1039,9 @@ if ( ! function_exists( 'eem_locate_template' ) ) {
 			$template_path = 'eem/';
 		}
 
-		// Check for survey
-		if ( ! empty( $backtrace_file ) && strpos( $backtrace_file, 'ext-slug' ) !== false && defined( 'EXT_PLUGIN_DIR' ) ) {
-			$plugin_dir = EXT_PLUGIN_DIR;
+		// Check from extensions
+		if ( ! empty( $backtrace_file ) && strpos( $backtrace_file, 'eem-advanced-search-filter' ) !== false && defined( 'EEM_ASF_PLUGIN_DIR' ) ) {
+			$plugin_dir = EEM_ASF_PLUGIN_DIR;
 		}
 
 		/**
