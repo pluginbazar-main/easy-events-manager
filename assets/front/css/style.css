@@ -145,33 +145,29 @@ img {
 * Event Archive
 */
 
-/* Default Search form*/
-
-/* Default Search form*/
-
 .eem-default-search-form {
     position: relative;
     text-align: center;
     z-index: 10;
-    padding: 85px 0 100px;
-    background-color: #E91E63;
-    background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
+    padding: 100px 0 120px;
+    background-image: url(../../../assets/images/bg-archive-search.jpg);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: cover;
 }
 
 .eem-default-search-form:before {
     content: '';
+    display: block;
     position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
     height: 100%;
     width: 100%;
-    display: block;
-    background-image: url(../../../assets/images/bg-archive-search.jpg);
-    background-repeat: no-repeat;
-    background-position: right;
-    opacity: 0.75;
-    background-size: cover;
+    background-color: #E91E63;
+    background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
+    opacity: 0.3;
 }
 
 .eem-default-search-form .eem-event-search-form {
@@ -211,33 +207,38 @@ img {
     color: #fff;
     font-size: 20px;
     line-height: 1.5;
-    margin: 20px 0 0;
+    margin: 28px 0 0;
 }
 
 
-/* advance search form */
+/**
+* Advance Search Form
+*/
+
 .eem-event-search {
     position: relative;
+    text-align: center;
+    background-image: url(../../../assets/images/bg-archive-search.jpg);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: cover;
     z-index: 10;
     padding: 70px 0 90px;
     background-color: #E91E63;
-    background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
 }
 
 .eem-event-search:before {
     content: '';
+    display: block;
     position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
     height: 100%;
     width: 100%;
-    display: block;
-    background-image: url(../../../assets/images/bg-archive-search.jpg);
-    background-repeat: no-repeat;
-    background-position: right;
-    opacity: 0.75;
-    background-size: cover;
+    background-color: #E91E63;
+    background-image: linear-gradient(30deg, #E91E63 11%, #5828bb 83.4%);
+    opacity: 0.3;
 }
 
 .eem-event-search-title {
@@ -245,7 +246,7 @@ img {
     color: #fff;
     line-height: 1.4;
     text-align: center;
-    margin: 0 0 28px;
+    margin: 0 0 35px;
 }
 
 .eem-event-search .form-fields-wrap {
