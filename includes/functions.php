@@ -318,9 +318,9 @@ if ( ! function_exists( 'eem_print_event_section_heading' ) ) {
 		$button      = $template_section && isset( $template_section['button'] ) ? $template_section['button'] : array();
 		$button_url  = $template_section && isset( $template_section['button_url'] ) ? $template_section['button_url'] : '';
 
-		$heading     = empty( $heading ) && isset( $args['heading'] ) ? $args['heading'] : '';
-		$sub_heading = empty( $sub_heading ) && isset( $args['sub_heading'] ) ? $args['sub_heading'] : '';
-		$short_desc  = empty( $short_desc ) && isset( $args['short_desc'] ) ? $args['short_desc'] : '';
+		$heading     = empty( $heading ) && isset( $args['heading'] ) ? $args['heading'] : $heading;
+		$sub_heading = empty( $sub_heading ) && isset( $args['sub_heading'] ) ? $args['sub_heading'] : $sub_heading;
+		$short_desc  = empty( $short_desc ) && isset( $args['short_desc'] ) ? $args['short_desc'] : $short_desc;
 
 		if ( ! empty( $sub_heading ) ) {
 			$html[] = sprintf( '<h6 class="eem-sh-tagline">%s</h6>', $sub_heading );
@@ -677,6 +677,7 @@ if ( ! function_exists( 'eem_print_event_speaker' ) ) {
 			)
 		);
 
+		ob_start();
 		?>
 
         <div class="eem-repeat-single">
@@ -762,6 +763,7 @@ if ( ! function_exists( 'eem_print_event_schedule_day_content' ) ) {
 							'dateFormat' => 'yy-mm-dd',
 						),
 						'value'         => $schedule_date,
+						'load_ui'       => false,
 					),
 				), $schedule ),
 			)

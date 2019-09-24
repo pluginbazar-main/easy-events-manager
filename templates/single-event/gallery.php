@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $event, $template_section;
 
-$count  = $template_section && isset( $template_section['count'] ) ? $template_section['count'] : 4;
+$count  = $template_section && isset( $template_section['count'] ) && ! empty( $template_section['count'] ) ? $template_section['count'] : 4;
 $button = $template_section && isset( $template_section['button'] ) && is_array( $template_section['button'] ) ? reset( $template_section['button'] ) : '';
 $images = $event->get_gallery_images( 'event_gallery', $count );
 

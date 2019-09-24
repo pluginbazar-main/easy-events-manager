@@ -17,6 +17,14 @@
     margin-top: 5px;
 }
 
+#menu-posts-event .wp-submenu > li:last-child > a:hover,
+#menu-posts-event .wp-submenu > li:last-child > a:active,
+#menu-posts-event .wp-submenu > li:last-child > a:visited,
+#menu-posts-event .wp-submenu > li:last-child > a:focus,
+#menu-posts-event .wp-submenu > li:last-child > a {
+    color: #ff91b6;
+}
+
 .eem-tab-panel .tab-nav {
     background: #ffffff;
 }

@@ -27,7 +27,7 @@ $schedules = $event->get_schedules();
 			)
 		); ?>
 
-		<?php if ( empty( $event_speakers ) ) : ?>
+		<?php if ( empty( $schedules ) ) : ?>
 
 			<?php eem_print_event_notice( apply_filters( 'eem_filters_schedules_not_found_text',
 				esc_html__( 'Yet to publish schedule for this event. We will announce latter. Stay close !', EEM_TD ) ), 'warning'
