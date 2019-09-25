@@ -1,8 +1,8 @@
 <?php
 /**
- * Single Event - Blog
+ * Single Event - News
  *
- * @package single-event/blog.php
+ * @package single-event/news.php
  * @copyright Pluginbazar
  */
 

@@ -1270,6 +1270,10 @@ img {
     z-index: 10;
 }
 
+.eem-gallery-style-1 .view-more .eem-btn {
+    margin-top: 70px;
+}
+
 .eem-gallery-style-1 .gallery-single:before {
     content: '';
     width: calc(100% - 40px);
