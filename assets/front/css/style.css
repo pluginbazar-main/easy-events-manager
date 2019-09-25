@@ -432,14 +432,6 @@ img {
     position: relative;
 }
 
-.eem-event-style-1 .image-wrap > a:before {
-    content: ' ';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #6d000054;
-}
-
 .eem-event-style-1 .image-wrap .eem-event-status {
     position: absolute;
     bottom: 30px;
