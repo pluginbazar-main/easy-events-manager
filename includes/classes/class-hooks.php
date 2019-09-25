@@ -359,7 +359,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 
 			add_image_size( 'event_post', 350, 196, true );
 			add_image_size( 'event_nearby', 570, 319, true );
-			add_image_size( 'event_gallery', 360, 360, true );
+			add_image_size( 'event_gallery', 500, 480, true );
 
 			/**
 			 * Register Attendees Admin Page
