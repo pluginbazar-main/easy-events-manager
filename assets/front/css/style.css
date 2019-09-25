@@ -1254,10 +1254,6 @@ img {
 * Gallery
 */
 
-.eem-gallery-style-1.eem-spacer {
-    padding-bottom: 0;
-}
-
 .eem-gallery-style-1 .gallery-single {
     position: relative;
     z-index: 10;

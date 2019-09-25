@@ -10,9 +10,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $event;
+global $event, $template_section, $inside_endpoint;
 
-$event_posts = $event->get_posts();
+$count  = $template_section && isset( $template_section['count'] ) && ! empty( $template_section['count'] ) ? $template_section['count'] : 3;
+$button = $template_section && isset( $template_section['button'] ) && is_array( $template_section['button'] ) ? reset( $template_section['button'] ) : '';
+
+if( $inside_endpoint && $inside_endpoint == 'news' ) {
+	$count = 999;
+	$button = 'yes';
+}
+
+$event_posts = $event->get_posts( $count );
 
 ?>
 <div <?php eem_print_event_section_classes( 'eem-event-section eem-blog-style-1 eem-force-full-width eem-spacer' ); ?>>
@@ -34,11 +42,17 @@ $event_posts = $event->get_posts();
 	    }
 	    ?>
 
-        <div class="pb-row">
+        <div class="pb-row pb-justify-content-center">
 			<?php foreach ( $event_posts as $post_id ) {
 				printf( '<div class="pb-col-lg-4 pb-col-md-6">%s</div>', eem_print_blog_post( $post_id, 'event_post', false ) );
 			} ?>
         </div>
+
+	    <?php if ( ! empty( $event_posts ) && $button !== 'yes' ) {
+		    eem_print_button( esc_html__( 'All Posts', EEM_TD ), 'a', 'eem-btn eem-btn-large',
+			    $event->get_endpoint_url( 'news' ), '<div class="view-more text-center">%</div>' );
+	    } ?>
+
     </div>
 
 </div>

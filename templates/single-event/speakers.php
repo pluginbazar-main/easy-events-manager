@@ -10,12 +10,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $event, $template_section;
+global $event, $template_section, $inside_endpoint;
 
 $count          = $template_section && isset( $template_section['count'] ) ? $template_section['count'] : 4;
 $button         = $template_section && isset( $template_section['button'] ) && is_array( $template_section['button'] ) ? reset( $template_section['button'] ) : '';
 $event_speakers = $event->get_speakers();
 
+if( $inside_endpoint && $inside_endpoint == 'speakers' ) {
+	$count = 999;
+	$button = 'yes';
+}
 
 ?>
 <div <?php eem_print_event_section_classes( 'eem-event-section eem-speaker-style-1 eem-spacer bg-white eem-force-full-width' ); ?>>

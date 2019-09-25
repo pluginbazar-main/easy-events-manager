@@ -10,11 +10,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $event, $template_section;
+global $event, $template_section, $inside_endpoint;
 
 $count  = $template_section && isset( $template_section['count'] ) && ! empty( $template_section['count'] ) ? $template_section['count'] : 4;
 $button = $template_section && isset( $template_section['button'] ) && is_array( $template_section['button'] ) ? reset( $template_section['button'] ) : '';
+
+if( $inside_endpoint && $inside_endpoint == 'gallery' ) {
+	$count = 999;
+	$button = 'yes';
+}
+
 $images = $event->get_gallery_images( 'event_gallery', $count );
+
 
 ?>
 <div <?php eem_print_event_section_classes( 'eem-event-section eem-spacer eem-gallery-style-1 bg-white eem-force-full-width' ); ?>>

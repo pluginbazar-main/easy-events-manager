@@ -128,11 +128,24 @@ if ( ! class_exists( 'EEM_Event' ) ) {
 		/**
 		 * Return blog post ids assigned for this event
 		 *
+		 * @param int $count
+		 *
 		 * @return mixed|void
 		 */
-		function get_posts() {
+		function get_posts( $count = 999 ) {
 
-			return apply_filters( 'eem_filters_event_posts', $this->get_meta( '_event_posts', array() ), $this->get_id() );
+			$index        = 0;
+			$count        = empty( $count ) || $count === 0 ? 999 : $count;
+			$_event_posts = $this->get_meta( '_event_posts', array() );
+
+			foreach ( $_event_posts as $key => $post_id ) {
+				$index ++;
+				if ( $index > $count ) {
+					unset( $_event_posts[ $key ] );
+				}
+			}
+
+			return apply_filters( 'eem_filters_event_posts', $_event_posts, $this->get_id() );
 		}
 
 
@@ -184,6 +197,7 @@ if ( ! class_exists( 'EEM_Event' ) ) {
 		function get_speakers( $count = 999 ) {
 
 			$index    = 0;
+			$count    = empty( $count ) || $count === 0 ? 999 : $count;
 			$speakers = $this->get_meta( '_event_speakers', array() );
 
 			foreach ( $speakers as $speaker_id => $speaker ) {

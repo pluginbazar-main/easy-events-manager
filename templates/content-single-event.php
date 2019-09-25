@@ -6,7 +6,7 @@
  */
 
 
-global $event;
+global $event, $inside_endpoint;
 
 $event = eem_get_event();
 
@@ -24,6 +24,8 @@ if ( post_password_required() ) {
 		<?php
 
 		if ( ! empty( $current_endpoint = eem_get_current_endpoint() ) ) {
+
+			$inside_endpoint = $current_endpoint;
 
 			do_action( 'before_endpoint_page' );
 

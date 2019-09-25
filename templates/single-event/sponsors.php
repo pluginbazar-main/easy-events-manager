@@ -10,8 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $event, $template_section;
+global $event, $template_section, $inside_endpoint;
 
+$button         = $template_section && isset( $template_section['button'] ) && is_array( $template_section['button'] ) ? reset( $template_section['button'] ) : '';
 $event_sponsors = array();
 $sponsor_types  = eem()->get_sponsor_types();
 
@@ -19,6 +20,10 @@ foreach ( $event->get_sponsors() as $sponsor ) {
 	if ( isset( $sponsor['type'] ) ) {
 		$event_sponsors[ $sponsor['type'] ][] = $sponsor;
 	}
+}
+
+if ( $inside_endpoint && $inside_endpoint == 'sponsors' ) {
+	$button = 'yes';
 }
 
 ?>
@@ -73,7 +78,7 @@ foreach ( $event->get_sponsors() as $sponsor ) {
 
 		?>
 
-		<?php if ( ! empty( $event_sponsors ) ) {
+		<?php if ( ! empty( $event_sponsors ) && $button !== 'yes' ) {
 			eem_print_button( esc_html__( 'View All Sponsors', EEM_TD ), 'a', 'eem-btn eem-btn-large',
 				$event->get_endpoint_url( 'sponsors' ), '<div class="view-more text-center">%</div>' );
 		} ?>
