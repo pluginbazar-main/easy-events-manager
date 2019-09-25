@@ -357,9 +357,9 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 				'show_in_menu' => 'edit.php?post_type=event',
 			) );
 
-			add_image_size( 'event_post', 350, 196 );
-			add_image_size( 'event_nearby', 570, 319 );
-			add_image_size( 'event_gallery', 360, 360 );
+			add_image_size( 'event_post', 350, 196, true );
+			add_image_size( 'event_nearby', 570, 319, true );
+			add_image_size( 'event_gallery', 360, 360, true );
 
 			/**
 			 * Register Attendees Admin Page

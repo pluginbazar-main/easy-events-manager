@@ -10,10 +10,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $event, $template_section;
+global $event, $template_section, $inside_endpoint;
 
 $count     = $template_section && isset( $template_section['count'] ) ? $template_section['count'] : 8;
 $button    = $template_section && isset( $template_section['button'] ) && is_array( $template_section['button'] ) ? reset( $template_section['button'] ) : '';
+
+if( $inside_endpoint && $inside_endpoint == 'attendees' ) {
+	$count = 999;
+	$button = 'yes';
+}
+
 $attendees = $event->get_attendees( $count );
 
 ?>

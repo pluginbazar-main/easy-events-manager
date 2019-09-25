@@ -221,16 +221,13 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 					'priority' => 10,
 					'fields'   => array(
 						array(
-							'id'      => "bg_image",
-							'title'   => esc_html__( 'Background Image', EEM_TD ),
-							'details' => esc_html__( 'Set background image for this section', EEM_TD ),
-							'type'    => 'media',
-						),
-						array(
-							'id'   => "button",
-							'type' => 'checkbox',
-							'args' => array(
-								'yes' => esc_html__( 'Disable ticket button', EEM_TD ),
+							'id'    => 'alignment',
+							'title' => esc_html__( 'Alignment', EEM_TD ),
+							'type'  => 'select',
+							'args'  => array(
+								'left'   => esc_html__( 'Left', EEM_TD ),
+								'center' => esc_html__( 'Center', EEM_TD ),
+								'right'  => esc_html__( 'Right', EEM_TD ),
 							),
 						),
 						array(
@@ -309,31 +306,14 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 						),
 					) ),
 				),
-				'cta'       => array(
-					'label'    => esc_html__( 'Call to Action', EEM_TD ),
-					'priority' => 40,
-					'fields'   => array_merge( $common_fields, array(
-						array(
-							'id'      => "button_text",
-							'title'   => esc_html__( 'Button', EEM_TD ),
-							'details' => esc_html__( 'Button Text: Write the button text.', EEM_TD ),
-							'type'    => 'text',
-						),
-						array(
-							'id'      => "button_url",
-							'details' => esc_html__( 'Button URL: Where the users will redirect with this button', EEM_TD ),
-							'type'    => 'text',
-						),
-					) ),
-				),
 				'sponsors'  => array(
 					'label'    => esc_html__( 'Sponsors', EEM_TD ),
-					'priority' => 45,
+					'priority' => 40,
 					'fields'   => $common_fields
 				),
 				'gallery'   => array(
 					'label'    => esc_html__( 'Gallery', EEM_TD ),
-					'priority' => 50,
+					'priority' => 45,
 					'fields'   => array_merge( $common_fields, array(
 						array(
 							'id'      => "count",
@@ -347,6 +327,23 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 							'args' => array(
 								'yes' => esc_html__( 'Disable all photos button', EEM_TD ),
 							),
+						),
+					) ),
+				),
+				'cta'       => array(
+					'label'    => esc_html__( 'Call to Action', EEM_TD ),
+					'priority' => 50,
+					'fields'   => array_merge( $common_fields, array(
+						array(
+							'id'      => "button_text",
+							'title'   => esc_html__( 'Button', EEM_TD ),
+							'details' => esc_html__( 'Button Text: Write the button text.', EEM_TD ),
+							'type'    => 'text',
+						),
+						array(
+							'id'      => "button_url",
+							'details' => esc_html__( 'Button URL: Where the users will redirect with this button', EEM_TD ),
+							'type'    => 'text',
 						),
 					) ),
 				),

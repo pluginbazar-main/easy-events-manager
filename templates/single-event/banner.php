@@ -12,15 +12,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $event, $template_section;
 
+$alignment = $template_section && isset( $template_section['alignment'] ) ? $template_section['alignment'] : 'left';
 $button    = $template_section && isset( $template_section['button'] ) && is_array( $template_section['button'] ) ? reset( $template_section['button'] ) : '';
-$bg_image  = $template_section && isset( $template_section['bg_image'] ) ? $template_section['bg_image'] : '';
-$bg_image  = wp_get_attachment_image_url( $bg_image, 'full' );
+$bg_image  = $event->get_thumbnail();
 $bg_image  = empty( $bg_image ) ? '' : sprintf( 'style="background-image: url(\'%s\')"', $bg_image );
 $unique_id = uniqid();
+$alignment = sprintf( 'eem-banner-align-%s', $alignment );
 
 ?>
 
-<div <?php eem_print_event_section_classes( 'eem-event-section eem-banner-style-1 eem-force-full-width' ); ?> <?php echo $bg_image; ?>>
+<div <?php eem_print_event_section_classes( "eem-event-section eem-banner-style-1 eem-force-full-width $alignment" ); ?> <?php echo $bg_image; ?>>
     <div class="pb-container">
         <div class="eem-banner-wrap">
             <h3 class="eem-banner-sub-title"><?php echo esc_html( $event->get_location() ); ?></h3>
