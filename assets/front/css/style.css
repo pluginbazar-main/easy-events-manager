@@ -1383,7 +1383,7 @@ img {
 }
 
 .eem-cta-style-1 .eem-section-heading .eem-sh-title {
-    font-size: 34px;
+    font-size: 42px;
     line-height: 1.2;
     color: #fff;
     margin-bottom: 13px;
@@ -1621,6 +1621,11 @@ img {
     color: #E91E63;
     background-color: #f6f6f6;
 }
+
+.eem-form-notices:empty {
+    display: none;
+}
+
 
 
 /**
