@@ -687,6 +687,17 @@ img {
     margin-left: 10px;
 }
 
+.eem-banner-align-center .eem-banner-wrap {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.eem-banner-align-right .eem-banner-wrap {
+    margin-left: auto;
+    text-align: right;
+}
+
 
 /**
 * Speaker Style 1
