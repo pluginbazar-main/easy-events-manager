@@ -38,9 +38,10 @@ if ( ! class_exists( 'EEM_Template_meta' ) ) {
 		public function remove_row_actions( $actions ) {
 			global $post;
 
-			$actions['view'] = str_replace( 'Edit', 'View', $actions['edit'] );
-
 			if ( $post->post_type === 'event_template' ) {
+
+				$actions['view'] = str_replace( 'Edit', 'View', $actions['edit'] );
+
 				unset( $actions['inline hide-if-no-js'] );
 				unset( $actions['edit'] );
 			}
