@@ -16,7 +16,7 @@ $event = eem_get_event();
 
 ?>
 
-<div class="pb-col-md-<?php echo esc_attr( $wp_query->get( 'posts_per_row' ) ); ?>">
+<div class="pb-col-lg-<?php echo esc_attr( $wp_query->get( 'posts_per_row' ) ); ?> pb-col-md-6">
     <div class="eem-event-single">
 
 		<?php
