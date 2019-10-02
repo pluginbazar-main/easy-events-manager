@@ -397,7 +397,6 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 				'capability'      => 'manage_options',
 				'menu_slug'       => 'eem-extensions',
 				'parent_slug'     => "edit.php?post_type=event",
-//				'pages'           => eem()->get_settings(),
 				'show_submit'     => false,
 			) );
 

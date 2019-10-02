@@ -14,6 +14,16 @@ if ( ! function_exists( 'eem_pb_settings_attendees' ) ) {
 	}
 }
 
+if ( ! function_exists( 'eem_pb_display_extensions' ) ) {
+	function eem_pb_display_extensions() {
+		require_once( EEM_PLUGIN_DIR . 'includes/admin-templates/extensions.php' );
+	}
+}
+
+
+/**
+ * Frontend Templates
+ */
 
 if ( ! function_exists( 'eem_single_event_main_banner' ) ) {
 	function eem_single_event_main_banner() {

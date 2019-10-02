@@ -263,11 +263,11 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 					'priority' => 20,
 					'fields'   => $common_fields,
 				),
-				'tickets'   => array(
-					'label'    => esc_html__( 'Pricing', EEM_TD ),
-					'priority' => 25,
-					'fields'   => $common_fields,
-				),
+//				'tickets'   => array(
+//					'label'    => esc_html__( 'Pricing', EEM_TD ),
+//					'priority' => 25,
+//					'fields'   => $common_fields,
+//				),
 				'register'  => array(
 					'label'    => esc_html__( 'Register', EEM_TD ),
 					'priority' => 30,
