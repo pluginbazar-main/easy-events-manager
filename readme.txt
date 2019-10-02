@@ -1,4 +1,4 @@
-=== WP Poll ===
+=== Easy Events Manager ===
    Contributors: jaedm97,pluginbazar  
    Donate link: https://pluginbazar.com/contact/  
    Tags: poll, polls, democracy, survey, vote, justice, booth, opinion  
