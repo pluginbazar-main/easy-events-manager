@@ -47,6 +47,22 @@ if ( ! class_exists( 'PB_Settings' ) ) {
 
 
 		/**
+         * Register Shortcode
+         *
+		 * @param string $shortcode
+		 * @param string $callable_func
+		 */
+		function register_shortcode( $shortcode = '', $callable_func = '' ) {
+
+		    if( empty( $shortcode ) || ! $shortcode || ! $callable_func || empty( $callable_func ) ) {
+		        return;
+            }
+
+		    add_shortcode( $shortcode, $callable_func );
+        }
+
+
+		/**
 		 * Register Taxonomy
 		 *
 		 * @param $tax_name
