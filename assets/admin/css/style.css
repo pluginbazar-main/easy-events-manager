@@ -460,10 +460,6 @@
     vertical-align: top;
 }
 
-.pb-extensions .pb-extension:nth-child(3n+0) {
-    margin-right: 0;
-}
-
 .pb-extensions .pb-extension > a > img {
     vertical-align: bottom;
 }
