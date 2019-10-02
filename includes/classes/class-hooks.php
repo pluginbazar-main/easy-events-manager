@@ -17,7 +17,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		 */
 		function __construct() {
 
-			add_action( 'init', array( $this, 'register_post_types_taxs_pages' ) );
+			add_action( 'init', array( $this, 'register_post_types_taxs_pages_shortcode' ) );
 
 			add_filter( 'query_vars', array( $this, 'add_query_vars' ), 10 );
 			add_filter( 'init', array( $this, 'add_endpoints' ), 10 );
@@ -34,9 +34,22 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			add_action( 'wp_ajax_eem_add_attendees', array( $this, 'ajax_eem_add_attendees' ) );
 			add_action( 'wp_ajax_nopriv_eem_add_attendees', array( $this, 'ajax_eem_add_attendees' ) );
 
-
 			add_action( 'eem_before_event_archive_main', array( $this, 'event_query_start' ), 1 );
 			add_action( 'eem_after_event_archive_main', array( $this, 'event_query_end' ), 999 );
+		}
+
+
+		function display_events_archive( $atts = array(), $contnet = null ) {
+
+			global $eem_doing_shortcode;
+
+			$eem_doing_shortcode = true;
+
+			ob_start();
+
+			eem_get_template( 'archive-event.php' );
+
+			return ob_get_clean();
 		}
 
 
@@ -327,7 +340,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		/**
 		 * Register Post types and taxonomies
 		 */
-		function register_post_types_taxs_pages() {
+		function register_post_types_taxs_pages_shortcode() {
 
 			eem()->PB()->register_post_type( 'event', array(
 				'singular'      => esc_html__( 'Event', EEM_TD ),
@@ -399,6 +412,8 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 				'parent_slug'     => "edit.php?post_type=event",
 				'show_submit'     => false,
 			) );
+
+			eem()->PB()->register_shortcode( 'events-archive', array( $this, 'display_events_archive' ) );
 
 			do_action( 'eem_post_types_taxs_pages', $this );
 		}

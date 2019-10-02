@@ -18,7 +18,6 @@ $event = eem_get_event();
         <div class="tab-nav-item" data-target="speakers"><?php esc_html_e( 'Speakers', EEM_TD ); ?></div>
         <div class="tab-nav-item" data-target="schedules"><?php esc_html_e( 'Schedules', EEM_TD ); ?></div>
         <div class="tab-nav-item" data-target="sponsors"><?php esc_html_e( 'Sponsors', EEM_TD ); ?></div>
-        <div class="tab-nav-item" data-target="guests"><?php esc_html_e( 'Guests', EEM_TD ); ?></div>
     </div>
 
     <div class="tab-content">
@@ -77,12 +76,6 @@ $event = eem_get_event();
             </div>
 
         </div>
-
-        <div class="tab-item-content guests">
-            Guests
-        </div>
-
-
 
     </div>
 

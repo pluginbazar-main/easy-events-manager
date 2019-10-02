@@ -20,6 +20,7 @@ global $wpdb;
 
 define( 'EEM_PLUGIN_URL', WP_PLUGIN_URL . '/' . plugin_basename( dirname( __FILE__ ) ) . '/' );
 define( 'EEM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'EEM_TEMPLATE_DIR', EEM_PLUGIN_DIR . 'templates/' );
 define( 'EEM_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 define( 'EEM_TD', 'easy-events-manager' );
 
@@ -85,9 +86,8 @@ class EasyEventsManager {
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-item-data.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-hooks.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-event.php' );
-		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-event-meta.php' );
-		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-template-meta.php' );
-		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-shortcodes.php' );
+		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-meta-event.php' );
+		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-meta-template.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-admin-attendees.php' );
 
 		require_once( EEM_PLUGIN_DIR . 'includes/functions.php' );

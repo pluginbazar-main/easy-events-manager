@@ -8,8 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+global $eem_doing_shortcode;
 
-get_header();
+if( ! $eem_doing_shortcode ) {
+	get_header();
+}
 
 
 /**
@@ -55,5 +58,6 @@ do_action( 'eem_after_event_archive_loop' );
  */
 do_action( 'eem_after_event_archive_main' );
 
-
-get_footer();
+if( ! $eem_doing_shortcode ) {
+	get_footer();
+}
