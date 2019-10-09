@@ -263,11 +263,6 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 					'priority' => 20,
 					'fields'   => $common_fields,
 				),
-//				'tickets'   => array(
-//					'label'    => esc_html__( 'Pricing', EEM_TD ),
-//					'priority' => 25,
-//					'fields'   => $common_fields,
-//				),
 				'register'  => array(
 					'label'    => esc_html__( 'Register', EEM_TD ),
 					'priority' => 30,
@@ -373,7 +368,7 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 				),
 			);
 
-			return apply_filters( 'eem_filters_eem_template_sections', $sections );
+			return apply_filters( 'eem_filters_eem_template_sections', $sections, $common_fields );
 		}
 
 

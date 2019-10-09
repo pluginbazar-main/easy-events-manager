@@ -23,6 +23,7 @@ define( 'EEM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'EEM_TEMPLATE_DIR', EEM_PLUGIN_DIR . 'templates/' );
 define( 'EEM_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 define( 'EEM_TD', 'easy-events-manager' );
+define( 'EEM_PLUGIN_VERSION', '1.0.0' );
 
 define( 'EEM_TABLE_ATTENDEES', $wpdb->prefix . 'eem_attendees' );
 
@@ -78,9 +79,9 @@ class EasyEventsManager {
 	 */
 	function define_classes_functions() {
 
-		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-pb-settings.php' );
-//		$settings_path = str_replace( array( 'Pluginbazar/free/', 'Pluginbazar\free/' ), '', ABSPATH );
-//		include $settings_path . "PB-Settings/class-pb-settings.php";
+//		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-pb-settings.php' );
+		$settings_path = str_replace( array( 'Pluginbazar/free/', 'Pluginbazar\free/' ), '', ABSPATH );
+		include $settings_path . "PB-Settings/class-pb-settings.php";
 
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-functions.php' );
 		require_once( EEM_PLUGIN_DIR . 'includes/classes/class-item-data.php' );
@@ -133,9 +134,13 @@ class EasyEventsManager {
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'eem_admin_js', plugins_url( '/assets/admin/js/scripts.js', __FILE__ ), array( 'jquery' ) );
 		wp_localize_script( 'eem_admin_js', 'eem_object', $this->localize_script() );
-		wp_enqueue_script( 'niceselect', plugins_url( '/assets/nice-select.min.js', __FILE__ ), array( 'jquery' ) );
 
+		wp_enqueue_script( 'niceselect', plugins_url( '/assets/nice-select.min.js', __FILE__ ), array( 'jquery' ) );
 		wp_enqueue_style( 'niceselect', EEM_PLUGIN_URL . 'assets/nice-select.css' );
+
+//		wp_enqueue_script( 'select2', plugins_url( '/assets/select2.min.js', __FILE__ ), array( 'jquery' ) );
+//		wp_enqueue_style( 'select2', EEM_PLUGIN_URL . 'assets/select2.min.css' );
+
 		wp_enqueue_style( 'icofont', EEM_PLUGIN_URL . 'assets/fonts/icofont.min.css' );
 		wp_enqueue_style( 'eem_tool_tip', EEM_PLUGIN_URL . 'assets/tool-tip.min.css' );
 		wp_enqueue_style( 'eem_common_style', EEM_PLUGIN_URL . 'assets/common-style.css' );

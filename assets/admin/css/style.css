@@ -2,6 +2,25 @@
  * EEM - Styles - Admin
  */
 
+
+.post-type-event #submitdiv > h2 {
+    background: #f6405f;
+    color: #fff !important;
+    border-color: #f6405f;
+    margin-top: -1px;
+}
+
+.post-type-event #submitdiv .toggle-indicator:before {
+    z-index: 9999;
+    position: relative;
+    color: #fff;
+}
+
+.post-type-event #submitdiv .handlediv:focus .toggle-indicator:before {
+    box-shadow: none;
+    border: 1px solid #fff;
+}
+
 #event_meta_box .handlediv,
 #event_meta_box .hndle.ui-sortable-handle {
     display: none !important;
@@ -443,11 +462,6 @@
  * Extensions
  */
 
-
-/**
- * Extensions
- */
-
 .pb-extensions {
     padding: 25px;
 }
@@ -509,4 +523,28 @@
     text-decoration: none;
     outline: none;
     box-shadow: none;
+}
+
+
+.pb-metabox-side {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    clear: both;
+    border-bottom: 1px solid #dedede7a;
+}
+
+.pb-metabox-side > label {
+    font-weight: 500;
+}
+
+.pb-metabox-side > label > span {
+    background: #00BCD4;
+    color: #fff;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    font-size: 10px;
+    line-height: 16px;
+    border-radius: 50%;
 }

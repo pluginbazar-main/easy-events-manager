@@ -18,6 +18,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		function __construct() {
 
 			add_action( 'init', array( $this, 'register_post_types_taxs_pages_shortcode' ) );
+			add_action( 'post_submitbox_misc_actions', array( $this, 'publish_box_content' ) );
 
 			add_filter( 'query_vars', array( $this, 'add_query_vars' ), 10 );
 			add_filter( 'init', array( $this, 'add_endpoints' ), 10 );
@@ -338,6 +339,17 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 
 
 		/**
+		 * Publish Box content for event Type
+		 */
+		function publish_box_content() {
+
+			if ( get_post_type() === 'event' ) {
+				include EEM_PLUGIN_DIR . 'includes/admin-templates/event-publish-box.php';
+			}
+		}
+
+
+		/**
 		 * Register Post types and taxonomies
 		 */
 		function register_post_types_taxs_pages_shortcode() {
@@ -347,7 +359,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 				'plural'        => esc_html__( 'All Events', EEM_TD ),
 				'menu_icon'     => 'dashicons-nametag',
 				'menu_position' => 15,
-				'supports'      => array( 'title', 'thumbnail' ),
+				'supports'      => array( 'title' ),
 				'has_archive'   => eem()->get_option( 'eem_archive_slug', 'events' ),
 				'rewrite'       => array(
 					'slug'       => 'event',
@@ -358,8 +370,9 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			) );
 
 			eem()->PB()->register_taxonomy( 'event_cat', 'event', array(
-				'singular' => esc_html__( 'Event Category', EEM_TD ),
-				'plural'   => esc_html__( 'Event Categories', EEM_TD ),
+				'singular'     => esc_html__( 'Event Category', EEM_TD ),
+				'plural'       => esc_html__( 'Event Categories', EEM_TD ),
+				'hierarchical' => true,
 			) );
 
 			eem()->PB()->register_post_type( 'event_template', array(

@@ -179,6 +179,8 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 					$this,
 					'event_meta_box'
 				), $post_type, 'normal', 'high' );
+
+				wp_deregister_style('event_meta_box');
 			}
 		}
 
@@ -270,6 +272,11 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 					'placeholder' => esc_html( 'International Convention City Bashundhara, Dhaka' ),
 				),
 				array(
+					'id'          => '_thumbnail_id',
+					'title'       => esc_html__( 'Featured Image', EEM_TD ),
+					'type'        => 'media',
+				),
+				array(
 					'id'      => '_event_gallery',
 					'title'   => esc_html__( 'Gallery', EEM_TD ),
 					'details' => esc_html__( 'Share some images to your users from this or past events', EEM_TD ),
@@ -301,6 +308,9 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 					'type'     => 'select2',
 					'multiple' => true,
 					'args'     => 'POSTS_%post%',
+					'field_options' => array(
+						'placeholder' => esc_html__( 'Select posts', EEM_TD ),
+					),
 				),
 			) );
 		}

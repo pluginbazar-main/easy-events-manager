@@ -301,6 +301,25 @@ if ( ! function_exists( 'eem_print_event_notice' ) ) {
 }
 
 
+if( ! function_exists( 'eem_print_admin_notice' ) ) {
+	/**
+     * Print Admin Notice
+     *
+	 * @param string $message
+	 * @param string $type
+	 * @param bool $is_dismissible
+	 */
+	function eem_print_admin_notice( $message = '', $type = 'success', $is_dismissible = true ) {
+
+		if ( empty( $message ) ) {
+			return;
+		}
+
+		printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $type, $message );
+	}
+}
+
+
 if ( ! function_exists( 'eem_print_event_section_heading' ) ) {
 	/**
 	 * Print event section heading
@@ -683,7 +702,7 @@ if ( ! function_exists( 'eem_print_event_speaker' ) ) {
         <div class="eem-repeat-single">
             <div class="eem-repeat-head">
 
-				<?php eem()->PB()->generate_select(
+				<?php eem()->PB()->generate_select2(
 					array(
 						'id'      => "_event_speakers[$speaker_id][user_id]",
 						'title'   => esc_html__( 'Topics', EEM_TD ),
@@ -693,14 +712,6 @@ if ( ! function_exists( 'eem_print_event_speaker' ) ) {
 						'value'   => $user_id,
 					)
 				); ?>
-
-                <script>
-                    (function ($) {
-                        $(function () {
-                            $('#_event_speakers_<?php echo esc_html( $speaker_id ); ?>__user_id_').niceSelect();
-                        });
-                    })(jQuery);
-                </script>
 
                 <div class="eem-head-button eem-repeat-close"><i class="icofont-close"></i></div>
                 <div class="eem-head-button eem-repeat-sort"><i class="icofont-drag1"></i></div>
@@ -1194,3 +1205,5 @@ if ( ! function_exists( 'eem_create_username' ) ) {
 		return apply_filters( 'eem_generated_username', $username, $email, $new_user_args, $suffix );
 	}
 }
+
+
