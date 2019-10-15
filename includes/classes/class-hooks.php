@@ -18,7 +18,6 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		function __construct() {
 
 			add_action( 'init', array( $this, 'register_post_types_taxs_pages_shortcode' ) );
-			add_action( 'post_submitbox_misc_actions', array( $this, 'publish_box_content' ) );
 
 			add_filter( 'query_vars', array( $this, 'add_query_vars' ), 10 );
 			add_filter( 'init', array( $this, 'add_endpoints' ), 10 );
@@ -335,17 +334,6 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			}
 
 			return $vars;
-		}
-
-
-		/**
-		 * Publish Box content for event Type
-		 */
-		function publish_box_content() {
-
-			if ( get_post_type() === 'event' ) {
-				include EEM_PLUGIN_DIR . 'includes/admin-templates/event-publish-box.php';
-			}
 		}
 
 

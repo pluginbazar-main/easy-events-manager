@@ -13,11 +13,6 @@ add_action( 'pb_settings_eem-extensions', 'eem_pb_display_extensions' );
 
 
 foreach ( eem()->get_template_sections() as $section_id => $section ) {
-
-	if ( in_array( $section_id, array( 'tickets' ) ) ) {
-		continue;
-	}
-
 	if ( isset( $section['priority'] ) && ! empty( $section['priority'] ) ) {
 		add_action( 'eem_single_event_main', sprintf( 'eem_single_event_main_%s', $section_id ), $section['priority'] );
 	}

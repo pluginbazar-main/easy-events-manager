@@ -301,10 +301,10 @@ if ( ! function_exists( 'eem_print_event_notice' ) ) {
 }
 
 
-if( ! function_exists( 'eem_print_admin_notice' ) ) {
+if ( ! function_exists( 'eem_print_admin_notice' ) ) {
 	/**
-     * Print Admin Notice
-     *
+	 * Print Admin Notice
+	 *
 	 * @param string $message
 	 * @param string $type
 	 * @param bool $is_dismissible
@@ -947,9 +947,14 @@ if ( ! function_exists( 'eem_get_template_part' ) ) {
 		$backtrace      = reset( $backtrace );
 		$backtrace_file = isset( $backtrace['file'] ) ? $backtrace['file'] : '';
 
-		// Check from extensions
+		// Check Extension - Advanced search & Filter
 		if ( ! empty( $backtrace_file ) && strpos( $backtrace_file, 'eem-advanced-search-filter' ) !== false && defined( 'EEM_ASF_PLUGIN_DIR' ) ) {
 			$plugin_dir = EEM_ASF_PLUGIN_DIR;
+		}
+
+		// Check Extension - Ticketing with WooCommerce
+		if ( ! empty( $backtrace_file ) && strpos( $backtrace_file, 'eem-ticketing' ) !== false && defined( 'EEM_TW_PLUGIN_DIR' ) ) {
+			$plugin_dir = EEM_TW_PLUGIN_DIR;
 		}
 
 		/**
@@ -1052,10 +1057,16 @@ if ( ! function_exists( 'eem_locate_template' ) ) {
 			$template_path = 'eem/';
 		}
 
-		// Check from extensions
+		// Check Extension - Advanced search & Filter
 		if ( ! empty( $backtrace_file ) && strpos( $backtrace_file, 'eem-advanced-search-filter' ) !== false && defined( 'EEM_ASF_PLUGIN_DIR' ) ) {
 			$plugin_dir = EEM_ASF_PLUGIN_DIR;
 		}
+
+		// Check Extension - Ticketing with WooCommerce
+		if ( ! empty( $backtrace_file ) && strpos( $backtrace_file, 'eem-ticketing' ) !== false && defined( 'EEM_TW_PLUGIN_DIR' ) ) {
+			$plugin_dir = EEM_TW_PLUGIN_DIR;
+		}
+
 
 		/**
 		 * Template default path from Plugin
@@ -1207,3 +1218,24 @@ if ( ! function_exists( 'eem_create_username' ) ) {
 }
 
 
+if ( ! function_exists( 'eem_print_sidebar_data' ) ) {
+	/**
+	 * Print sidebar data by giving array sidebar data
+	 *
+	 * @param array $sidebar_data
+	 */
+	function eem_print_sidebar_data( $sidebar_data = array() ) {
+
+		$sidebar_data = (array) $sidebar_data;
+
+		foreach ( $sidebar_data as $data_key => $data ) {
+
+			$label = isset( $data['label'] ) ? $data['label'] : '';
+			$hint  = isset( $data['hint'] ) ? $data['hint'] : '';
+			$hint  = empty( $hint ) ? '' : sprintf( ' <span class="tt--top" aria-label="%s">?</span>', $hint );
+			$data  = isset( $data['data'] ) ? $data['data'] : '';
+
+			printf( '<div class="pb-metabox-side"><label>%s%s</label><div class="pb-metabox-side-data">%s</div></div>', $label, $hint, $data );
+		}
+	}
+}

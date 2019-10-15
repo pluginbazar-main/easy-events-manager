@@ -34,6 +34,19 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 			add_action( 'manage_event_posts_columns', array( $this, 'add_columns' ), 16, 1 );
 			add_action( 'manage_event_posts_custom_column', array( $this, 'columns_content' ), 10, 2 );
 			add_filter( 'post_row_actions', array( $this, 'remove_row_actions' ), 10, 1 );
+
+			add_action( 'post_submitbox_misc_actions', array( $this, 'publish_box_content' ) );
+		}
+
+
+		/**
+		 * Publish Box content for event Type
+		 */
+		function publish_box_content() {
+
+			if ( get_post_type() === 'event' ) {
+				include EEM_PLUGIN_DIR . 'includes/admin-templates/publish-box-event.php';
+			}
 		}
 
 
@@ -180,7 +193,7 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 					'event_meta_box'
 				), $post_type, 'normal', 'high' );
 
-				wp_deregister_style('event_meta_box');
+				wp_deregister_style( 'event_meta_box' );
 			}
 		}
 
@@ -272,9 +285,9 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 					'placeholder' => esc_html( 'International Convention City Bashundhara, Dhaka' ),
 				),
 				array(
-					'id'          => '_thumbnail_id',
-					'title'       => esc_html__( 'Featured Image', EEM_TD ),
-					'type'        => 'media',
+					'id'    => '_thumbnail_id',
+					'title' => esc_html__( 'Featured Image', EEM_TD ),
+					'type'  => 'media',
 				),
 				array(
 					'id'      => '_event_gallery',
@@ -302,12 +315,12 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 					'args'    => 'POSTS_%post%',
 				),
 				array(
-					'id'       => '_event_posts',
-					'title'    => esc_html__( 'Event News', EEM_TD ),
-					'details'  => esc_html__( 'Select some posts to display on the news section for this event.', EEM_TD ),
-					'type'     => 'select2',
-					'multiple' => true,
-					'args'     => 'POSTS_%post%',
+					'id'            => '_event_posts',
+					'title'         => esc_html__( 'Event News', EEM_TD ),
+					'details'       => esc_html__( 'Select some posts to display on the news section for this event.', EEM_TD ),
+					'type'          => 'select2',
+					'multiple'      => true,
+					'args'          => 'POSTS_%post%',
 					'field_options' => array(
 						'placeholder' => esc_html__( 'Select posts', EEM_TD ),
 					),

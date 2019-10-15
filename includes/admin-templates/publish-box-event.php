@@ -3,7 +3,6 @@
  * Admin Template: Publish Box
  */
 
-
 $sidebar_data = array(
 	'publish_date' => array(
 		'label' => esc_html__( 'Publish Date', EEM_TD ),
@@ -12,23 +11,9 @@ $sidebar_data = array(
 	),
 );
 
-$sidebar_data = apply_filters( 'eem_filters_event_sidebar_data', $sidebar_data );
-
-foreach ( $sidebar_data as $data_key => $data ) {
-
-	$label = isset( $data['label'] ) ? $data['label'] : '';
-	$hint  = isset( $data['hint'] ) ? $data['hint'] : '';
-	$hint  = empty( $hint ) ? '' : sprintf( ' <span class="tt--top" aria-label="%s">?</span>', $hint );
-	$data  = isset( $data['data'] ) ? $data['data'] : '';
-
-	printf( '<div class="pb-metabox-side"><label>%s%s</label><div class="pb-metabox-side-data">%s</div></div>', $label, $hint, $data );
-}
-
-
-do_action( 'eem_event_publish_box' );
+eem_print_sidebar_data( apply_filters( 'eem_filters_event_sidebar_data', $sidebar_data ) );
 
 ?>
-
 
 <style>
     #misc-publishing-actions {

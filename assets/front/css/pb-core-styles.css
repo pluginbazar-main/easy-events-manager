@@ -8,6 +8,10 @@
     box-sizing: border-box !important;
 }
 
+.pb-text-center {
+    text-align: center;
+}
+
 .pb-container {
     width: 100%;
     padding-right: 15px;
