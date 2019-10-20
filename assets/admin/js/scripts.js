@@ -5,6 +5,18 @@
 (function ($, window, document, pluginObject) {
     "use strict";
 
+    $(window).load(function () {
+        $('.eem-loader-wrap').fadeOut('slow');
+    });
+
+    $(document).on('trigger-eem-loader', function () {
+        $('.eem-loader-wrap').fadeIn();
+        setTimeout(function () {
+            $('.eem-loader-wrap').fadeOut('slow');
+        }, 3000);
+    });
+
+
     /**
      * Document onReady
      */
@@ -20,7 +32,7 @@
 
 
     $(document).on('change', '.eem-attendees-wrap #event', function () {
-        if( $(this).val().length !== 0 ) {
+        if ($(this).val().length !== 0) {
             $('form.eem-attendees-wrap').submit();
         }
     });
@@ -93,7 +105,6 @@
                 'unique_id': $.now(),
             },
             success: function (response) {
-
                 if (response.success) {
                     $(response.data).appendTo($(this).parent().find('.eem-sponsors')).hide().slideDown();
                 }

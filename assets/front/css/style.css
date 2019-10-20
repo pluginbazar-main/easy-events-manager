@@ -1059,6 +1059,9 @@ img {
     transform: translateY(-4px);
 }
 
+.eem-sponsors-style-1 .sponsors-single > a > img {
+    max-width: 100%;
+}
 
 /**
 * Gallery
@@ -1455,7 +1458,7 @@ img {
     max-width: 340px;
     box-shadow: 0 20px 40px -5px rgba(9, 30, 66, .1);
     background-color: #fff;
-    transition: color 0.2s ease-in, background-color 0.5s ease, background-image 0.6s ease-in-out, box-shadow 0.5s ease;
+    transition: background-color 0.5s ease, background-image 0.6s ease-in-out, box-shadow 0.5s ease;
     text-align: left;
 }
 

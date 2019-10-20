@@ -157,3 +157,14 @@ if ( ! function_exists( 'eem_event_archive_item_main_button' ) ) {
 		eem_get_template( 'loop/button.php' );
 	}
 }
+
+if ( ! function_exists( 'eem_display_loader' ) ) {
+	function eem_display_loader() {
+
+		global $current_screen;
+
+		if ( in_array( $current_screen->post_type, array( 'event', 'event_template' ) ) ) {
+			printf( '<div class="eem-loader-wrap"><div class="eem-loader"></div></div>' );
+		}
+	}
+}

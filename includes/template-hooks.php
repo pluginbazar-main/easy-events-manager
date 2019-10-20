@@ -36,3 +36,5 @@ add_action( 'eem_event_archive_item_main', 'eem_event_archive_item_main_title', 
 add_action( 'eem_event_archive_item_main', 'eem_event_archive_item_main_meta', 20 );
 add_action( 'eem_event_archive_item_main', 'eem_event_archive_item_main_excerpt', 30 );
 add_action( 'eem_event_archive_item_main', 'eem_event_archive_item_main_button', 40 );
+
+add_action( 'in_admin_header', 'eem_display_loader', 0 );

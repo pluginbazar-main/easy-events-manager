@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 $event = eem_get_event();
 
 ?>
+
+
 <div class="eem-tab-panel">
 
     <div class="tab-nav">
@@ -70,9 +72,9 @@ $event = eem_get_event();
             <div class="button eem-add-sponsor"><?php esc_html_e( 'Add Sponsor', EEM_TD ); ?></div>
 
             <div class="eem-repeat-container eem-sponsors">
-		        <?php foreach ( $event->get_sponsors() as $sponsor_id => $sponsor ) {
-			        eem_print_event_sponsor( array_merge( array( 'id' => $sponsor_id ), $sponsor ) );
-		        } ?>
+				<?php foreach ( $event->get_sponsors() as $sponsor_id => $sponsor ) {
+					eem_print_event_sponsor( array_merge( array( 'id' => $sponsor_id ), $sponsor ) );
+				} ?>
             </div>
 
         </div>
