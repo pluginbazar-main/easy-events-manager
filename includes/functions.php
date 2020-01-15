@@ -91,6 +91,7 @@ if ( ! function_exists( 'eem_remove_attendee' ) ) {
 	}
 }
 
+
 if ( ! function_exists( 'eem_insert_attendee' ) ) {
 	/**
 	 * Insert attendees to an event

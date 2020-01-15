@@ -3,7 +3,7 @@
 	Plugin Name: Easy Events Manager
 	Plugin URI: https://wordpress.org/plugins/easy-events-manager/
 	Description: Manage Events super Easily on WordPress
-	Version: 1.0.1
+	Version: 1.0.2
 	Language: language/
 	Text Domain: easy-events-manager
 	Author: Pluginbazar

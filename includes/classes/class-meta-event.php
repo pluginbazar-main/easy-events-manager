@@ -122,7 +122,6 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 				return;
 			}
 
-
 			foreach ( self::__get_general_info_fields() as $field ) {
 
 				if ( isset( $field['id'] ) && ! empty( $field_id = $field['id'] ) ) {
@@ -134,7 +133,6 @@ if ( ! class_exists( 'EEM_Post_meta' ) ) {
 					}
 				}
 			}
-
 
 			$_event_schedules = isset( $_POST['_event_schedules'] ) ? stripslashes_deep( $_POST['_event_schedules'] ) : array();
 			$_event_speakers  = isset( $_POST['_event_speakers'] ) ? stripslashes_deep( $_POST['_event_speakers'] ) : array();

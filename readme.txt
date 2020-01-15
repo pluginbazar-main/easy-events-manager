@@ -3,8 +3,8 @@
 	Donate link: https://www.pluginbazar.net/product/offer-a-cup-of-coffee/
 	Tags: Events, Easy Events, Event Manager, EventPress,
 	Requires at least: 4.6
-	Tested up to: 5.2.3
-	Stable tag: 1.0.1
+	Tested up to: 5.3.2
+	Stable tag: 1.0.2
 	Requires PHP: 5.6
 	Requires WooCommerce: 3.0
 	Text Domain: easy-events-manager
