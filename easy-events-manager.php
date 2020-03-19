@@ -12,9 +12,7 @@
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}  // if direct access
+defined( 'ABSPATH' ) || exit;
 
 global $wpdb;
 

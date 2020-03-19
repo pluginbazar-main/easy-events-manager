@@ -17,7 +17,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		 */
 		function __construct() {
 
-			add_action( 'init', array( $this, 'register_post_types_taxs_pages_shortcode' ) );
+			add_action( 'init', array( $this, 'register_everything' ) );
 
 			add_filter( 'query_vars', array( $this, 'add_query_vars' ), 10 );
 			add_filter( 'init', array( $this, 'add_endpoints' ), 10 );
@@ -25,6 +25,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 			add_filter( '404_template', array( $this, 'manage_archive_template' ) );
 			add_filter( 'archive_template', array( $this, 'display_event_archive' ) );
 			add_filter( 'single_template', array( $this, 'display_single_event' ) );
+			add_filter( 'post_updated_messages', array( $this, 'update_messages' ), 10, 1 );
 
 			add_action( 'wp_ajax_eem_add_new_day', array( $this, 'ajax_add_new_day' ) );
 			add_action( 'wp_ajax_eem_add_new_session', array( $this, 'ajax_add_new_session' ) );
@@ -39,6 +40,35 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		}
 
 
+		/**
+		 * Update wp admin messages
+		 *
+		 * @param $messages
+		 *
+		 * @return mixed
+		 */
+		function update_messages( $messages ) {
+
+			if ( get_post_type() === 'event_template' && isset( $messages['post'][1] ) ) {
+				$messages['post'][1] = esc_html__( 'Template updated successfully', EEM_TD );
+			}
+
+			if ( get_post_type() === 'event_template' && isset( $messages['post'][6] ) ) {
+				$messages['post'][6] = esc_html__( 'Template published successfully', EEM_TD );
+			}
+			
+			return $messages;
+		}
+
+
+		/**
+		 * Display events archive content
+		 *
+		 * @param array $atts
+		 * @param null $contnet
+		 *
+		 * @return false|string
+		 */
 		function display_events_archive( $atts = array(), $contnet = null ) {
 
 			global $eem_doing_shortcode;
@@ -340,7 +370,7 @@ if ( ! class_exists( 'EEM_Hooks' ) ) {
 		/**
 		 * Register Post types and taxonomies
 		 */
-		function register_post_types_taxs_pages_shortcode() {
+		function register_everything() {
 
 			eem()->PB()->register_post_type( 'event', array(
 				'singular'      => esc_html__( 'Event', EEM_TD ),
