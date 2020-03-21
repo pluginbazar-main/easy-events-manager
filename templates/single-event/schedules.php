@@ -16,7 +16,7 @@ $schedules = $event->get_schedules();
 
 ?>
 
-<div <?php eem_print_event_section_classes( 'eem-event-section eem-schedules-style-1 eem-spacer eem-force-full-width' ); ?>>
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-schedules-style-1 eem-spacer' ); ?>>
     <div class="pb-container">
 
 		<?php eem_print_event_section_heading(

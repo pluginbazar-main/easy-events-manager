@@ -27,7 +27,7 @@ if ( $inside_endpoint && $inside_endpoint == 'sponsors' ) {
 }
 
 ?>
-<div <?php eem_print_event_section_classes( 'eem-event-section eem-sponsors-style-1 eem-spacer eem-force-full-width' ); ?>>
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-sponsors-style-1 eem-spacer' ); ?>>
     <div class="pb-container">
 
 		<?php

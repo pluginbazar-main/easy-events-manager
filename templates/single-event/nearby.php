@@ -16,7 +16,7 @@ $nearby_facts = eem()->get_nearby_facts();
 
 ?>
 
-<div <?php eem_print_event_section_classes( 'eem-event-section eem-nearby-style-1 eem-blog-style-1 bg-white eem-force-full-width eem-spacer' ); ?>>
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-nearby-style-1 eem-blog-style-1 bg-white eem-spacer' ); ?>>
     <div class="pb-container">
 
 		<?php eem_print_event_section_heading(

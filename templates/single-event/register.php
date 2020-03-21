@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $event;
 
 ?>
-<div <?php eem_print_event_section_classes( 'eem-event-section eem-register-style-1 eem-spacer eem-force-full-width bg-white' ); ?>>
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-register-style-1 eem-spacer bg-white' ); ?>>
     <div class="pb-container">
         <div class="pb-row">
 

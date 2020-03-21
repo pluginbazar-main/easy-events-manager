@@ -24,7 +24,7 @@ $images = $event->get_gallery_images( 'event_gallery', $count );
 
 
 ?>
-<div <?php eem_print_event_section_classes( 'eem-event-section eem-spacer eem-gallery-style-1 bg-white eem-force-full-width' ); ?>>
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-spacer eem-gallery-style-1 bg-white' ); ?>>
 
 	<?php eem_print_event_section_heading(
 		array(

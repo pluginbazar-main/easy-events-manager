@@ -402,10 +402,8 @@ if ( ! function_exists( 'eem_print_event_section_classes' ) ) {
 
 		global $template_section;
 
-		if ( isset( $template_section['box_layout'] ) && reset( $template_section['box_layout'] ) == 'yes' ) {
-			if ( ( $key = array_search( 'eem-force-full-width', $classes ) ) !== false ) {
-				unset( $classes[ $key ] );
-			}
+		if ( isset( $template_section['fullwidth_layout'] ) && reset( $template_section['fullwidth_layout'] ) == 'yes' ) {
+		    $classes[] = 'eem-force-full-width';
 		}
 
 		printf( 'class="%s"', esc_attr( implode( ' ', apply_filters( 'eem_print_event_section_classes', $classes ) ) ) );

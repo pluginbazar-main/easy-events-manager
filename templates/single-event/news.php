@@ -23,7 +23,7 @@ if( $inside_endpoint && $inside_endpoint == 'news' ) {
 $event_posts = $event->get_posts( $count );
 
 ?>
-<div <?php eem_print_event_section_classes( 'eem-event-section eem-blog-style-1 eem-force-full-width eem-spacer' ); ?>>
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-blog-style-1 eem-spacer' ); ?>>
     <div class="pb-container">
 
 		<?php eem_print_event_section_heading(

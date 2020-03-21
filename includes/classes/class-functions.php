@@ -207,10 +207,10 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 					'rows'    => 2,
 				),
 				array(
-					'id'   => 'box_layout',
+					'id'   => 'fullwidth_layout',
 					'type' => 'checkbox',
 					'args' => array(
-						'yes' => esc_html__( 'Make this section box layout', EEM_TD ),
+						'yes' => esc_html__( 'Make this section full width layout', EEM_TD ),
 					),
 				),
 			);
@@ -231,10 +231,10 @@ if ( ! class_exists( 'EEM_Functions' ) ) {
 							),
 						),
 						array(
-							'id'   => 'box_layout',
+							'id'   => 'fullwidth_layout',
 							'type' => 'checkbox',
 							'args' => array(
-								'yes' => esc_html__( 'Make this section box layout', EEM_TD ),
+								'yes' => esc_html__( 'Make this section full width layout', EEM_TD ),
 							),
 						),
 					),

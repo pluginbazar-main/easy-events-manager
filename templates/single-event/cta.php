@@ -16,7 +16,7 @@ $button_text = $template_section && isset( $template_section['button_text'] ) ? 
 $button_url  = $template_section && isset( $template_section['button_url'] ) ? $template_section['button_url'] : '';
 
 ?>
-<div class="eem-event-section eem-cta-style-1 eem-force-full-width">
+<div class="eem-event-section eem-cta-style-1">
     <div class="pb-container">
         <div class="eem-cta-wrap">
             <div class="eem-cta-content">

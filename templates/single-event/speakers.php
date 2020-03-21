@@ -22,7 +22,7 @@ if( $inside_endpoint && $inside_endpoint == 'speakers' ) {
 }
 
 ?>
-<div <?php eem_print_event_section_classes( 'eem-event-section eem-speaker-style-1 eem-spacer bg-white eem-force-full-width' ); ?>>
+<div <?php eem_print_event_section_classes( 'eem-event-section eem-speaker-style-1 eem-spacer bg-white' ); ?>>
     <div class="pb-container">
 
 		<?php eem_print_event_section_heading(

@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $event, $template_section;
 
-$alignment = $template_section && isset( $template_section['alignment'] ) ? $template_section['alignment'] : 'left';
+$alignment = $template_section && isset( $template_section['alignment'] ) ? $template_section['alignment'] : 'center';
 $button    = $template_section && isset( $template_section['button'] ) && is_array( $template_section['button'] ) ? reset( $template_section['button'] ) : '';
 $bg_image  = $event->get_thumbnail();
 $bg_image  = empty( $bg_image ) ? '' : sprintf( 'style="background-image: url(\'%s\')"', $bg_image );
@@ -21,7 +21,7 @@ $alignment = sprintf( 'eem-banner-align-%s', $alignment );
 
 ?>
 
-<div <?php eem_print_event_section_classes( "eem-event-section eem-banner-style-1 eem-force-full-width $alignment" ); ?> <?php echo $bg_image; ?>>
+<div <?php eem_print_event_section_classes( "eem-event-section eem-banner-style-1 $alignment" ); ?> <?php echo $bg_image; ?>>
     <div class="pb-container">
         <div class="eem-banner-wrap">
             <h3 class="eem-banner-sub-title"><?php echo esc_html( $event->get_location() ); ?></h3>

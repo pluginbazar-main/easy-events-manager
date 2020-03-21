@@ -16,7 +16,7 @@ $keyword = isset( $_GET['k'] ) ? sanitize_text_field( $_GET['k'] ) : '';
 
 ?>
 
-<div class="eem-force-full-width eem-default-search-form">
+<div class="eem-default-search-form">
     <div class="pb-container">
         <div class="eem-event-search-wrap">
             <h2 class="eem-event-search-title">Find your Event</h2>

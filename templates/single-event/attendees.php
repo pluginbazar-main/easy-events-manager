@@ -23,7 +23,7 @@ if( $inside_endpoint && $inside_endpoint == 'attendees' ) {
 $attendees = $event->get_attendees( $count );
 
 ?>
-<div class="eem-event-section eem-attendees-style-1 eem-spacer eem-force-full-width bg-white">
+<div class="eem-event-section eem-attendees-style-1 eem-spacer bg-white">
     <div class="pb-container">
 
 		<?php eem_print_event_section_heading(
