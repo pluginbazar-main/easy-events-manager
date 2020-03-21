@@ -10,7 +10,7 @@
 
         $('.single-event select, .post-type-archive-event select, .pb-form .select select').niceSelect();
 
-        var gallery_zoom = $('.gallery-zoom-icon');
+        var gallery_zoom = $('.gallery-zoon-icon');
 
         // Magnific Popup
         if (gallery_zoom.length) {
