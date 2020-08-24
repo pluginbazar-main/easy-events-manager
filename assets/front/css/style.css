@@ -168,6 +168,10 @@ img {
 * Event Archive
 */
 
+.eem-archive-items {
+    padding: 70px 0 50px;
+}
+
 .eem-default-search-form {
     position: relative;
     text-align: center;
@@ -177,6 +181,11 @@ img {
     background-repeat: no-repeat;
     background-position: right;
     background-size: cover;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }
 
 .eem-default-search-form:before {
