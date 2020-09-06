@@ -10,14 +10,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$style = 2; // Delete this line when it will work dynamically
+
 global $event, $template_section;
 
 $alignment = $template_section && isset( $template_section['alignment'] ) ? $template_section['alignment'] : 'center';
 $button    = $template_section && isset( $template_section['button'] ) && is_array( $template_section['button'] ) ? reset( $template_section['button'] ) : '';
-$bg_image  = $event->get_thumbnail();
+$bg_image  = $style == 1 ? $event->get_thumbnail() : '';
 $bg_image  = empty( $bg_image ) ? '' : sprintf( 'style="background-image: url(\'%s\')"', $bg_image );
 $unique_id = uniqid();
 $alignment = sprintf( 'eem-banner-align-%s', $alignment );
+
+
 
 ?>
 

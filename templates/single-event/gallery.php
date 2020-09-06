@@ -46,7 +46,7 @@ $images = $event->get_gallery_images( 'event_gallery', $count );
     <div class="eem-gallery-wrap pb-grid pb-grid-4 pb-no-gutters pb-justify-content-center">
 
 		<?php foreach ( $images as $image_id => $image_url ) {
-			printf( '<div class="pb-grid-col"><div class="gallery-single"><img src="%1$s" alt="%2$s"><a href="%1$s" class="gallery-zoon-icon" data-effect="mfp-3d-unfold"><i class="icofont-search"></i></a></div></div>',
+			printf( '<div class="pb-grid-col"><div class="gallery-single"><img src="%1$s" alt="%2$s"><a href="%1$s" class="gallery-zoom-icon" data-effect="mfp-3d-unfold"><i class="icofont-search"></i></a></div></div>',
 				$image_url, eem()->get_meta( '_wp_attachment_image_alt', $image_id )
 			);
 		} ?>
